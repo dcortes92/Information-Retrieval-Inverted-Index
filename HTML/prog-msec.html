@@ -1,0 +1,605 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<HTML
+><HEAD
+><TITLE
+>MSEC -- Mandrake SECurity tools (Herramientas de seguridad de Mandrake)</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.59"><LINK
+REL="HOME"
+TITLE="Linux-Mandrake"
+HREF="index.html"><LINK
+REL="PREVIOUS"
+TITLE="Herramienta gráfica de administración: SWAT"
+HREF="samba-gui.html"><LINK
+REL="NEXT"
+TITLE="Configuración de su nivel de seguridad"
+HREF="x2712.html">
+<meta name="Author" content="MandrakeSoft">
+<meta name="Description" content="This is Linux-Mandrake Documentation.">
+<meta name="KeyWords" content="Linux, Mandrake, Linux-Mandrake, documentation, Mandrake Books, howto, Powerpack">
+
+</HEAD
+><BODY
+CLASS="CHAPTER"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#666699"
+VLINK="#980060"
+ALINK="#FF0000"
+>
+
+<DIV
+CLASS="NAVHEADER"
+><TABLE
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+><B
+CLASS="EMPHASIS"
+>Linux-Mandrake</B
+>: <B
+CLASS="EMPHASIS"
+>Manual de Referencia</B
+></TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="samba-gui.html"
+>Anterior</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+></TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="x2712.html"
+>Siguiente</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><DIV
+CLASS="CHAPTER"
+><H1
+><A
+NAME="PROG-MSEC"
+>Capítulo 7. <TT
+CLASS="APPLICATION"
+><I
+>MSEC</I
+></TT
+> -- <TT
+CLASS="FOREIGNPHRASE"
+><I
+>Mandrake SECurity tools</I
+></TT
+> (<TT
+CLASS="FOREIGNPHRASE"
+><I
+>Herramientas de seguridad de Mandrake</I
+></TT
+>)</A
+></H1
+><DIV
+CLASS="TOC"
+><DL
+><DT
+><B
+>Tabla de contenidos</B
+></DT
+><DT
+>7.1. <A
+HREF="prog-msec.html#AEN2693"
+>¿Qué es <TT
+CLASS="APPLICATION"
+><I
+>MSEC</I
+></TT
+>?</A
+></DT
+><DT
+>7.2. <A
+HREF="x2712.html"
+>Configuración de su nivel de seguridad</A
+></DT
+><DD
+><DL
+><DT
+>7.2.1. <A
+HREF="x2712.html#AEN2743"
+>Nivel 0</A
+></DT
+><DT
+>7.2.2. <A
+HREF="x2712.html#AEN2760"
+>Nivel 1</A
+></DT
+><DT
+>7.2.3. <A
+HREF="x2712.html#AEN2767"
+>Nivel 2</A
+></DT
+><DT
+>7.2.4. <A
+HREF="x2712.html#AEN2770"
+>Nivel 3</A
+></DT
+><DT
+>7.2.5. <A
+HREF="x2712.html#AEN2778"
+>Nivel 4</A
+></DT
+><DT
+>7.2.6. <A
+HREF="x2712.html#AEN2783"
+>Nivel 5</A
+></DT
+></DL
+></DD
+><DT
+>7.3. <A
+HREF="x2788.html"
+>Características de los niveles de seguridad</A
+></DT
+><DD
+><DL
+><DT
+>73<A
+HREF="x2788.html#AEN2791"
+></A
+></DT
+><DT
+>7.3.1. <A
+HREF="x2788.html#AEN3096"
+><SPAN
+CLASS="QUOTE"
+>"verificaciones globales de seguridad"</SPAN
+></A
+></DT
+><DT
+>7.3.2. <A
+HREF="x2788.html#AEN3135"
+><SPAN
+CLASS="QUOTE"
+>"<TT
+CLASS="SYSTEMITEM"
+><I
+>umask</I
+></TT
+> para los usuarios"</SPAN
+></A
+></DT
+><DT
+>7.3.3. <A
+HREF="x2788.html#AEN3143"
+><SPAN
+CLASS="QUOTE"
+>"<TT
+CLASS="SYSTEMITEM"
+><I
+>umask</I
+></TT
+> para <TT
+CLASS="USERINPUT"
+><B
+>root</B
+></TT
+>"</SPAN
+></A
+></DT
+><DT
+>7.3.4. <A
+HREF="x2788.html#AEN3150"
+><SPAN
+CLASS="QUOTE"
+>"<TT
+CLASS="FOREIGNPHRASE"
+><I
+>shell</I
+></TT
+> sin contraseña"</SPAN
+></A
+></DT
+><DT
+>7.3.5. <A
+HREF="x2788.html#AEN3155"
+><SPAN
+CLASS="QUOTE"
+>"autorizado a conectarse al servidor <TT
+CLASS="APPLICATION"
+><I
+>X</I
+></TT
+>"</SPAN
+></A
+></DT
+><DT
+>7.3.6. <A
+HREF="x2788.html#AEN3171"
+><SPAN
+CLASS="QUOTE"
+>"usuarios en el grupo <TT
+CLASS="USERINPUT"
+><B
+>audio</B
+></TT
+>"</SPAN
+></A
+></DT
+><DT
+>7.3.7. <A
+HREF="x2788.html#AEN3179"
+><SPAN
+CLASS="QUOTE"
+>"<TT
+CLASS="FILENAME"
+>.</TT
+> en el <TT
+CLASS="VARNAME"
+>$PATH</TT
+>"</SPAN
+></A
+></DT
+><DT
+>7.3.8. <A
+HREF="x2788.html#AEN3187"
+><SPAN
+CLASS="QUOTE"
+>"advertencias en <TT
+CLASS="FILENAME"
+>/var/log/security.log</TT
+>"</SPAN
+></A
+></DT
+><DT
+>7.3.9. <A
+HREF="x2788.html#AEN3194"
+><SPAN
+CLASS="QUOTE"
+>"advertencias directamente sobre la consola"</SPAN
+></A
+></DT
+><DT
+>7.3.10. <A
+HREF="x2788.html#AEN3199"
+><SPAN
+CLASS="QUOTE"
+>"advertencias en <TT
+CLASS="APPLICATION"
+><I
+>syslog</I
+></TT
+>"</SPAN
+></A
+></DT
+><DT
+>7.3.11. <A
+HREF="x2788.html#AEN3206"
+><SPAN
+CLASS="QUOTE"
+>"advertencias por <TT
+CLASS="SYSTEMITEM"
+><I
+>correo-e</I
+></TT
+> a <TT
+CLASS="USERINPUT"
+><B
+>root</B
+></TT
+>"</SPAN
+></A
+></DT
+><DT
+>7.3.12. <A
+HREF="x2788.html#AEN3214"
+><SPAN
+CLASS="QUOTE"
+>"verificación de los archivos <TT
+CLASS="SYSTEMITEM"
+><I
+>suid</I
+></TT
+> <TT
+CLASS="USERINPUT"
+><B
+>root</B
+></TT
+>"</SPAN
+></A
+></DT
+><DT
+>7.3.13. <A
+HREF="x2788.html#AEN3222"
+><SPAN
+CLASS="QUOTE"
+>"verificación <SPAN
+CLASS="ACRONYM"
+>MD5</SPAN
+> de los archivos <TT
+CLASS="SYSTEMITEM"
+><I
+>suid</I
+></TT
+> <TT
+CLASS="USERINPUT"
+><B
+>root</B
+></TT
+>"</SPAN
+></A
+></DT
+><DT
+>7.3.14. <A
+HREF="x2788.html#AEN3234"
+><SPAN
+CLASS="QUOTE"
+>"verificación de los archivos que se pueden escribir"</SPAN
+></A
+></DT
+><DT
+>7.3.15. <A
+HREF="x2788.html#AEN3240"
+><SPAN
+CLASS="QUOTE"
+>"verificación de los permisos"</SPAN
+></A
+></DT
+><DT
+>7.3.16. <A
+HREF="x2788.html#AEN3248"
+><SPAN
+CLASS="QUOTE"
+>"verificación de los archivos con grupo <TT
+CLASS="SYSTEMITEM"
+><I
+>suid</I
+></TT
+>"</SPAN
+></A
+></DT
+><DT
+>7.3.17. <A
+HREF="x2788.html#AEN3254"
+><SPAN
+CLASS="QUOTE"
+>"verificación de archivos sin dueño"</SPAN
+></A
+></DT
+><DT
+>7.3.18. <A
+HREF="x2788.html#AEN3259"
+><SPAN
+CLASS="QUOTE"
+>"verificación de tipo promiscua"</SPAN
+></A
+></DT
+><DT
+>7.3.19. <A
+HREF="x2788.html#AEN3269"
+><SPAN
+CLASS="QUOTE"
+>"verificación de los puertos abiertos"</SPAN
+></A
+></DT
+><DT
+>7.3.20. <A
+HREF="x2788.html#AEN3273"
+><SPAN
+CLASS="QUOTE"
+>"verificación de la &nbsp;integridad &nbsp;del &nbsp;archivo &nbsp;de &nbsp;contraseñas"</SPAN
+></A
+></DT
+><DT
+>7.3.21. <A
+HREF="x2788.html#AEN3278"
+><SPAN
+CLASS="QUOTE"
+>"verificación de la integridad del archivo <TT
+CLASS="FILENAME"
+>shadow</TT
+>"</SPAN
+></A
+></DT
+><DT
+>7.3.22. <A
+HREF="x2788.html#AEN3284"
+><SPAN
+CLASS="QUOTE"
+>"verificación de la seguridad del sistema todos los días a la medianoche"</SPAN
+></A
+></DT
+><DT
+>7.3.23. <A
+HREF="x2788.html#AEN3290"
+><SPAN
+CLASS="QUOTE"
+>"desactivar los servicios desconocidos"</SPAN
+></A
+></DT
+><DT
+>7.3.24. <A
+HREF="x2788.html#AEN3300"
+><SPAN
+CLASS="QUOTE"
+>"contraseña de arranque"</SPAN
+></A
+></DT
+><DT
+>7.3.25. <A
+HREF="x2788.html#AEN3321"
+><SPAN
+CLASS="QUOTE"
+>"garantizar la conexión a"</SPAN
+></A
+></DT
+></DL
+></DD
+></DL
+></DIV
+><DIV
+CLASS="SECT1"
+><H1
+CLASS="SECT1"
+><A
+NAME="AEN2693"
+>7.1. ¿Qué es <TT
+CLASS="APPLICATION"
+><I
+>MSEC</I
+></TT
+>?</A
+></H1
+><P
+>La rápida penetración de <TT
+CLASS="APPLICATION"
+><I
+>GNU/Linux</I
+></TT
+> en un amplio rango de aplicaciones, desde trabajo de oficina básico a servidores de alta disponibilidad, hizo necesaria la aparición de <B
+CLASS="GLOSSTERM"
+><I
+>niveles de seguridad</I
+></B
+> diferentes. Es obvio que las restricciones inherentes a los servidores altamente seguros no concuerdan con las necesidades de una secretaria. Por otro lado, un servidor público grande está más expuesto a las personas con malas intenciones que mi estación de trabajo <TT
+CLASS="APPLICATION"
+><I
+>GNU/Linux</I
+></TT
+> aislada.</P
+><P
+>Esta es la idea con la que se diseñó el paquete <TT
+CLASS="APPLICATION"
+><I
+>MSEC</I
+></TT
+>. El mismo se compone de dos partes:
+
+<P
+></P
+><UL
+><LI
+><P
+> Los scripts que modifican todo el sistema para llevarlo a uno de los seis niveles de seguridad provistos por <TT
+CLASS="APPLICATION"
+><I
+>MSEC</I
+></TT
+>. Estos niveles varían desde una seguridad mínima, ofreciendo facilidad de uso, a configuraciones extremas adecuadas para aplicaciones muy sensibles y administradas por expertos.</P
+></LI
+><LI
+><P
+> Los trabajos periódicos (<TT
+CLASS="FOREIGNPHRASE"
+><I
+>cron jobs</I
+></TT
+>), que verificarán la integridad del sistema periódicamente de acuerdo a la configuración del nivel de seguridad, y avisaran al administrador de posibles intrusiones en el sistema o fallas de seguridad.</P
+></LI
+></UL
+></P
+><P
+>Nótese que el usuario también puede definir su propio nivel de seguridad, ajustando los parámetros de acuerdo a sus necesidades.</P
+><P
+>&nbsp;</P
+><P
+>&nbsp;</P
+></DIV
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="samba-gui.html"
+>Anterior</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+>Inicio</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="x2712.html"
+>Siguiente</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>Herramienta gráfica de administración: <TT
+CLASS="APPLICATION"
+><I
+>SWAT</I
+></TT
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+>&nbsp;</TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>Configuración de su nivel de seguridad</TD
+></TR
+></TABLE
+></DIV
+>
+  <hr align="center">
+  <div align="left"><a href="http://www.linux-mandrake.com"><img
+    src="../images/tux48.png" width="48" height="39" align="left" border="0"
+    alt="Tux sobre Estrella por MandrakeSoft"></a> <font face="Helvetica,
+    Arial, sans-serif" size="2">Linux es una marca registrada de 
+    Linus Torvalds. Todas las otras marcas registradas y copyrights son la
+    propiedad de sus respectivos due&ntilde;os.<br>A menos que se diga lo
+	contrario, todo el contenido de estas p&aacute;ginas y todas las
+	im&aacute;genes tienen Copyright de <i>MandrakeSoft S.A.</i> y de
+	<i>MandrakeSoft Inc.</i> 2000.
+    <br><a
+    href="http://www.linux-mandrake.com/">http://www.linux-mandrake.com/</a>
+    <br>
+</font>
+ </div>
+
+</BODY
+
+></HTML
+>

@@ -1,0 +1,386 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<HTML
+><HEAD
+><TITLE
+>Los niveles de ejecución</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.59"><LINK
+REL="HOME"
+TITLE="Linux-Mandrake"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="Los archivos de arranque: init System V"
+HREF="sysv.html"><LINK
+REL="PREVIOUS"
+TITLE="Los archivos de arranque: init System V"
+HREF="sysv.html"><LINK
+REL="NEXT"
+TITLE="Control de procesos"
+HREF="control.html">
+<meta name="Author" content="MandrakeSoft">
+<meta name="Description" content="This is Linux-Mandrake Documentation.">
+<meta name="KeyWords" content="Linux, Mandrake, Linux-Mandrake, documentation, Mandrake Books, howto, Powerpack">
+
+</HEAD
+><BODY
+CLASS="SECT1"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#666699"
+VLINK="#980060"
+ALINK="#FF0000"
+>
+
+<DIV
+CLASS="NAVHEADER"
+><TABLE
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+><B
+CLASS="EMPHASIS"
+>Linux-Mandrake</B
+>: <B
+CLASS="EMPHASIS"
+>Manual de Referencia</B
+></TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="sysv.html"
+>Anterior</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+>Capítulo 12. Los archivos de arranque: init <SPAN
+CLASS="QUOTE"
+>"<TT
+CLASS="APPLICATION"
+><I
+>System V</I
+></TT
+>"</SPAN
+></TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="control.html"
+>Siguiente</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><DIV
+CLASS="SECT1"
+><H1
+CLASS="SECT1"
+><A
+NAME="SYSV-LEVELS"
+>12.2. Los niveles de ejecución</A
+></H1
+><P
+>Todos los archivos relacionados con el arranque del sistema están ubicados en el directorio <TT
+CLASS="FILENAME"
+>/etc/rc.d</TT
+>. Aquí tiene la lista de los mismos:</P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="PROGRAMLISTING"
+>$ ls /etc/rc.d 
+init.d/  rc.local*    rc0.d/  rc2.d/  rc4.d/  rc6.d/
+rc*      rc.sysinit*  rc1.d/  rc3.d/  rc5.d/</PRE
+></TD
+></TR
+></TABLE
+><P
+>En primer lugar, como hemos visto, se ejecuta el archivo <TT
+CLASS="COMMAND"
+>rc.sysinit</TT
+>. Este es el archivo responsable de poner en su lugar la configuración básica de la máquina: tipo de teclado, configuración de ciertos dispositivos, verificación del sistema de archivos, etc.</P
+><P
+>Luego se ejecuta el script <TT
+CLASS="COMMAND"
+>rc</TT
+>, con el nivel de ejecución como argumento. Como hemos visto, el nivel de ejecución es un simple entero, y para cada nivel de ejecución <TT
+CLASS="OPTION"
+>&lt;x&gt;</TT
+> definido, debe haber un directorio <TT
+CLASS="FILENAME"
+>rc&lt;x&gt;.d</TT
+> correspondiente. Entonces, en una instalación típica de <B
+CLASS="EMPHASIS"
+>Linux-Mandrake</B
+>, Ud. puede ver que están definidos 6 niveles de ejecución:</P
+><P
+></P
+><UL
+><LI
+><P
+>0: Detención de la máquina por completo;</P
+></LI
+><LI
+><P
+>1: modo <B
+CLASS="GLOSSTERM"
+><I
+>monousuario</I
+></B
+>; para ser usado en el caso de serios problemas o para la recuperación del sistema.</P
+></LI
+><LI
+><P
+>2: modo <B
+CLASS="GLOSSTERM"
+><I
+>multi-usuario</I
+></B
+>, sin red;</P
+></LI
+><LI
+><P
+>3: modo multi-usuario, con red;</P
+></LI
+><LI
+><P
+>4: No usado;</P
+></LI
+><LI
+><P
+>5: Como 3, pero con la ejecución de la interfaz gráfica de conexión;</P
+></LI
+><LI
+><P
+>6: Volver a iniciar.</P
+></LI
+></UL
+><P
+>Observemos, por ejemplo, el contenido del directorio <TT
+CLASS="FILENAME"
+>rc5.d</TT
+>:</P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="PROGRAMLISTING"
+>$ ls rc5.d
+K15postgresql@  K60atd@      S15netfs@   S60lpd@        S90xfs@
+K20nfs@         K96pcmcia@   S20random@  S60nfs@        S99linuxconf@
+K20rstatd@      S05apmd@     S30syslog@  S66yppasswdd@  S99local@
+K20rusersd@     S10network@  S40crond@   S75keytable@
+K20rwhod@       S11portmap@  S50inet@    S85gpm@
+K30sendmail@    S12ypserv@   S55named@   S85httpd@
+K35smb@         S13ypbind@   S55routed@  S85sound@</PRE
+></TD
+></TR
+></TABLE
+><P
+>Como puede ver, todos los archivos de este directorio son vínculos simbólicos, y todos tienen una forma muy específica. Su forma general es 
+<TT
+CLASS="OPTION"
+>&lt;S|K&gt;&lt;orden&gt;&lt;nombre_del_servicio&gt;</TT
+>. La 
+<TT
+CLASS="LITERAL"
+>S</TT
+> significa <TT
+CLASS="FOREIGNPHRASE"
+><I
+>Start</I
+></TT
+> (arrancar) el servicio, y <TT
+CLASS="LITERAL"
+>K</TT
+> significa <TT
+CLASS="FOREIGNPHRASE"
+><I
+>Kill</I
+></TT
+> (detener), el servicio. Los scripts se ejecutan por número de orden ascendente, y si dos scripts tienen el mismo número, se aplica el orden alfabético. También podemos ver que cada vínculo simbólico apunta a scripts ubicados en <TT
+CLASS="FILENAME"
+>/etc/rc.d/init.d</TT
+> (excepto <TT
+CLASS="COMMAND"
+>local</TT
+>), scripts que son responsables de controlar un servicio específico.</P
+><P
+>Cuando el sistema entra en un nivel de ejecución dado, comienza por ejecutar los vínculos <TT
+CLASS="LITERAL"
+>K</TT
+> en orden: <TT
+CLASS="COMMAND"
+>rc</TT
+> busca donde apunta el vínculo, luego llama al script correspondiente con un argumento solo <TT
+CLASS="LITERAL"
+>stop</TT
+> (detener). Luego ejecuta los scripts <TT
+CLASS="LITERAL"
+>S</TT
+>, todavía usando el mismo método, excepto por el hecho de que el script se llama con el argumento <TT
+CLASS="LITERAL"
+>start</TT
+> (iniciar).</P
+><P
+>Por lo tanto, sin mencionar a todos los scripts, podemos ver que
+cuando el sistema entra en el nivel de ejecución 5, primero ejecuta
+<TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="PROGRAMLISTING"
+>K15postgresql</PRE
+></TD
+></TR
+></TABLE
+>, es decir,
+<TT
+CLASS="COMMAND"
+>/etc/rc.d/init.d/postgresql stop</TT
+>. Luego
+<TT
+CLASS="COMMAND"
+>K20nfs</TT
+>, luego <TT
+CLASS="COMMAND"
+>K20rstatd</TT
+>, hasta el último; acto
+seguido, ejecuta todos los srcipts <TT
+CLASS="LITERAL"
+>S</TT
+>: primero
+<TT
+CLASS="COMMAND"
+>S05ampd</TT
+>, que entonces invoca a
+<TT
+CLASS="COMMAND"
+><TT
+CLASS="FILENAME"
+>/etc/rc.d/init.d/apmd</TT
+> start</TT
+>, y así
+sucesivamente.</P
+><P
+>Armado con todo esto, Ud. puede crear su propio nivel de ejecución completo en pocos minutos, o evitar el arranque o la detención de un servicio borrando el vínculo simbólico correspondiente (también hay programas que son una interfaz para hacer esto, en particular <TT
+CLASS="APPLICATION"
+><I
+>DrakXServices</I
+></TT
+> y <TT
+CLASS="COMMAND"
+>chkconfig</TT
+>; el primero es un programa gráfico).</P
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="sysv.html"
+>Anterior</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+>Inicio</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="control.html"
+>Siguiente</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>Los archivos de arranque: init <SPAN
+CLASS="QUOTE"
+>"<TT
+CLASS="APPLICATION"
+><I
+>System V</I
+></TT
+>"</SPAN
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="sysv.html"
+>Subir</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>Control de procesos</TD
+></TR
+></TABLE
+></DIV
+>
+  <hr align="center">
+  <div align="left"><a href="http://www.linux-mandrake.com"><img
+    src="../images/tux48.png" width="48" height="39" align="left" border="0"
+    alt="Tux sobre Estrella por MandrakeSoft"></a> <font face="Helvetica,
+    Arial, sans-serif" size="2">Linux es una marca registrada de 
+    Linus Torvalds. Todas las otras marcas registradas y copyrights son la
+    propiedad de sus respectivos due&ntilde;os.<br>A menos que se diga lo
+	contrario, todo el contenido de estas p&aacute;ginas y todas las
+	im&aacute;genes tienen Copyright de <i>MandrakeSoft S.A.</i> y de
+	<i>MandrakeSoft Inc.</i> 2000.
+    <br><a
+    href="http://www.linux-mandrake.com/">http://www.linux-mandrake.com/</a>
+    <br>
+</font>
+ </div>
+
+</BODY
+
+></HTML
+>

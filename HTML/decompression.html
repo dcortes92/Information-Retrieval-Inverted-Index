@@ -1,0 +1,726 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<HTML
+><HEAD
+><TITLE
+>Descompresión</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.59"><LINK
+REL="HOME"
+TITLE="Linux-Mandrake"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="Compilando e instalando software libre"
+HREF="install-free.html"><LINK
+REL="PREVIOUS"
+TITLE="Compilando e instalando software libre"
+HREF="install-free.html"><LINK
+REL="NEXT"
+TITLE="Configuración"
+HREF="install-free-config.html">
+<meta name="Author" content="MandrakeSoft">
+<meta name="Description" content="This is Linux-Mandrake Documentation.">
+<meta name="KeyWords" content="Linux, Mandrake, Linux-Mandrake, documentation, Mandrake Books, howto, Powerpack">
+
+</HEAD
+><BODY
+CLASS="SECT1"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#666699"
+VLINK="#980060"
+ALINK="#FF0000"
+>
+
+<DIV
+CLASS="NAVHEADER"
+><TABLE
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+><B
+CLASS="EMPHASIS"
+>Linux-Mandrake</B
+>: <B
+CLASS="EMPHASIS"
+>Manual de Referencia</B
+></TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="install-free.html"
+>Anterior</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+>Capítulo 15. Compilando e instalando software libre</TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="install-free-config.html"
+>Siguiente</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><DIV
+CLASS="SECT1"
+><H1
+CLASS="SECT1"
+><A
+NAME="DECOMPRESSION"
+>15.2. Descompresión</A
+></H1
+><DIV
+CLASS="SECT2"
+><H2
+CLASS="SECT2"
+><A
+NAME="AEN5569"
+>15.2.1. Archivado <TT
+CLASS="FILENAME"
+>tar.gz</TT
+></A
+></H2
+><P
+>La norma<A
+NAME="AEN5573"
+HREF="#FTN.AEN5573"
+>[1]</A
+> de compresión bajo los sistemas <TT
+CLASS="APPLICATION"
+><I
+>Unix</I
+></TT
+> es el formato <TT
+CLASS="COMMAND"
+>gzip</TT
+>, desarrollado por el proyecto <B
+CLASS="GLOSSTERM"
+><I
+><SPAN
+CLASS="ACRONYM"
+>GNU</SPAN
+></I
+></B
+>, y considerado como una de las mejores herramientas de compresión general.</P
+><P
+>&#13;Comúnmente se asocia <TT
+CLASS="COMMAND"
+>gzip</TT
+> a un utilitario denominado <TT
+CLASS="COMMAND"
+>tar</TT
+>. <TT
+CLASS="COMMAND"
+>tar</TT
+> es un sobreviviente de los tiempos prehistóricos, cuando los informáticos almacenaban sus datos en cintas magnéticas. Hoy día, los disquetes y los <SPAN
+CLASS="ACRONYM"
+>CD-ROM</SPAN
+> han reemplazado a las cintas<A
+NAME="AEN5586"
+HREF="#FTN.AEN5586"
+>[2]</A
+>, pero todavía se usa <TT
+CLASS="COMMAND"
+>tar</TT
+> para crear archivadores. Por ejemplo, se pueden agregar todos los archivos de un directorio a un solo archivo. Luego, este archivo se puede comprimir fácilmente con <TT
+CLASS="COMMAND"
+>gzip</TT
+>.</P
+><P
+>Esta es la razón por la cual muchos softwares libres están disponible como archivadores <TT
+CLASS="FILENAME"
+>tar</TT
+>, comprimidos con <TT
+CLASS="COMMAND"
+>gzip</TT
+>. Por lo tanto, sus extensiones son <TT
+CLASS="FILENAME"
+>.tar.gz</TT
+> (o también, su forma abreviada <TT
+CLASS="FILENAME"
+>.tgz</TT
+>).</P
+></DIV
+><DIV
+CLASS="SECT2"
+><H2
+CLASS="SECT2"
+><A
+NAME="AEN5595"
+>15.2.2. Utilización de <TT
+CLASS="APPLICATION"
+><I
+>GNU Tar</I
+></TT
+></A
+></H2
+><P
+>&#13;Para descomprimir este archivador, Ud. puede utilizar <TT
+CLASS="COMMAND"
+>gzip</TT
+> y <TT
+CLASS="COMMAND"
+>tar</TT
+>. Pero la versión <SPAN
+CLASS="ACRONYM"
+>GNU</SPAN
+> de <TT
+CLASS="COMMAND"
+>tar</TT
+> (<TT
+CLASS="COMMAND"
+>gtar</TT
+>) le permite utilizar <TT
+CLASS="COMMAND"
+>gzip</TT
+> <B
+CLASS="GLOSSTERM"
+><I
+><SPAN
+CLASS="QUOTE"
+>"al vuelo"</SPAN
+></I
+></B
+>, y descomprimir un archivado de manera transparente (y sin necesitar el espacio extra en el disco).</P
+><P
+>La utilización de <TT
+CLASS="COMMAND"
+>tar</TT
+> sigue este formato:</P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+>tar &lt;archivo opciones&gt; &lt;.tar.gz archivo&gt; [archivos] </PRE
+></TD
+></TR
+></TABLE
+><P
+>La opción <TT
+CLASS="OPTION"
+>&lt;archivos&gt;</TT
+> no es obligatoria. Si se omite, se procesará todo el archivado. Si Ud. quiere extraer el contenido de un archivado <TT
+CLASS="FILENAME"
+>.tar.gz</TT
+>, no necesita especificar este argumento.</P
+><P
+>Por ejemplo:</P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+>$ tar xvfz guile-1.3.tar.gz
+-rw-r--r-- 442/1002      10555 1998-10-20 07:31 guile-1.3/Makefile.in
+-rw-rw-rw- 442/1002       6668 1998-10-20 06:59 guile-1.3/README
+-rw-rw-rw- 442/1002       2283 1998-02-01 22:05 guile-1.3/AUTHORS
+-rw-rw-rw- 442/1002      17989 1997-05-27 00:36 guile-1.3/COPYING
+-rw-rw-rw- 442/1002      28545 1998-10-20 07:05 guile-1.3/ChangeLog
+-rw-rw-rw- 442/1002       9364 1997-10-25 08:34 guile-1.3/INSTALL
+-rw-rw-rw- 442/1002       1223 1998-10-20 06:34 guile-1.3/Makefile.am
+-rw-rw-rw- 442/1002      98432 1998-10-20 07:30 guile-1.3/NEWS
+-rw-rw-rw- 442/1002       1388 1998-10-20 06:19 guile-1.3/THANKS
+-rw-rw-rw- 442/1002       1151 1998-08-16 21:45 guile-1.3/TODO
+...</PRE
+></TD
+></TR
+></TABLE
+><P
+>Entre las opciones de <TT
+CLASS="COMMAND"
+>tar</TT
+> se encuentran las siguientes:</P
+><P
+></P
+><UL
+><LI
+><P
+><TT
+CLASS="OPTION"
+>v</TT
+> permite que <TT
+CLASS="COMMAND"
+>tar</TT
+> sea <SPAN
+CLASS="QUOTE"
+>"verboso"</SPAN
+>. Esto significa que mostrará en pantalla todos los archivos que encuentre en el archivador. Si se omite esta opción, el procesamiento será silencioso.</P
+></LI
+><LI
+><P
+><TT
+CLASS="OPTION"
+>f</TT
+> esta es una opción obligatoria. Sin ella, <TT
+CLASS="COMMAND"
+>tar</TT
+> intenta usar una cinta magnética en vez de un archivador de archivo (es decir, el dispositivo <TT
+CLASS="FILENAME"
+>/dev/rmt0</TT
+>).</P
+></LI
+><LI
+><P
+><TT
+CLASS="OPTION"
+>z</TT
+> permite manipular un archivo comprimido con <TT
+CLASS="COMMAND"
+>gzip</TT
+> (con el nombre de archivo con sufijo <TT
+CLASS="FILENAME"
+>.gz</TT
+>). Si Ud. olvida esta opción, <TT
+CLASS="COMMAND"
+>tar</TT
+> producirá un error. A la inversa, no deberá utilizar esta opción si Ud. está frente a un archivador no comprimido.</P
+></LI
+></UL
+><P
+><TT
+CLASS="COMMAND"
+>tar</TT
+> permite efectuar varias acciones diferentes sobre un archivador (extracción, lectura, creación, adición ...). Una opción permite especificar la acción a usar:</P
+><P
+></P
+><UL
+><LI
+><P
+><TT
+CLASS="OPTION"
+>x</TT
+>: esta opción le permite extraer los archivos de un archivador.</P
+></LI
+><LI
+><P
+><TT
+CLASS="OPTION"
+>t</TT
+>: esta opción lista el contenido de un archivador.</P
+></LI
+><LI
+><P
+><TT
+CLASS="OPTION"
+>c</TT
+>: esta opción le permite crear un archivador, esto implica destruir su contenido actual. Por ejemplo, la puede usar para hacer una copia de seguridad de sus archivos personales.</P
+></LI
+><LI
+><P
+><TT
+CLASS="OPTION"
+>r</TT
+>: esta opción permite adicionar archivos al final del archivador. No se puede usar con un archivador comprimido.</P
+></LI
+></UL
+></DIV
+><DIV
+CLASS="SECT2"
+><H2
+CLASS="SECT2"
+><A
+NAME="BZIP2"
+>15.2.3. <TT
+CLASS="COMMAND"
+>bzip2</TT
+></A
+></H2
+><P
+>&#13;Un formato de compresión denominado <TT
+CLASS="COMMAND"
+>bzip2</TT
+> ha comenzado a reemplazar a <TT
+CLASS="COMMAND"
+>gzip</TT
+> en el uso general. <TT
+CLASS="COMMAND"
+>bzip2</TT
+> produce archivos más cortos que los que produce <TT
+CLASS="COMMAND"
+>gzip</TT
+>, pero todavía no es una norma de hecho. Solo se pueden encontrar los archivados con la extensión <TT
+CLASS="FILENAME"
+>.tar.bz2</TT
+> desde hace poco tiempo.</P
+><P
+>En lo que al comando <TT
+CLASS="COMMAND"
+>tar</TT
+> respecta, <TT
+CLASS="COMMAND"
+>bzip2</TT
+> se usa como <TT
+CLASS="COMMAND"
+>gzip</TT
+>. La única cosa que hay que hacer es reemplazar la opción <TT
+CLASS="OPTION"
+>z</TT
+> con la opción <TT
+CLASS="OPTION"
+>y</TT
+>. Por ejemplo:</P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+>$ tar xvfy pepe.tar.bz2</PRE
+></TD
+></TR
+></TABLE
+><P
+>Algunas distribuciones usan o usaban la opción <TT
+CLASS="OPTION"
+>I</TT
+> en su lugar:</P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+>$ tar xvfI pepe.tar.bz2</PRE
+></TD
+></TR
+></TABLE
+><P
+>Otra posibilidad (que parece ser más portable, ¡pero es más larga de teclear!):</P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+>$ tar --use-compress-program=bzip2 -xvf pepe.tar.bz2</PRE
+></TD
+></TR
+></TABLE
+><P
+><TT
+CLASS="COMMAND"
+>bzip2</TT
+> debe estar instalado e incluido en su variable de entorno <TT
+CLASS="VARNAME"
+>PATH</TT
+> antes de poder correr <TT
+CLASS="COMMAND"
+>tar</TT
+>.</P
+></DIV
+><DIV
+CLASS="SECT2"
+><H2
+CLASS="SECT2"
+><A
+NAME="AEN5680"
+>15.2.4. ¡Simplemente hágalo!</A
+></H2
+><DIV
+CLASS="SECT3"
+><H3
+CLASS="SECT3"
+><A
+NAME="JUST-DO-IT-SIMPLE"
+>15.2.4.1. La forma más fácil</A
+></H3
+><P
+>Ahora está listo para descomprimir el archivador, no se olvide de hacerlo como administrador (<TT
+CLASS="USERINPUT"
+><B
+>root</B
+></TT
+>). Ud. tendrá que hacer cosas que un usuario no privilegiado no puede hacer, e incluso si puede hacer algunas como tal, es más fácil ser <TT
+CLASS="USERINPUT"
+><B
+>root</B
+></TT
+> durante toda la operación.</P
+><P
+>El primer paso es que Ud. se dirija al directorio <TT
+CLASS="FILENAME"
+>/usr/local/src</TT
+>, y copie el archivador allí. De esta manera, siempre podrá encontrar el archivador en caso de perder el software instalado, ya que tendrá un lugar común donde buscar. Si no tiene mucho espacio en su disco rígido, haga una copia de seguridad del archivador en el medio habitual que Ud. usa para esto (disquetes, disquetes <SPAN
+CLASS="ACRONYM"
+>ZIP</SPAN
+>, <SPAN
+CLASS="ACRONYM"
+>CD-ROM</SPAN
+>, cinta magnética, etc.) una vez que instaló el software. También puede borrar el archivador pero antes de hacerlo, asegúrese de que lo pueda encontrar en la <TT
+CLASS="SYSTEMITEM"
+><I
+>web</I
+></TT
+> cuando lo necesite.</P
+><P
+>Normalmente, la descompresión de un archivador <TT
+CLASS="COMMAND"
+>tar</TT
+> debería crear un nuevo directorio (puede verificar esto antes de descomprimir con la opción <TT
+CLASS="OPTION"
+>t</TT
+>). Luego, cámbiese a ese directorio, ahora está listo para seguir adelante.</P
+></DIV
+><DIV
+CLASS="SECT3"
+><H3
+CLASS="SECT3"
+><A
+NAME="AEN5695"
+>15.2.4.2. La manera más segura</A
+></H3
+><P
+>Los sistemas <TT
+CLASS="APPLICATION"
+><I
+>Unix</I
+></TT
+> (por ejemplo, <TT
+CLASS="APPLICATION"
+><I
+>GNU/Linux</I
+></TT
+> y <TT
+CLASS="APPLICATION"
+><I
+>FreeBSD</I
+></TT
+>) pueden ser sistemas seguros. Esto significa que los usuarios no privilegiados no pueden hacer operaciones que puedan poner en peligro al sistema (por ejemplo, formatear el disco rígido) ni alterar los archivos de los demás usuarios. En la práctica y en particular, esto hace al sistema inmune frente a los virus.</P
+><P
+>Por otra parte, <TT
+CLASS="USERINPUT"
+><B
+>root</B
+></TT
+> puede hacer lo que se le antoje, incluso correr un programa malicioso (como, por ejemplo, un virus o un Troyano). El disponer del código fuente es una especie de garantía de seguridad frente a los virus<A
+NAME="AEN5703"
+HREF="#FTN.AEN5703"
+>[3]</A
+>. Es decir, al tener el código fuente y si Ud. está lo suficientemente entrenado en el lenguaje de programación en el cual se programó el software, Ud. puede ver el código y deducir <SPAN
+CLASS="QUOTE"
+>"qué, cómo y por qué"</SPAN
+> el programa hace lo que hace y determinar si el programa puede llegar a tener, o no, un comportamiento malicioso.</P
+><P
+>La idea consiste en crear un usuario dedicado a la administración (por ejemplo, <TT
+CLASS="USERINPUT"
+><B
+>free</B
+></TT
+> o <TT
+CLASS="USERINPUT"
+><B
+>admin</B
+></TT
+>) usando el comando <TT
+CLASS="COMMAND"
+>adduser</TT
+>. Dicho usuario debe poder escribir en los directorios siguientes: <TT
+CLASS="FILENAME"
+>/usr/local/src</TT
+>, <TT
+CLASS="FILENAME"
+>/usr/local/bin</TT
+> y <TT
+CLASS="FILENAME"
+>/usr/local/lib</TT
+>, así como también en todo el sub-árbol <TT
+CLASS="FILENAME"
+>/usr/man</TT
+> (puede que también tenga que copiar archivos en otros lugares). Recomendamos por esto, hacer que este usuario sea el propietario de los directorios necesarios, o crear un grupo para él, y hacer que dicho grupo pueda escribir en esos directorios.</P
+><P
+>Una vez que se tomaron estas precauciones, Ud. puede seguir las instrucciones de la sección <A
+HREF="decompression.html#JUST-DO-IT-SIMPLE"
+><I
+>La forma más fácil</I
+></A
+>.</P
+></DIV
+></DIV
+></DIV
+><H3
+CLASS="FOOTNOTES"
+>Notas</H3
+><TABLE
+BORDER="0"
+CLASS="FOOTNOTES"
+WIDTH="100%"
+><TR
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+WIDTH="5%"
+><A
+NAME="FTN.AEN5573"
+HREF="decompression.html#AEN5573"
+>[1]</A
+></TD
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+WIDTH="95%"
+><P
+>Cada vez más, se está usando un programa nuevo, denominado <TT
+CLASS="COMMAND"
+>bzip2</TT
+>, más eficiente sobre los archivos de texto (aunque necesite más poder computacional y más memoria) Ver, más adelante, la sección <A
+HREF="decompression.html#BZIP2"
+><I
+><TT
+CLASS="COMMAND"
+>bzip2</TT
+></I
+></A
+> que trata específicamente con esto.</P
+></TD
+></TR
+><TR
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+WIDTH="5%"
+><A
+NAME="FTN.AEN5586"
+HREF="decompression.html#AEN5586"
+>[2]</A
+></TD
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+WIDTH="95%"
+><P
+>Aunque en algunos servidores con mucho volumen de información todavía se siguen usando las cintas magnéticas</P
+></TD
+></TR
+><TR
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+WIDTH="5%"
+><A
+NAME="FTN.AEN5703"
+HREF="decompression.html#AEN5703"
+>[3]</A
+></TD
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+WIDTH="95%"
+><P
+>Un proverbio del mundo de <SPAN
+CLASS="ACRONYM"
+>BSD</SPAN
+> dice: <SPAN
+CLASS="QUOTE"
+>"never trust a software you don't have the sources for"</SPAN
+> (que significa: nunca confíe en un software del cual no tenga el código fuente).</P
+></TD
+></TR
+></TABLE
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="install-free.html"
+>Anterior</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+>Inicio</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="install-free-config.html"
+>Siguiente</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>Compilando e instalando software libre</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="install-free.html"
+>Subir</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>Configuración</TD
+></TR
+></TABLE
+></DIV
+>
+  <hr align="center">
+  <div align="left"><a href="http://www.linux-mandrake.com"><img
+    src="../images/tux48.png" width="48" height="39" align="left" border="0"
+    alt="Tux sobre Estrella por MandrakeSoft"></a> <font face="Helvetica,
+    Arial, sans-serif" size="2">Linux es una marca registrada de 
+    Linus Torvalds. Todas las otras marcas registradas y copyrights son la
+    propiedad de sus respectivos due&ntilde;os.<br>A menos que se diga lo
+	contrario, todo el contenido de estas p&aacute;ginas y todas las
+	im&aacute;genes tienen Copyright de <i>MandrakeSoft S.A.</i> y de
+	<i>MandrakeSoft Inc.</i> 2000.
+    <br><a
+    href="http://www.linux-mandrake.com/">http://www.linux-mandrake.com/</a>
+    <br>
+</font>
+ </div>
+
+</BODY
+
+></HTML
+>

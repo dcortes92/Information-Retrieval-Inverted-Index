@@ -4,7 +4,7 @@
 #mostrar pesos: perl proyecto1.pl mostrar pesos PRU_PE.txt D:/man.es/man1/addr2line.1.txt
 #mostrar vocab: perl proyecto1.pl mostrar vocab PRU_VO.txt aacute abriendo
 
-# I Tarea programada
+# II Tarea programada
 # Recuperación de Información Textual
 # Daniel Cortés Sáenz
 # Isaac Ramírez Solano

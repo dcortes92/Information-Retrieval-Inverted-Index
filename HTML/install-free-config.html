@@ -1,0 +1,825 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<HTML
+><HEAD
+><TITLE
+>Configuración</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.59"><LINK
+REL="HOME"
+TITLE="Linux-Mandrake"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="Compilando e instalando software libre"
+HREF="install-free.html"><LINK
+REL="PREVIOUS"
+TITLE="Descompresión"
+HREF="decompression.html"><LINK
+REL="NEXT"
+TITLE="Compilación"
+HREF="install-free-compilation.html">
+<meta name="Author" content="MandrakeSoft">
+<meta name="Description" content="This is Linux-Mandrake Documentation.">
+<meta name="KeyWords" content="Linux, Mandrake, Linux-Mandrake, documentation, Mandrake Books, howto, Powerpack">
+
+</HEAD
+><BODY
+CLASS="SECT1"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#666699"
+VLINK="#980060"
+ALINK="#FF0000"
+>
+
+<DIV
+CLASS="NAVHEADER"
+><TABLE
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+><B
+CLASS="EMPHASIS"
+>Linux-Mandrake</B
+>: <B
+CLASS="EMPHASIS"
+>Manual de Referencia</B
+></TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="decompression.html"
+>Anterior</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+>Capítulo 15. Compilando e instalando software libre</TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="install-free-compilation.html"
+>Siguiente</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><DIV
+CLASS="SECT1"
+><H1
+CLASS="SECT1"
+><A
+NAME="INSTALL-FREE-CONFIG"
+>15.3. Configuración</A
+></H1
+><P
+>Un interés puramente técnico del hecho de disponer de los fuentes es la posibilidad de <B
+CLASS="GLOSSTERM"
+><I
+>portar</I
+></B
+> el software. Un software libre desarrollado para un sistema <TT
+CLASS="APPLICATION"
+><I
+>Unix</I
+></TT
+> se puede usar en todos los sistemas <TT
+CLASS="APPLICATION"
+><I
+>Unix</I
+></TT
+> existentes (sean libres o propietarios), con pocas modificaciones. Esto implica una configuración del software justo antes de la compilación.</P
+><P
+>Existen muchos sistemas de configuración, Ud. tiene que usar el que el autor del software quiera (a veces, se necesitan varios). Por lo general, Ud. puede:</P
+><P
+></P
+><UL
+><LI
+><P
+>usar <TT
+CLASS="APPLICATION"
+><I
+>Autoconf</I
+></TT
+> (ver la sección <A
+HREF="install-free-config.html#AUTOCONF"
+><I
+><TT
+CLASS="APPLICATION"
+><I
+>Autoconf</I
+></TT
+></I
+></A
+>) si existe un archivo denominado <TT
+CLASS="FILENAME"
+>configure</TT
+> en el directorio padre de la distribución.</P
+></LI
+><LI
+><P
+>usar <TT
+CLASS="APPLICATION"
+><I
+>Imake</I
+></TT
+> (ver la sección <A
+HREF="install-free-config.html#IMAKE"
+><I
+><TT
+CLASS="APPLICATION"
+><I
+>Imake</I
+></TT
+></I
+></A
+>) si existe un archivo denominado <TT
+CLASS="FILENAME"
+>Imakefile</TT
+> en el directorio padre de la distribución.</P
+></LI
+><LI
+><P
+>ejecutar un <B
+CLASS="GLOSSTERM"
+><I
+>script</I
+></B
+> del <TT
+CLASS="FOREIGNPHRASE"
+><I
+>shell</I
+></TT
+>, (por ejemplo, <TT
+CLASS="FILENAME"
+>install.sh</TT
+>) según lo que diga el archivo <TT
+CLASS="FILENAME"
+>INSTALL</TT
+> (o el archivo <TT
+CLASS="FILENAME"
+>README</TT
+>).</P
+></LI
+></UL
+><DIV
+CLASS="SECT2"
+><H2
+CLASS="SECT2"
+><A
+NAME="AUTOCONF"
+>15.3.1. <TT
+CLASS="APPLICATION"
+><I
+>Autoconf</I
+></TT
+></A
+></H2
+><DIV
+CLASS="SECT3"
+><H3
+CLASS="SECT3"
+><A
+NAME="AEN5746"
+>15.3.1.1. Principio</A
+></H3
+><P
+><TT
+CLASS="APPLICATION"
+><I
+>Autoconf</I
+></TT
+> permite configurar el software correctamente. Crea los archivos necesarios para la compilación (por ejemplo, el archivo <TT
+CLASS="FILENAME"
+>Makefile</TT
+>), y, a veces, cambia los fuentes directamente (como, por ejemplo, al usar un archivo <TT
+CLASS="FILENAME"
+>config.h.in</TT
+>).</P
+><P
+>El principio de <TT
+CLASS="APPLICATION"
+><I
+>Autoconf</I
+></TT
+> es simple:</P
+><P
+></P
+><UL
+><LI
+><P
+>el programador del software sabe qué pruebas son necesarias para configurar su software (ej.: <SPAN
+CLASS="QUOTE"
+>"¿qué versión de esta o aquella <B
+CLASS="GLOSSTERM"
+><I
+>biblioteca</I
+></B
+> usa"</SPAN
+>?). Él las escribe, siguiendo una sintaxis precisa, en un archivo denominado <TT
+CLASS="FILENAME"
+>configure.in</TT
+>.</P
+></LI
+><LI
+><P
+>Él ejecuta <TT
+CLASS="APPLICATION"
+><I
+>Autoconf</I
+></TT
+>, el cual genera un script de configuración denominado <TT
+CLASS="FILENAME"
+>configure</TT
+> a partir del archivo denominado <TT
+CLASS="FILENAME"
+>configure.in</TT
+>. Este script efectuará las pruebas necesarias cuando se configure el programa.</P
+></LI
+><LI
+><P
+>El usuario final ejecuta el script, y <TT
+CLASS="APPLICATION"
+><I
+>Autoconf</I
+></TT
+> se encarga de configurar todo lo que es necesario para la compilación.&#13;</P
+></LI
+></UL
+></DIV
+><DIV
+CLASS="SECT3"
+><H3
+CLASS="SECT3"
+><A
+NAME="AEN5771"
+>15.3.1.2. Ejemplo</A
+></H3
+><P
+>Un ejemplo del uso de <TT
+CLASS="APPLICATION"
+><I
+>Autoconf</I
+></TT
+>:</P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+>$ ./configure
+loading cache ./config.cache
+checking for gcc... gcc
+checking whether the C compiler (gcc  ) works... yes
+checking whether the C compiler (gcc  ) is a cross-compiler... no
+checking whether we are using GNU C... yes
+checking whether gcc accepts -g... yes
+checking for main in -lX11... yes
+checking for main in -lXpm... yes
+checking for main in -lguile... yes
+checking for main in -lm... yes
+checking for main in -lncurses... yes
+checking how to run the C preprocessor... gcc -E
+checking for X... libraries /usr/X11R6/lib, headers /usr/X11R6/include
+checking for ANSI C header files... yes
+checking for unistd.h... yes
+checking for working const... yes
+updating cache ./config.cache
+creating ./config.status
+creating lib/Makefile
+creating src/Makefile
+creating Makefile</PRE
+></TD
+></TR
+></TABLE
+><P
+>Para tener un mayor control de lo que genera <TT
+CLASS="COMMAND"
+>configure</TT
+>, se le pueden pasar algunas opciones por medio de la línea de comandos o variables de entorno. Por ejemplo:</P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+>$ ./configure --with-gcc --prefix=/opt/GNU</PRE
+></TD
+></TR
+></TABLE
+><P
+>o (con <TT
+CLASS="APPLICATION"
+><I
+>Bash</I
+></TT
+>):</P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+>$ export CC=`which gcc`
+$ export CFLAGS=-O2
+$ ./configure --with-gcc</PRE
+></TD
+></TR
+></TABLE
+><P
+>o:</P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+>$ CC=gcc CFLAGS=-O2 ./configure</PRE
+></TD
+></TR
+></TABLE
+></DIV
+><DIV
+CLASS="SECT3"
+><H3
+CLASS="SECT3"
+><A
+NAME="AEN5784"
+>15.3.1.3. Qué pasa si... ¿no funciona?</A
+></H3
+><P
+>Un error típico del script <TT
+CLASS="FILENAME"
+>configure</TT
+> es aquel del tipo <TT
+CLASS="LITERAL"
+>configure: error: Cannot find library guile</TT
+> (configure: error: no se encuentra la biblioteca <TT
+CLASS="FILENAME"
+>guile</TT
+>) (La mayoría de los errores del script <TT
+CLASS="FILENAME"
+>configure</TT
+> lucen así).</P
+><P
+>Esto significa que el script <TT
+CLASS="FILENAME"
+>configure</TT
+> no pudo encontrar una biblioteca (<TT
+CLASS="FILENAME"
+>guile</TT
+> en nuestro ejemplo). El principio es que el script <TT
+CLASS="FILENAME"
+>configure</TT
+> compila un pequeño programa de prueba que usa esta biblioteca. Si esta compilación no tiene éxito, no podrá compilar el software. Entonces ocurre un error.</P
+><P
+></P
+><UL
+><LI
+><P
+>Busque la razón del error examinando al final del archivo <TT
+CLASS="FILENAME"
+>config.log</TT
+>, que contiene una traza de todos los pasos de configuración. El compilador de lenguaje <TT
+CLASS="SYSTEMITEM"
+><I
+>C</I
+></TT
+> es suficientemente claro con sus mensajes de error. Eso lo ayudará a resolver el problema.</P
+></LI
+><LI
+><P
+>Verifique que la biblioteca en cuestión esté instalada correctamente. Si no es así, puede correr <TT
+CLASS="COMMAND"
+>/sbin/ldconfig</TT
+>, borrar el archivo <TT
+CLASS="FILENAME"
+>config.cache</TT
+> y volver a ejecutar el script <TT
+CLASS="FILENAME"
+>configure</TT
+>. Si todavía sigue con problemas, intente volver a instalar la biblioteca (desde los fuentes o desde un archivo binario). Una forma eficiente de verificar la instalación es buscar el archivo que contiene los símbolos de la biblioteca, que siempre se denomina <TT
+CLASS="OPTION"
+>lib&lt;nombre&gt;.so</TT
+>. Por ejemplo,</P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="90%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+>$ find / -name 'libguile*'</PRE
+></TD
+></TR
+></TABLE
+><P
+>o, si no:</P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="90%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+>$ locate libguile</PRE
+></TD
+></TR
+></TABLE
+></LI
+><LI
+><P
+>Verifique que el compilador puede acceder a ella. Esto significa que se encuentra en algún directorio entre: <TT
+CLASS="COMMAND"
+><TT
+CLASS="FILENAME"
+>/usr/lib</TT
+></TT
+>, <TT
+CLASS="COMMAND"
+><TT
+CLASS="FILENAME"
+>/lib</TT
+></TT
+>, <TT
+CLASS="COMMAND"
+><TT
+CLASS="FILENAME"
+>/usr/X11R6/lib</TT
+></TT
+> (o entre aquellos especificados por la variable de entorno <TT
+CLASS="VARNAME"
+>LD_LIBRARY_PATH</TT
+>, explicada <A
+HREF="install-free-compilation.html#IT-DOES-NOT-WORK"
+><I
+>¿Qué pasa si... no funciona?</I
+></A
+> número <A
+HREF="install-free-compilation.html#LD-LIBRARY-PATH"
+>5.b</A
+>.). Verifique que este archivo es una biblioteca ingresando <TT
+CLASS="COMMAND"
+>file libguile.so</TT
+>.</P
+></LI
+><LI
+><P
+>Verifique que los archivos de encabezado correspondientes a la biblioteca se encuentran en el lugar adecuado (generalmente, <TT
+CLASS="FILENAME"
+>/usr/include</TT
+> o <TT
+CLASS="FILENAME"
+>/usr/local/include</TT
+> o <TT
+CLASS="FILENAME"
+>/usr/X11R6/include</TT
+>). Si Ud. no sabe cuales son los archivos de encabezado necesarios, verifique que instaló la versión de desarrollo de la biblioteca en cuestión (por ejemplo, <TT
+CLASS="FILENAME"
+>gtk+-devel</TT
+> además de <TT
+CLASS="FILENAME"
+>libgtk</TT
+>). La versión de desarrollo de la biblioteca proporciona los archivos <TT
+CLASS="FILENAME"
+>include</TT
+> (incluir) necesarios para compilar un software usando esta biblioteca.</P
+></LI
+><LI
+><P
+>Verifique que Ud. tiene espacio suficiente en el disco  (el script <TT
+CLASS="FILENAME"
+>configure</TT
+> necesita de algo de espacio para archivos temporales). Use el comando <TT
+CLASS="COMMAND"
+>df -k</TT
+> para visualizar el espacio disponible en las particiones de su sistema, y ocúpese de las particiones llenas o casi llenas.</P
+></LI
+></UL
+><P
+>&#13;Si Ud. no comprende los mensajes de error almacenados en el archivo <TT
+CLASS="FILENAME"
+>config.log</TT
+>, no dude en pedir ayuda a la comunidad de software libre (ver la sección <A
+HREF="install-free-support.html#SUPPORT"
+><I
+>Soporte técnico</I
+></A
+>).</P
+><P
+>Es más, verifique si <TT
+CLASS="FILENAME"
+>configure</TT
+> responde 100% de <TT
+CLASS="LITERAL"
+>No</TT
+> o si responde <TT
+CLASS="LITERAL"
+>No</TT
+> y Ud. está seguro que la biblioteca existe (por ejemplo, sería muy extraño que no exista la biblioteca <TT
+CLASS="FILENAME"
+>curses</TT
+> en su sistema). Si ese es el caso, ¡probablemente esté mal configurada la variable <TT
+CLASS="VARNAME"
+>LD_LIBRARY_PATH</TT
+>!</P
+></DIV
+></DIV
+><DIV
+CLASS="SECT2"
+><H2
+CLASS="SECT2"
+><A
+NAME="IMAKE"
+>15.3.2. <TT
+CLASS="APPLICATION"
+><I
+>Imake</I
+></TT
+></A
+></H2
+><P
+><TT
+CLASS="APPLICATION"
+><I
+>Imake</I
+></TT
+> le permite configurar un software libre creando un archivo <TT
+CLASS="FILENAME"
+>Makefile</TT
+> a partir de reglas simples. Estas reglas determinan los archivos necesarios para compilar el archivo binario, y luego <TT
+CLASS="APPLICATION"
+><I
+>Imake</I
+></TT
+> genera el archivo <TT
+CLASS="FILENAME"
+>Imakefile</TT
+> correspondiente. Estas reglas se especifican en un archivo denominado <TT
+CLASS="FILENAME"
+>Imakefile</TT
+>.</P
+><P
+>Lo que tiene interesante <TT
+CLASS="APPLICATION"
+><I
+>Imake</I
+></TT
+> es que usa información dependiente de la arquitectura y del sitio. Esto es muy útil para los programas que usan <TT
+CLASS="APPLICATION"
+><I
+>X Window System</I
+></TT
+>. Pero <TT
+CLASS="APPLICATION"
+><I
+>Imake</I
+></TT
+> se usa para muchas otras aplicaciones.</P
+><P
+>La forma más fácil de usar <TT
+CLASS="APPLICATION"
+><I
+>Imake</I
+></TT
+>, es entrar en el directorio principal del archivado descomprimido, y luego correr el script <TT
+CLASS="FILENAME"
+>xmkmf</TT
+>, que llama al programa <TT
+CLASS="COMMAND"
+>imake</TT
+>:</P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+>$ xmkmf -a
+imake -DUseInstalled -I/usr/X11R6/lib/X11/config
+make Makefiles</PRE
+></TD
+></TR
+></TABLE
+><P
+>Si el sitio no está instalado correctamente, ¡debe recompilar e instalar <TT
+CLASS="APPLICATION"
+><I
+>X11R6</I
+></TT
+>!</P
+></DIV
+><DIV
+CLASS="SECT2"
+><H2
+CLASS="SECT2"
+><A
+NAME="AEN5862"
+>15.3.3. Varios scripts del <TT
+CLASS="FOREIGNPHRASE"
+><I
+>shell</I
+></TT
+></A
+></H2
+><P
+>Para más información lea los archivos <TT
+CLASS="FILENAME"
+>INSTALL</TT
+> o <TT
+CLASS="FILENAME"
+>README</TT
+>. Por lo general, Ud. tiene que ejecutar un archivo del tipo <TT
+CLASS="FILENAME"
+>install.sh</TT
+> o <TT
+CLASS="FILENAME"
+>configure.sh</TT
+>. Entonces, o el script de instalación será silencioso (y determinará lo que necesita por sí solo), o le preguntará información sobre su sistema (por ejemplo, las rutas).</P
+><P
+>Si Ud. no llega a determinar el archivo que tiene que ejecutar, puede ingresar <TT
+CLASS="LITERAL"
+>./</TT
+> (bajo <TT
+CLASS="APPLICATION"
+><I
+>Bash</I
+></TT
+>), y luego presionar dos veces la tecla <TT
+CLASS="USERINPUT"
+><B
+>TAB</B
+></TT
+> (tecla de tabulado). <TT
+CLASS="APPLICATION"
+><I
+>Bash</I
+></TT
+> completará automáticamente el nombre de un archivo ejecutable en el directorio corriente (por lo tanto, un posible script de configuración). En caso de que varios archivos se puedan ejecutar, le dará una lista. Solo debe elegir el archivo correcto.</P
+><P
+>Un caso particular es la instalación de módulos <TT
+CLASS="APPLICATION"
+><I
+>Perl</I
+></TT
+> (aunque no solamente de estos). La instalación de tales módulos se hace mediante la ejecución de un script de configuración, el cual se encuentra él mismo, escrito en <TT
+CLASS="APPLICATION"
+><I
+>Perl</I
+></TT
+>. Por lo general, el comando a ejecutar es:</P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+>$ perl Makefile.PL</PRE
+></TD
+></TR
+></TABLE
+></DIV
+><DIV
+CLASS="SECT2"
+><H2
+CLASS="SECT2"
+><A
+NAME="AEN5879"
+>15.3.4. Alternativas</A
+></H2
+><P
+>Algunas distribuciones de software libre están mal organizadas, especialmente durante las primeras etapas de desarrollo (¡pero se previene al usuario!). Ellas necesitan retocar <SPAN
+CLASS="QUOTE"
+>"a mano"</SPAN
+> algunos archivos de configuración. Por lo general, estos archivos son un archivo <TT
+CLASS="FILENAME"
+>Makefile</TT
+> (ver la sección <A
+HREF="install-free-compilation.html#MAKE"
+><I
+><TT
+CLASS="COMMAND"
+>make</TT
+></I
+></A
+>) y un archivo <TT
+CLASS="FILENAME"
+>config.h</TT
+> (este nombre solo es convencional). Como siempre, ¡lea los archivos <TT
+CLASS="FILENAME"
+>README</TT
+> y <TT
+CLASS="FILENAME"
+>INSTALL</TT
+>!</P
+><P
+>No recomendamos que estas manipulaciones sean hechas por usuarios que no sepan lo que están haciendo. Esto necesita de conocimientos reales y la motivación necesaria para tener éxito. Pero la práctica lleva a la perfección.</P
+></DIV
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="decompression.html"
+>Anterior</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+>Inicio</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="install-free-compilation.html"
+>Siguiente</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>Descompresión</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="install-free.html"
+>Subir</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>Compilación</TD
+></TR
+></TABLE
+></DIV
+>
+  <hr align="center">
+  <div align="left"><a href="http://www.linux-mandrake.com"><img
+    src="../images/tux48.png" width="48" height="39" align="left" border="0"
+    alt="Tux sobre Estrella por MandrakeSoft"></a> <font face="Helvetica,
+    Arial, sans-serif" size="2">Linux es una marca registrada de 
+    Linus Torvalds. Todas las otras marcas registradas y copyrights son la
+    propiedad de sus respectivos due&ntilde;os.<br>A menos que se diga lo
+	contrario, todo el contenido de estas p&aacute;ginas y todas las
+	im&aacute;genes tienen Copyright de <i>MandrakeSoft S.A.</i> y de
+	<i>MandrakeSoft Inc.</i> 2000.
+    <br><a
+    href="http://www.linux-mandrake.com/">http://www.linux-mandrake.com/</a>
+    <br>
+</font>
+ </div>
+
+</BODY
+
+></HTML
+>

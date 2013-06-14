@@ -1,0 +1,1320 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<HTML
+><HEAD
+><TITLE
+>Breve introducción a la línea de comandos</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.59"><LINK
+REL="HOME"
+TITLE="Linux-Mandrake"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="Conceptos básicos de Unix"
+HREF="unix-basics.html"><LINK
+REL="PREVIOUS"
+TITLE="Los procesos"
+HREF="basics-process.html"><LINK
+REL="NEXT"
+TITLE="Introducción a la línea de comandos"
+HREF="cmdline.html">
+<meta name="Author" content="MandrakeSoft">
+<meta name="Description" content="This is Linux-Mandrake Documentation.">
+<meta name="KeyWords" content="Linux, Mandrake, Linux-Mandrake, documentation, Mandrake Books, howto, Powerpack">
+
+</HEAD
+><BODY
+CLASS="SECT1"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#666699"
+VLINK="#980060"
+ALINK="#FF0000"
+>
+
+<DIV
+CLASS="NAVHEADER"
+><TABLE
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+><B
+CLASS="EMPHASIS"
+>Linux-Mandrake</B
+>: <B
+CLASS="EMPHASIS"
+>Manual de Referencia</B
+></TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="basics-process.html"
+>Anterior</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+>Capítulo 2. Conceptos básicos de Unix</TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="cmdline.html"
+>Siguiente</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><DIV
+CLASS="SECT1"
+><H1
+CLASS="SECT1"
+><A
+NAME="AEN597"
+>2.4. Breve introducción a la línea de comandos</A
+></H1
+><P
+>La línea de comandos es la manera más directa de enviar comandos a la
+ máquina. Si usa la línea de comandos de <TT
+CLASS="APPLICATION"
+><I
+>GNU/Linux</I
+></TT
+>, rápidamente verá
+ que es mucho más potente y tiene más capacidades que los
+ <TT
+CLASS="FOREIGNPHRASE"
+><I
+>prompts</I
+></TT
+> que puede haber usado con anterioridad. La
+ línea de comandos de <TT
+CLASS="APPLICATION"
+><I
+>GNU/Linux</I
+></TT
+> ofrece acceso directo a miles de
+ utilitarios que no tienen equivalentes gráficos. La razón de esto es
+ que tiene un acceso directo, no sólo a todas las aplicaciones
+ <TT
+CLASS="APPLICATION"
+><I
+>X</I
+></TT
+>, sino también a los miles de utilitarios en modo consola
+ (en oposición al modo gráfico) que no tienen su equivalente gráfico,
+ o nunca será posible mostrar en forma de menús y botones todas las
+ opciones y combinaciones posibles.</P
+><P
+>Pero, admitámoslo, hace falta un poquito de ayuda para poder empezar.
+ Para eso es este capítulo. La primera cosa a hacer, si está en el modo
+ gráfico, es iniciar un emulador de terminal. Si usa <TT
+CLASS="APPLICATION"
+><I
+>KDE</I
+></TT
+>, en el
+ panel tiene un icono que identifica claramente a la terminal
+ (<A
+HREF="x597.html#KONSOLE"
+>Figura 2-3</A
+>).</P
+><DIV
+CLASS="FIGURE"
+><A
+NAME="KONSOLE"
+></A
+><P
+><B
+>Figura 2-3. El icono de la terminal en el panel de <TT
+CLASS="APPLICATION"
+><I
+>KDE</I
+></TT
+></B
+></P
+><DIV
+CLASS="MEDIAOBJECT"
+><P
+><IMG
+SRC="../images/konsole.png"
+></IMG
+></P
+></DIV
+></DIV
+><P
+>Lo que obtiene en realidad al iniciar este emulador de terminal es un
+ <TT
+CLASS="FOREIGNPHRASE"
+><I
+>shell</I
+></TT
+>.  Este es
+ el nombre del programa con el cual Ud. interactúa. Ud. se encontrará
+ frente al
+ <B
+CLASS="GLOSSTERM"
+><I
+><TT
+CLASS="FOREIGNPHRASE"
+><I
+>prompt</I
+></TT
+></I
+></B
+>:
+ </P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="PROGRAMLISTING"
+>[juan@localhost] ~ $</PRE
+></TD
+></TR
+></TABLE
+><P
+>Esto supone que su nombre de usuario es <TT
+CLASS="USERINPUT"
+><B
+>juan</B
+></TT
+> y que el
+ nombre de su máquina es <TT
+CLASS="SYSTEMITEM"
+><I
+>localhost</I
+></TT
+>
+ (que es el caso usual si su máquina no es parte de una red existente).
+ Todo lo que aparece después del <TT
+CLASS="FOREIGNPHRASE"
+><I
+>prompt</I
+></TT
+> es lo que
+ Ud. tiene que teclear. Note que cuando Ud. es <TT
+CLASS="USERINPUT"
+><B
+>root</B
+></TT
+> el signo
+ <TT
+CLASS="LITERAL"
+>$</TT
+> del <TT
+CLASS="FOREIGNPHRASE"
+><I
+>prompt</I
+></TT
+> cambia por un signo
+ <TT
+CLASS="LITERAL"
+>#</TT
+>. (Todo esto es válido para la configuración
+ predeterminada ya que Ud. puede personalizar todos los detalles). El
+ comando para <SPAN
+CLASS="QUOTE"
+>"volverse"</SPAN
+> <TT
+CLASS="USERINPUT"
+><B
+>root</B
+></TT
+> cuando inició un
+ <TT
+CLASS="FOREIGNPHRASE"
+><I
+>shell</I
+></TT
+> como usuario no privilegiado es <TT
+CLASS="COMMAND"
+>su</TT
+>: </P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="PROGRAMLISTING"
+># Enter the root password; it will not appear on the screen
+[reina@localhost] ~ $ su
+Password: 
+# exit will make you come back to your normal user account
+[root@localhost] exit
+[reina@localhost] ~ $</PRE
+></TD
+></TR
+></TABLE
+><P
+>En el libro, en general el <TT
+CLASS="FOREIGNPHRASE"
+><I
+>prompt</I
+></TT
+> será representado
+ simbólicamente con un signo <TT
+CLASS="LITERAL"
+>$</TT
+>, sea Ud. un usuario no
+ privilegiado o <TT
+CLASS="USERINPUT"
+><B
+>root</B
+></TT
+>. Cuando tenga que ser <TT
+CLASS="USERINPUT"
+><B
+>root</B
+></TT
+> para
+ ejecutar un comando se la avisará, así que, no se olvide del comando
+ <TT
+CLASS="COMMAND"
+>su</TT
+> que mostramos antes. Un signo <TT
+CLASS="LITERAL"
+>#</TT
+> al comienzo
+ de una línea de código representará un comentario.</P
+><P
+>Cuando Ud. <B
+CLASS="GLOSSTERM"
+><I
+>lanza</I
+></B
+> el
+ <TT
+CLASS="FOREIGNPHRASE"
+><I
+>shell</I
+></TT
+> por primera vez normalmente se encontrará en su
+ directorio personal. Para mostrar el directorio en donde se encuentra
+ en este momento, ingrese el comando <TT
+CLASS="COMMAND"
+>pwd</TT
+>
+ (que significa <TT
+CLASS="FOREIGNPHRASE"
+><I
+>Print Working Directory</I
+></TT
+>,
+ Imprimir el directorio de trabajo):</P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="PROGRAMLISTING"
+>$ pwd
+/home/juan</PRE
+></TD
+></TR
+></TABLE
+><P
+>Hay unos comandos básicos que veremos ahora, y pronto se dará cuenta
+ de que le serán indispensables.</P
+><DIV
+CLASS="SECT2"
+><H2
+CLASS="SECT2"
+><A
+NAME="AEN652"
+>2.4.1. <TT
+CLASS="COMMAND"
+>cd</TT
+>: <TT
+CLASS="FOREIGNPHRASE"
+><I
+>Change &nbsp;Directory</I
+></TT
+>, &nbsp;Cambiar &nbsp;de &nbsp;directorio</A
+></H2
+><P
+>&#13;El comando <TT
+CLASS="COMMAND"
+>cd</TT
+> es exactamente el mismo que en <TT
+CLASS="APPLICATION"
+><I
+>DOS</I
+></TT
+>,
+ con algunas funcionalidades extras. Hace justo lo que su acrónimo
+ indica, cambia el directorio de trabajo. Ud. puede usar <TT
+CLASS="FILENAME"
+>.</TT
+>
+ para referirse al directorio corriente y <TT
+CLASS="FILENAME"
+>..</TT
+> para
+ referirse al directorio padre del directorio corriente. Si ingresa
+ <TT
+CLASS="COMMAND"
+>cd</TT
+> sólo, será llevado de vuelta a su directorio personal.
+ Si ingresa <TT
+CLASS="COMMAND"
+>cd -</TT
+> será llevado al último directorio en el
+ cual estuvo. Y, finalmente, puede especificar el directorio personal
+ del usuario <TT
+CLASS="USERINPUT"
+><B
+>pepe</B
+></TT
+> ingresando <TT
+CLASS="LITERAL"
+>~pepe</TT
+>
+ (<B
+CLASS="KEYCAP"
+>~</B
+> solo o seguido de <B
+CLASS="KEYCAP"
+>/</B
+> significa el directorio
+ personal suyo). Note que, como usuario no privilegiado, normalmente
+ no puede ir a los directorios personales de otros usuarios (a menos
+ que esos usuarios lo hayan autorizado explícitamente o esa sea la
+ configuración predeterminada del sistema), excepto si Ud. es
+ <TT
+CLASS="USERINPUT"
+><B
+>root</B
+></TT
+>, así que, seamos <TT
+CLASS="USERINPUT"
+><B
+>root</B
+></TT
+> y practiquemos:</P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="PROGRAMLISTING"
+>$ pwd
+/root
+$ cd /usr/doc/HOWTO
+$ pwd
+/usr/doc/HOWTO
+$ cd ../FAQ
+$ pwd
+/usr/doc/FAQ
+$ cd ../../lib
+$ pwd
+/usr/lib
+$ cd ~juan
+$ pwd
+/home/juan
+$ cd
+$ pwd
+/root</PRE
+></TD
+></TR
+></TABLE
+><P
+>Ahora, vuelva a ser un usuario no privilegiado.</P
+></DIV
+><DIV
+CLASS="SECT2"
+><H2
+CLASS="SECT2"
+><A
+NAME="AEN674"
+>2.4.2. Algunas variables de entorno y el comando <TT
+CLASS="COMMAND"
+>echo</TT
+></A
+></H2
+><P
+>Los procesos tienen sus
+ <B
+CLASS="GLOSSTERM"
+><I
+>variables de
+ entorno</I
+></B
+>
+
+ y el <TT
+CLASS="FOREIGNPHRASE"
+><I
+>shell</I
+></TT
+> le permite verlas directamente con el comando
+ <TT
+CLASS="COMMAND"
+>echo</TT
+>. Algunas variables interesantes son:</P
+><P
+></P
+><OL
+TYPE="1"
+><LI
+><P
+><TT
+CLASS="VARNAME"
+>HOME</TT
+> Esta variable de entorno contiene una cadena
+ que representa su directorio personal.</P
+></LI
+><LI
+><P
+><TT
+CLASS="VARNAME"
+>PATH</TT
+> Esta variable contiene la lista de todos los
+ directorios en los cuales el <TT
+CLASS="FOREIGNPHRASE"
+><I
+>shell</I
+></TT
+> busca los ejecutables
+ cuando Ud. ingresa un comando. Note que predeterminadamente, a
+ diferencia de <TT
+CLASS="APPLICATION"
+><I
+>DOS</I
+></TT
+>, el <TT
+CLASS="FOREIGNPHRASE"
+><I
+>shell</I
+></TT
+> ¡<B
+CLASS="EMPHASIS"
+>no</B
+> buscará
+ los comandos en el directorio corriente!</P
+></LI
+><LI
+><P
+><TT
+CLASS="VARNAME"
+>USERNAME</TT
+> Esta variable contiene una cadena que representa
+ su nombre de conexión.</P
+></LI
+><LI
+><P
+><TT
+CLASS="VARNAME"
+>UID</TT
+> Contiene su identificador de usuario</P
+></LI
+><LI
+><P
+><TT
+CLASS="VARNAME"
+>PS1</TT
+> Contiene el valor de su <TT
+CLASS="FOREIGNPHRASE"
+><I
+>prompt</I
+></TT
+>.
+ Generalmente, es una combinación de secuencias especiales. Puede
+ leer la <B
+CLASS="GLOSSTERM"
+><I
+>página
+ <TT
+CLASS="COMMAND"
+>man</TT
+></I
+></B
+> de <TT
+CLASS="COMMAND"
+>bash</TT
+> para más información
+ (<TT
+CLASS="COMMAND"
+>man 1 bash</TT
+>).  </P
+></LI
+></OL
+><P
+>Para hacer que el <TT
+CLASS="FOREIGNPHRASE"
+><I
+>shell</I
+></TT
+> muestre el valor de una variable, debe
+ anteponer al nombre de la misma un <TT
+CLASS="LITERAL"
+>$</TT
+>. Aquí, el comando
+ <TT
+CLASS="COMMAND"
+>echo</TT
+> lo ayudará:</P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="PROGRAMLISTING"
+>$ echo Hola
+Hola
+$ echo $HOME
+/home/reina
+$ echo $USERNAME
+reina
+$ echo Hola $USERNAME
+Hola reina
+$ cd /usr
+$ pwd
+/usr
+$ cd $HOME
+$ pwd
+/home/reina</PRE
+></TD
+></TR
+></TABLE
+><P
+>Como puede ver, el <TT
+CLASS="FOREIGNPHRASE"
+><I
+>shell</I
+></TT
+> substituye el valor de la variable
+ antes de ejecutar el comando. De no ser así nuestro
+ <TT
+CLASS="COMMAND"
+>cd $HOME</TT
+> no hubiese funcionado. De hecho, el
+ <TT
+CLASS="FOREIGNPHRASE"
+><I
+>shell</I
+></TT
+> primero ha reemplazado <TT
+CLASS="LITERAL"
+>$HOME</TT
+> por su valor,
+ <TT
+CLASS="LITERAL"
+>/home/reina</TT
+>, por lo que la línea se convirtió en
+ <TT
+CLASS="COMMAND"
+>cd /home/reina</TT
+>, que es lo que queríamos. Lo mismo vale
+ para <TT
+CLASS="COMMAND"
+>echo $USERNAME</TT
+> y así sucesivamente.</P
+></DIV
+><DIV
+CLASS="SECT2"
+><H2
+CLASS="SECT2"
+><A
+NAME="AEN722"
+>2.4.3. <TT
+CLASS="COMMAND"
+>cat</TT
+>: mostrar el contenido de uno o más archivos en
+ la pantalla</A
+></H2
+><P
+>&#13;No hay mucho más que decir, este comando simplemente hace eso: mostrar
+ el contenido de uno o más archivos en la pantalla:</P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="PROGRAMLISTING"
+>$ cat /etc/fstab
+/dev/hda5 / ext2 defaults 1 1
+/dev/hda6 /home ext2 defaults 1 2
+/dev/hda7 swap swap defaults 0 0
+/dev/hda8 /usr ext2 defaults 1 2
+/dev/fd0 /mnt/floppy auto sync,user,noauto,nosuid,nodev 0 0
+none /proc proc defaults 0 0
+none /dev/pts devpts mode=0620 0 0
+/dev/cdrom /mnt/cdrom auto user,noauto,nosuid,exec,nodev,ro 0 0
+$ cd /etc
+$ cat conf.modules shells
+alias parport_lowlevel parport_pc
+pre-install plip modprobe parport_pc ; echo 7 &gt; /proc/parport/0/irq
+#pre-install pcmcia_core /etc/rc.d/init.d/pcmcia start
+#alias car-major-14 sound
+alias sound esssolo1
+keep
+/bin/zsh
+/bin/bash
+/bin/sh
+/bin/tcsh
+/bin/csh
+/bin/ash
+/bin/bsh
+/usr/bin/zsh</PRE
+></TD
+></TR
+></TABLE
+></DIV
+><DIV
+CLASS="SECT2"
+><H2
+CLASS="SECT2"
+><A
+NAME="LESS"
+>2.4.4. <TT
+CLASS="COMMAND"
+>less</TT
+>: un paginador</A
+></H2
+><P
+>&#13;Su nombre es un juego de palabras relacionado al primer
+ <TT
+CLASS="FOREIGNPHRASE"
+><I
+>pager</I
+></TT
+> existente bajo <TT
+CLASS="APPLICATION"
+><I
+>Unix</I
+></TT
+>, que se denominaba
+ <TT
+CLASS="COMMAND"
+>more</TT
+><A
+NAME="AEN740"
+HREF="#FTN.AEN740"
+>[1]</A
+>. Un
+ <B
+CLASS="GLOSSTERM"
+><I
+>paginador</I
+></B
+> es un
+ programa que permite al usuario ver archivos largos página por
+ página (o, más precisamente, pantalla por pantalla). Hablamos más
+ de <TT
+CLASS="COMMAND"
+>less</TT
+> que de <TT
+CLASS="COMMAND"
+>more</TT
+> porque su uso es mucho
+ más intuitivo. Utilice el comando <TT
+CLASS="COMMAND"
+>less</TT
+> para ver archivos
+ grandes, que no entran en una pantalla. Por ejemplo:</P
+><P
+><TT
+CLASS="COMMAND"
+>less /usr/doc/HOWTO/PCMCIA-HOWTO</TT
+></P
+><P
+>Para navegar por el archivo, use las teclas de las flechas para arriba
+ y para abajo. Utilice <B
+CLASS="KEYCAP"
+>q</B
+> (por <TT
+CLASS="FOREIGNPHRASE"
+><I
+>quit</I
+></TT
+>, salir)
+ para salir del programa. En realidad, <TT
+CLASS="COMMAND"
+>less</TT
+> puede hacer
+ mucho más que eso. De hecho, simplemente  presione <B
+CLASS="KEYCAP"
+>h</B
+> para
+ la ayuda (en inglés) y eche un vistazo. Pero de todas formas, el
+ objetivo de esta sección es que Ud. sea capaz de leer archivos
+ largos, y ya está cumplido <B
+CLASS="KEYCAP"
+>:-)</B
+></P
+></DIV
+><DIV
+CLASS="SECT2"
+><H2
+CLASS="SECT2"
+><A
+NAME="AEN758"
+>2.4.5. <TT
+CLASS="COMMAND"
+>ls</TT
+>: listar archivos (<TT
+CLASS="FOREIGNPHRASE"
+><I
+>LiSt</I
+></TT
+>, Listar)</A
+></H2
+><P
+>&#13;Este comando es equivalente a <TT
+CLASS="COMMAND"
+>dir</TT
+> de <TT
+CLASS="APPLICATION"
+><I
+>DOS</I
+></TT
+>, pero
+ puede hacer mucho más. De hecho, esto se debe en gran parte al hecho
+ de que los archivos también pueden hacer más <B
+CLASS="KEYCAP"
+>:-)</B
+> La sintaxis del
+ comando <TT
+CLASS="COMMAND"
+>ls</TT
+> es la siguiente:</P
+><P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+>ls [opciones] [archivo|directorio] [archivo|directorio...]</PRE
+></TD
+></TR
+></TABLE
+></P
+><P
+>Si no se especifica archivo o directorio alguno en la línea de
+ comandos, <TT
+CLASS="COMMAND"
+>ls</TT
+> imprimirá la lista de los archivos del
+ directorio corriente. Sus opciones son muy numerosas y sólo
+ citaremos algunas de ellas:</P
+><P
+></P
+><OL
+TYPE="1"
+><LI
+><P
+><TT
+CLASS="OPTION"
+>-a</TT
+> Listar todos los archivos, incluyendo los
+ <B
+CLASS="GLOSSTERM"
+><I
+>archivos
+ ocultos</I
+></B
+> (en <TT
+CLASS="APPLICATION"
+><I
+>Unix</I
+></TT
+> los archivos ocultos son aquellos
+ cuyo nombre comienza con un <TT
+CLASS="LITERAL"
+>.</TT
+>); la opción <TT
+CLASS="OPTION"
+>-A</TT
+>
+ lista <SPAN
+CLASS="QUOTE"
+>"casi"</SPAN
+> todos los archivos, lo que significa que se
+ mostrarán todos los archivos que mostraría la opción <TT
+CLASS="OPTION"
+>-a</TT
+>
+ excepto <SPAN
+CLASS="QUOTE"
+>"."</SPAN
+> y <SPAN
+CLASS="QUOTE"
+>".."</SPAN
+>; </P
+></LI
+><LI
+><P
+><TT
+CLASS="OPTION"
+>-R</TT
+> Listar <SPAN
+CLASS="QUOTE"
+>"recursivamente"</SPAN
+>, es decir, todos los archivos y
+ sub-directorios del directorio que se menciona en la línea de comandos.</P
+></LI
+><LI
+><P
+><TT
+CLASS="OPTION"
+>-s</TT
+> Muestra el tamaño en kilobytes junto a cada archivo.</P
+></LI
+><LI
+><P
+><TT
+CLASS="OPTION"
+>-l</TT
+> Muestra información adicional sobre los archivos.</P
+></LI
+><LI
+><P
+><TT
+CLASS="OPTION"
+>-i</TT
+> Muestra el número de i-nodo (el número único del archivo
+ en el sistema de archivos, ver el capítulo El sistema de archivos de Linux: ext2fs (<TT
+CLASS="FOREIGNPHRASE"
+><I
+>EXTended 2 FileSystem</I
+></TT
+>)) junto
+ a cada archivo.</P
+></LI
+><LI
+><P
+><TT
+CLASS="OPTION"
+>-d</TT
+> Muestra los directorios como archivos normales en vez de
+ mostrar su contenido.</P
+></LI
+></OL
+><P
+>Algunos ejemplos:</P
+><P
+></P
+><OL
+TYPE="1"
+><LI
+><P
+><TT
+CLASS="COMMAND"
+>ls -R</TT
+> lista  <SPAN
+CLASS="QUOTE"
+>"recursivamente"</SPAN
+> el contenido del directorio
+ corriente;</P
+></LI
+><LI
+><P
+><TT
+CLASS="COMMAND"
+>ls -is images/ ..</TT
+> lista los archivos en el directorio
+ <TT
+CLASS="FILENAME"
+>images/</TT
+> y en el directorio padre, e imprime, para cada
+ archivo, su número de i-nodo y su tamaño en kilobytes.</P
+></LI
+><LI
+><P
+><TT
+CLASS="COMMAND"
+>ls -al images/*.gif</TT
+> lista todos los archivos (incluso los
+ archivos ocultos) del directorio <TT
+CLASS="FILENAME"
+>images/</TT
+> cuyo nombre
+ termina con <TT
+CLASS="LITERAL"
+>.gif</TT
+>. Note que esto también incluye al
+ archivo <TT
+CLASS="FILENAME"
+>.gif</TT
+> si es que existe uno.</P
+></LI
+></OL
+></DIV
+><DIV
+CLASS="SECT2"
+><H2
+CLASS="SECT2"
+><A
+NAME="AEN819"
+>2.4.6. Atajos de teclado útiles</A
+></H2
+><P
+>Esta sección presentará algunas de las muchas secuencias de tecleo
+ que están disponibles y le harán ganar tiempo. Esta sección asume
+ que Ud. está utilizando el <TT
+CLASS="FOREIGNPHRASE"
+><I
+>shell</I
+></TT
+> predeterminado provisto con
+ <B
+CLASS="EMPHASIS"
+>Linux-Mandrake</B
+>, <TT
+CLASS="APPLICATION"
+><I
+>Bash</I
+></TT
+>, pero estas secuencias de tecleo también
+ deberían funcionar con otros <TT
+CLASS="FOREIGNPHRASE"
+><I
+>shells</I
+></TT
+>. En esta sección,
+ <TT
+CLASS="USERINPUT"
+><B
+>C-&lt;x&gt;</B
+></TT
+> significa
+ <TT
+CLASS="USERINPUT"
+><B
+>Ctrl</B
+></TT
+>+<TT
+CLASS="OPTION"
+>&lt;x&gt;</TT
+> (presione la tecla
+ <TT
+CLASS="USERINPUT"
+><B
+>Ctrl</B
+></TT
+>, manténgala presionada, presione la tecla
+ <TT
+CLASS="OPTION"
+>&lt;x&gt;</TT
+>, suelte ambas teclas).</P
+><P
+>Primero: las teclas de las flechas. <TT
+CLASS="APPLICATION"
+><I
+>Bash</I
+></TT
+> mantiene un historial
+ de los comandos que ingresó previamente, el cual puede verse con las
+ teclas de las flechas para arriba y para abajo. Ud. puede remontarse
+ hasta un número de líneas definido en la variable de entorno
+ <TT
+CLASS="VARNAME"
+>HISTSIZE</TT
+>. Es más, el histórico es persistente de una
+ sesión a otra, por lo que no va a perder los comandos que ingresó en
+ una sesión previa.</P
+><P
+>Las teclas de las flechas izquierda y derecha mueven el cursor hacia
+ la izquierda y hacia la derecha en la línea corriente, por lo que
+ puede editar sus comandos de esta forma. Pero hay más en materia de
+ edición: <TT
+CLASS="USERINPUT"
+><B
+>C-a</B
+></TT
+> y <TT
+CLASS="USERINPUT"
+><B
+>C-e</B
+></TT
+>, por ejemplo, lo
+ llevarán al comienzo y al final, respectivamente,  de la línea
+ corriente. Las teclas <TT
+CLASS="USERINPUT"
+><B
+>Backspace</B
+></TT
+>
+ <A
+NAME="AEN838"
+HREF="#FTN.AEN838"
+>[2]</A
+>
+ y <TT
+CLASS="USERINPUT"
+><B
+>Supr</B
+></TT
+> funcionan como se espera. Un equivalente de
+ <TT
+CLASS="USERINPUT"
+><B
+>Backspace</B
+></TT
+> es <TT
+CLASS="USERINPUT"
+><B
+>C-h</B
+></TT
+> y un equivalente de
+ <TT
+CLASS="USERINPUT"
+><B
+>Supr</B
+></TT
+> es <TT
+CLASS="USERINPUT"
+><B
+>C-d</B
+></TT
+>. <TT
+CLASS="USERINPUT"
+><B
+>C-k</B
+></TT
+> borrará
+ toda la línea desde la posición del cursor hasta el final de la
+ misma, y <TT
+CLASS="USERINPUT"
+><B
+>C-w</B
+></TT
+> borrará la palabra delante del cursor.</P
+><P
+>Ingresar <TT
+CLASS="USERINPUT"
+><B
+>C-d</B
+></TT
+> en una línea en blanco le hará cerrar la
+ sesión corriente, lo cual es mucho más corto que tener que ingresar
+ <TT
+CLASS="COMMAND"
+>exit</TT
+>. <TT
+CLASS="USERINPUT"
+><B
+>C-c</B
+></TT
+> interrumpirá el comando en curso
+ de funcionamiento, excepto si se encuentra en el proceso de edición,
+ en cuyo caso interrumpirá la edición y lo devolverá al
+ <TT
+CLASS="FOREIGNPHRASE"
+><I
+>prompt</I
+></TT
+>. <TT
+CLASS="USERINPUT"
+><B
+>C-l</B
+></TT
+> borra la pantalla.</P
+><P
+>Finalmente, están <TT
+CLASS="USERINPUT"
+><B
+>C-s</B
+></TT
+> y <TT
+CLASS="USERINPUT"
+><B
+>C-q</B
+></TT
+>: estas
+ secuencias de teclas sirven, respectivamente, para suspender y
+ reanudar el flujo de caracteres sobre una terminal. No son muy
+ usadas, pero sin embargo, puede ocurrir que ingrese <TT
+CLASS="USERINPUT"
+><B
+>C-s</B
+></TT
+>
+ por error. Entonces, si presiona las teclas pero no ve aparecer
+ carácter alguno en la terminal, primero intente <TT
+CLASS="USERINPUT"
+><B
+>C-q</B
+></TT
+> y
+ preste atención: aparecerán en la pantalla todos los caracteres
+ juntos que ingresó desde el <TT
+CLASS="USERINPUT"
+><B
+>C-s</B
+></TT
+> no deseado.</P
+></DIV
+></DIV
+><H3
+CLASS="FOOTNOTES"
+>Notas</H3
+><TABLE
+BORDER="0"
+CLASS="FOOTNOTES"
+WIDTH="100%"
+><TR
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+WIDTH="5%"
+><A
+NAME="FTN.AEN740"
+HREF="x597.html#AEN740"
+>[1]</A
+></TD
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+WIDTH="95%"
+><P
+><SPAN
+CLASS="QUOTE"
+>"less"</SPAN
+> significa
+ <SPAN
+CLASS="QUOTE"
+>"menos"</SPAN
+>, y <SPAN
+CLASS="QUOTE"
+>"more"</SPAN
+> significa <SPAN
+CLASS="QUOTE"
+>"más"</SPAN
+>
+ </P
+></TD
+></TR
+><TR
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+WIDTH="5%"
+><A
+NAME="FTN.AEN838"
+HREF="x597.html#AEN838"
+>[2]</A
+></TD
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+WIDTH="95%"
+><P
+><TT
+CLASS="USERINPUT"
+><B
+>Backspace</B
+></TT
+> es la última tecla de la fila
+ que contiene las teclas de los números</P
+></TD
+></TR
+></TABLE
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="basics-process.html"
+>Anterior</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+>Inicio</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="cmdline.html"
+>Siguiente</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>Los procesos</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="unix-basics.html"
+>Subir</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>Introducción a la línea de comandos</TD
+></TR
+></TABLE
+></DIV
+>
+  <hr align="center">
+  <div align="left"><a href="http://www.linux-mandrake.com"><img
+    src="../images/tux48.png" width="48" height="39" align="left" border="0"
+    alt="Tux sobre Estrella por MandrakeSoft"></a> <font face="Helvetica,
+    Arial, sans-serif" size="2">Linux es una marca registrada de 
+    Linus Torvalds. Todas las otras marcas registradas y copyrights son la
+    propiedad de sus respectivos due&ntilde;os.<br>A menos que se diga lo
+	contrario, todo el contenido de estas p&aacute;ginas y todas las
+	im&aacute;genes tienen Copyright de <i>MandrakeSoft S.A.</i> y de
+	<i>MandrakeSoft Inc.</i> 2000.
+    <br><a
+    href="http://www.linux-mandrake.com/">http://www.linux-mandrake.com/</a>
+    <br>
+</font>
+ </div>
+
+</BODY
+
+></HTML
+>

@@ -1,0 +1,1299 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<HTML
+><HEAD
+><TITLE
+>Compilación</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.59"><LINK
+REL="HOME"
+TITLE="Linux-Mandrake"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="Compilando e instalando software libre"
+HREF="install-free.html"><LINK
+REL="PREVIOUS"
+TITLE="Configuración"
+HREF="install-free-config.html"><LINK
+REL="NEXT"
+TITLE="Instalación"
+HREF="install-free-installation.html">
+<meta name="Author" content="MandrakeSoft">
+<meta name="Description" content="This is Linux-Mandrake Documentation.">
+<meta name="KeyWords" content="Linux, Mandrake, Linux-Mandrake, documentation, Mandrake Books, howto, Powerpack">
+
+</HEAD
+><BODY
+CLASS="SECT1"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#666699"
+VLINK="#980060"
+ALINK="#FF0000"
+>
+
+<DIV
+CLASS="NAVHEADER"
+><TABLE
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+><B
+CLASS="EMPHASIS"
+>Linux-Mandrake</B
+>: <B
+CLASS="EMPHASIS"
+>Manual de Referencia</B
+></TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="install-free-config.html"
+>Anterior</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+>Capítulo 15. Compilando e instalando software libre</TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="install-free-installation.html"
+>Siguiente</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><DIV
+CLASS="SECT1"
+><H1
+CLASS="SECT1"
+><A
+NAME="INSTALL-FREE-COMPILATION"
+>15.4. Compilación</A
+></H1
+><P
+>Ahora que el software está configurado correctamente, solo queda compilarlo. Generalmente esta parte es fácil, y no presenta problemas serios.</P
+><DIV
+CLASS="SECT2"
+><H2
+CLASS="SECT2"
+><A
+NAME="MAKE"
+>15.4.1. <TT
+CLASS="COMMAND"
+>make</TT
+></A
+></H2
+><P
+>&#13;<TT
+CLASS="COMMAND"
+>make</TT
+> es la herramienta favorita de la comunidad de software libre para compilar los fuentes. Tiene dos cosas interesantes:</P
+><P
+></P
+><UL
+><LI
+><P
+>le permite ganar tiempo al desarrollador, porque le permite administrar la compilación de su proyecto eficientemente,</P
+></LI
+><LI
+><P
+>permite que el usuario final compile e instale el software en pocas líneas de comando, incluso si él no tiene conocimientos preliminares de desarrollo.</P
+></LI
+></UL
+><P
+>Las acciones a ejecutar para obtener una versión compilada de los fuentes generalmente se almacenan en un archivo denominado <TT
+CLASS="FILENAME"
+>Makefile</TT
+> o <TT
+CLASS="FILENAME"
+>GNUMakefile</TT
+>. De hecho, cuando se invoca <TT
+CLASS="COMMAND"
+>make</TT
+>, este lee este archivo, si existe, en el directorio corriente. Si no es así, se puede especificar el archivo usando la opción <TT
+CLASS="OPTION"
+>-f</TT
+> con <TT
+CLASS="COMMAND"
+>make</TT
+>.</P
+></DIV
+><DIV
+CLASS="SECT2"
+><H2
+CLASS="SECT2"
+><A
+NAME="AEN5911"
+>15.4.2. Reglas</A
+></H2
+><P
+><TT
+CLASS="COMMAND"
+>make</TT
+> funciona de acuerdo a un sistema de <B
+CLASS="GLOSSTERM"
+><I
+>dependencias</I
+></B
+>, razón por la cual la compilación de un archivo binario (<SPAN
+CLASS="QUOTE"
+>"<B
+CLASS="GLOSSTERM"
+><I
+>objetivo</I
+></B
+>"</SPAN
+>) necesita pasar por varias etapas (<SPAN
+CLASS="QUOTE"
+>"dependencias"</SPAN
+>). Por ejemplo, para crear el archivo binario (imaginario) <TT
+CLASS="FILENAME"
+>glloq</TT
+>, se deben compilar y luego vincular los archivos objeto <TT
+CLASS="FILENAME"
+>main.o</TT
+> e <TT
+CLASS="FILENAME"
+>init.o</TT
+> (archivos intermedios de la compilación). Estos archivos objeto también son objetivos, cuyas dependencias son los archivos fuente.</P
+><P
+>Este texto solo es una introducción mínima para sobrevivir en el mundo sin piedad de <TT
+CLASS="COMMAND"
+>make</TT
+>. Si Ud. quiere aprender más, le aconsejamos dirigirse al sitio <TT
+CLASS="SYSTEMITEM"
+><I
+>web</I
+></TT
+> de <A
+HREF="http://www.april.org/groupes/doc"
+TARGET="_top"
+><B
+CLASS="EMPHASIS"
+>APRIL</B
+></A
+>, donde puede encontrar documentación más detallada sobre <TT
+CLASS="COMMAND"
+>make</TT
+>. Para una documentación exhaustiva, debe referirse a <B
+CLASS="EMPHASIS"
+>Managing Projects with Make</B
+> (<TT
+CLASS="FOREIGNPHRASE"
+><I
+>Administración de proyectos con <TT
+CLASS="COMMAND"
+>make</TT
+></I
+></TT
+>), segunda edición, de <B
+CLASS="EMPHASIS"
+>O'Reilly</B
+>, por <I
+CLASS="WORDASWORD"
+>Andrew</I
+> <I
+CLASS="WORDASWORD"
+>Oram</I
+> y <I
+CLASS="WORDASWORD"
+>Steve</I
+> <I
+CLASS="WORDASWORD"
+>Talbott</I
+>.</P
+></DIV
+><DIV
+CLASS="SECT2"
+><H2
+CLASS="SECT2"
+><A
+NAME="AEN5936"
+>15.4.3. Go, go, go!</A
+></H2
+><P
+>Por lo general, el uso de <TT
+CLASS="COMMAND"
+>make</TT
+> obedece a muchas convenciones. Por ejemplo:</P
+><P
+></P
+><UL
+><LI
+><P
+><TT
+CLASS="COMMAND"
+>make</TT
+> sin argumentos simplemente ejecuta la compilación del programa, sin instalarlo.</P
+></LI
+><LI
+><P
+><TT
+CLASS="COMMAND"
+>make install</TT
+> compila el programa (aunque no siempre), y asegura la instalación de los archivos necesarios en el lugar adecuado del sistema de archivos. Algunos archivos no siempre se instalan correctamente (<TT
+CLASS="FILENAME"
+>man</TT
+>, <TT
+CLASS="FILENAME"
+>info</TT
+>), ellos deben ser copiados por el usuario en sí mismo. Algunas veces, <TT
+CLASS="COMMAND"
+>make install</TT
+> tiene que volver a ser ejecutado en los sub-directorios. Por lo general, esto pasa con los módulos desarrollados por terceros.</P
+></LI
+><LI
+><P
+><TT
+CLASS="COMMAND"
+>make clean</TT
+> borra todos los archivos temporales creados por la compilación, y, en la mayoría de los casos, el archivo ejecutable.</P
+></LI
+></UL
+><P
+>La primera etapa para compilar un programa es ingresar (ejemplo imaginario):</P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+>$ make
+gcc -c glloq.c -o glloq.o
+gcc -c init.c -o init.o
+gcc -c main.c -o main.o
+gcc -lgtk -lgdk -lglib -lXext -lX11 -lm glloq.o init.o main.o -o glloq</PRE
+></TD
+></TR
+></TABLE
+><P
+>Excelente, el archivo binario está compilado correctamente. Ahora estamos preparados para la etapa siguiente, que es la instalación de los archivos de la distribución (archivos binarios, archivos de datos, etc...). Ver la sección <A
+HREF="install-free-installation.html"
+><I
+>Instalación</I
+></A
+>).</P
+></DIV
+><DIV
+CLASS="SECT2"
+><H2
+CLASS="SECT2"
+><A
+NAME="AEN5957"
+>15.4.4. Explicaciones</A
+></H2
+><P
+>&#13;Si Ud. es lo suficientemente curioso para mirar el archivo <TT
+CLASS="FILENAME"
+>Makefile</TT
+>, encontrará comandos conocidos (<TT
+CLASS="COMMAND"
+>rm</TT
+>, <TT
+CLASS="COMMAND"
+>mv</TT
+>, <TT
+CLASS="COMMAND"
+>cp</TT
+>, ...), aunque también encontrará algunas cadenas extrañas, de la forma <TT
+CLASS="VARNAME"
+>$(CFLAGS)</TT
+>.</P
+><P
+>Estas son <B
+CLASS="EMPHASIS"
+><B
+CLASS="GLOSSTERM"
+><I
+>variables</I
+></B
+></B
+>, es decir las cadenas que generalmente se fijan al comienzo del archivo <TT
+CLASS="FILENAME"
+>Makefile</TT
+>, y luego reemplazadas por el valor con el cual están asociadas. Estas son muy útiles cuando quiere usar las mismas opciones de compilación varias veces.</P
+><P
+>Por ejemplo, puede mostrar la cadena <SPAN
+CLASS="QUOTE"
+>"<TT
+CLASS="LITERAL"
+>pepe</TT
+>"</SPAN
+> en la pantalla usando <TT
+CLASS="COMMAND"
+>make all</TT
+>:</P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+>TEST = pepe
+all:
+        echo $(TEST)</PRE
+></TD
+></TR
+></TABLE
+><P
+>La mayor parte del tiempo, se definen las variables siguientes:</P
+><P
+></P
+><OL
+TYPE="1"
+><LI
+><P
+><TT
+CLASS="VARNAME"
+>CC</TT
+>: este es el compilador que va a utilizar. Generalmente es <TT
+CLASS="APPLICATION"
+><I
+>cc1</I
+></TT
+>, que en la mayoría de los sistemas libres, es sinónimo de <TT
+CLASS="COMMAND"
+>gcc</TT
+>. Cuando tenga dudas, ponga aquí <TT
+CLASS="COMMAND"
+>gcc</TT
+>.</P
+></LI
+><LI
+><P
+><TT
+CLASS="VARNAME"
+>LD</TT
+>: este es el programa usado para asegurar la fase de la compilación final (ver la sección <A
+HREF="install-free.html#STEPS"
+><I
+>Las cuatro fases de la compilación</I
+></A
+>). El valor predeterminado es <TT
+CLASS="COMMAND"
+>ld</TT
+>.</P
+></LI
+><LI
+><P
+><TT
+CLASS="VARNAME"
+>CFLAGS</TT
+>: estos son los argumentos adicionales que se pasarán al compilador durante las primeras etapas de la compilación. Entre ellos:</P
+><P
+></P
+><UL
+><LI
+><P
+><TT
+CLASS="OPTION"
+>-I&lt;ruta&gt;</TT
+>: le especifica al compilador donde buscar
+algunos archivos de encabezado adicionales (por ejemplo:
+<TT
+CLASS="OPTION"
+>-I<TT
+CLASS="FILENAME"
+>/usr/X11R6/include</TT
+></TT
+> permite incluir
+los archivos de encabezado que están en el directorio
+<TT
+CLASS="FILENAME"
+>/usr/X11R6/include</TT
+>)</P
+></LI
+><LI
+><P
+><TT
+CLASS="OPTION"
+>-D&lt;símbolo&gt;</TT
+>: define un símbolo adicional, útil para los programas cuya compilación depende de los símbolos definidos (ej: utilizar el archivo <TT
+CLASS="FILENAME"
+>string.h</TT
+> si está definida <TT
+CLASS="VARNAME"
+>HAVE_STRING_H</TT
+>).</P
+></LI
+></UL
+><P
+>Generalmente hay líneas de compilación de la forma:</P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="90%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+>$(CC) $(CFLAGS) -c pepe.c -o pepe.o</PRE
+></TD
+></TR
+></TABLE
+></LI
+><LI
+><P
+><TT
+CLASS="VARNAME"
+>LDFLAGS</TT
+> (o <TT
+CLASS="VARNAME"
+>LFLAGS</TT
+>): estos son los argumentos usados durante la última etapa de compilación. Entre ellos:</P
+><P
+></P
+><UL
+><LI
+><P
+><TT
+CLASS="OPTION"
+>-L&lt;ruta&gt;</TT
+>: especifica una ruta adicional donde buscar bibliotecas (por ejemplo: <TT
+CLASS="OPTION"
+>-L/usr/X11R6/lib</TT
+>).&#13;</P
+></LI
+><LI
+><P
+><TT
+CLASS="OPTION"
+>-l&lt;biblioteca&gt;</TT
+>: especifica una biblioteca adicional para usar durante la última etapa de compilación.</P
+></LI
+></UL
+></LI
+></OL
+></DIV
+><DIV
+CLASS="SECT2"
+><H2
+CLASS="SECT2"
+><A
+NAME="IT-DOES-NOT-WORK"
+>15.4.5. ¿Qué pasa si... no funciona?</A
+></H2
+><P
+>No tenga pánico, le puede pasar a cualquiera. Entre las causas más comunes:</P
+><P
+></P
+><OL
+TYPE="1"
+><LI
+><P
+><TT
+CLASS="LITERAL"
+>glloq.c:16: decl.h: No such file or directory</TT
+>
+(<TT
+CLASS="LITERAL"
+>glloq.c :16</TT
+>: <TT
+CLASS="LITERAL"
+>decl.h</TT
+>: no hay archivo o directorio con ese nombre)</P
+><P
+>El compilador no pudo encontrar el archivo de encabezado correspondiente. Por lo tanto, la etapa de configuración del software debería haber anticipado este error. Como resolver este problema:</P
+><P
+></P
+><UL
+><LI
+><P
+>verifique que verdaderamente exista el archivo de encabezado en uno de los directorios siguientes: <TT
+CLASS="FILENAME"
+>/usr/include</TT
+>, <TT
+CLASS="FILENAME"
+>/usr/local/include</TT
+>, <TT
+CLASS="FILENAME"
+>/usr/X11R6/include</TT
+> o en alguno de sus sub-directorios. De no ser así, búsquelo por todo el disco (con <TT
+CLASS="COMMAND"
+>find</TT
+> o <TT
+CLASS="COMMAND"
+>locate</TT
+>), y, si todavía no lo encuentra, verifique que ha instalado la biblioteca correspondiente a este archivo de encabezado. Puede encontrar ejemplos de los comandos <TT
+CLASS="COMMAND"
+>find</TT
+> y <TT
+CLASS="COMMAND"
+>locate</TT
+> en las respectivas páginas de manual.</P
+></LI
+><LI
+><P
+>Verifique que el archivo de encabezado se pueda leer (ingrese <TT
+CLASS="COMMAND"
+>less &lt;ruta&gt;/&lt;archivo&gt;.h</TT
+>, para verificar esto).</P
+></LI
+><LI
+><P
+>Si es un directorio como <TT
+CLASS="FILENAME"
+>/usr/local/include</TT
+> o como <TT
+CLASS="FILENAME"
+>/usr/X11R6/include</TT
+>, Ud. tiene que agregar, a veces, un argumento nuevo al compilador. Abra el archivo <TT
+CLASS="FILENAME"
+>Makefile</TT
+> correspondiente (tenga cuidado de abrir el archivo correcto, los que se encuentran en el directorio donde falla la compilación<A
+NAME="AEN6046"
+HREF="#FTN.AEN6046"
+>[1]</A
+>) con su editor de texto favorito (<TT
+CLASS="APPLICATION"
+><I
+>Emacs</I
+></TT
+>, <TT
+CLASS="APPLICATION"
+><I
+>VI</I
+></TT
+>, etc). Busque la línea errónea, y agregue la cadena <TT
+CLASS="OPTION"
+>-I&lt;ruta&gt;</TT
+>, donde <TT
+CLASS="OPTION"
+>&lt;ruta&gt;</TT
+> es la ruta donde se puede encontrar el archivo de encabezado en cuestión, justo después de la llamada del compilador (<TT
+CLASS="LITERAL"
+>gcc</TT
+>, o, a veces, <TT
+CLASS="LITERAL"
+>$(CC)</TT
+>). Si no sabe donde agregar esta opción, agréguela al comienzo del archivo, después de <TT
+CLASS="LITERAL"
+>CFLAGS=&lt;algo&gt;</TT
+> o después de <TT
+CLASS="LITERAL"
+>CC=&lt;algo&gt;</TT
+>.</P
+></LI
+><LI
+><P
+>ejecute <TT
+CLASS="COMMAND"
+>make</TT
+> de nuevo, y si todavía sigue sin funcionar, verifique que esta opción (ver el punto anterior) se agrega durante la compilación en la línea errónea.</P
+></LI
+><LI
+><P
+>si todavía sigue sin funcionar, pida ayuda al autor del software, a su gurú local, o a la comunidad de software libre para resolver su problema (ver la sección <A
+HREF="install-free-support.html#SUPPORT"
+><I
+>Soporte técnico</I
+></A
+>).</P
+></LI
+></UL
+></LI
+><LI
+><P
+><TT
+CLASS="LITERAL"
+>glloq.c:28: `struct pepe' undeclared (first use this function)</TT
+> </P
+><P
+> (<TT
+CLASS="LITERAL"
+>glloq.c:28</TT
+>: <SPAN
+CLASS="QUOTE"
+>"<TT
+CLASS="LITERAL"
+>struct pepe</TT
+>"</SPAN
+> no está declarada (esta es la primera utilización en esta función))</P
+><P
+>Las estructuras son tipos de datos especiales, que usan todos los programas. El sistema define un montón de ellas en los archivos de encabezados. Eso significa que es muy probable que el problema sea la falta o el mal uso de un archivo de encabezado. El procedimiento correcto para resolver el problema es:</P
+><P
+></P
+><UL
+><LI
+><P
+>intente verificar si la estructura en cuestión es una estructura definida por el programa o por el sistema. Una solución es usar el comando <TT
+CLASS="COMMAND"
+>grep</TT
+> para ver si la estructura está definida en alguno de los archivos de encabezado.</P
+><P
+>Por ejemplo, cuando Ud. está en la raíz de la distribución:</P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="90%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+>$ find . -name '*.h'| xargs grep 'struct pepe' | less</PRE
+></TD
+></TR
+></TABLE
+><P
+>Es posible que aparezcan muchas líneas en la pantalla (por ejemplo, cada vez que se define una función que use esta estructura). Elija, si existe, la línea donde se define la estructura mirando el archivo de encabezado obtenido por la utilización del comando <TT
+CLASS="COMMAND"
+>grep</TT
+>.</P
+><P
+>La definición de una estructura es:</P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="90%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+>struct pepe {
+      &lt;contenido de la estructura pepe&gt;
+};</PRE
+></TD
+></TR
+></TABLE
+><P
+>Verifique si ella corresponde a lo que Ud. tiene. De ser así, eso significa que no se incluye el encabezado en el archivo <TT
+CLASS="FILENAME"
+>.c</TT
+> erróneo. Hay dos soluciones:</P
+><P
+></P
+><UL
+><LI
+><P
+>agregar la línea 
+<TT
+CLASS="OPTION"
+>#include "&lt;nombre_de_archivo&gt;.h"</TT
+> al comienzo del archivo <TT
+CLASS="FILENAME"
+>.c</TT
+> erróneo.</P
+></LI
+><LI
+><P
+>o copiar y pegar la definición de la estructura al comienzo del archivo <TT
+CLASS="FILENAME"
+>.c</TT
+> (esto no es de lo mejor, pero al menos por lo general, funciona).</P
+></LI
+></UL
+></LI
+><LI
+><P
+>si este no es el caso, haga lo mismo con los archivos de encabezado del sistema (que, generalmente, se encuentran en los directorios siguientes: <TT
+CLASS="COMMAND"
+><TT
+CLASS="FILENAME"
+>/usr/include</TT
+></TT
+>, <TT
+CLASS="COMMAND"
+><TT
+CLASS="FILENAME"
+>/usr/X11R6/include</TT
+></TT
+> y <TT
+CLASS="COMMAND"
+><TT
+CLASS="FILENAME"
+>/usr/local/include</TT
+></TT
+>). Pero en este caso, use la línea <TT
+CLASS="LITERAL"
+>#include &lt;&lt;nombre_de_archivo&gt;.h&gt;</TT
+>.</P
+></LI
+><LI
+><P
+>si todavía no existe esta estructura, intente encontrar en qué biblioteca (es decir, conjunto de funciones juntadas en un solo paquete) debería estar definida (ver en el archivo <TT
+CLASS="FILENAME"
+>INSTALL</TT
+> o <TT
+CLASS="FILENAME"
+>README</TT
+> cuales son las bibliotecas que usa este programa y las versiones necesarias). Si la versión que necesita el programa no está instalada en el sistema, Ud. deberá actualizar esta biblioteca. Cabe destacar que debe tener sumo cuidado al manipular los archivos de encabezado del sistema, ya que estos son comunes a muchos programas.</P
+></LI
+><LI
+><P
+>si todavía sigue sin funcionar, verifique que el programa funciona adecuadamente sobre su arquitectura (algunos programas todavía no han sido portados a todos los <TT
+CLASS="APPLICATION"
+><I
+>Unix</I
+></TT
+>). Verifique también que ha configurado el programa correctamente (por ejemplo, cuando ejecutó <TT
+CLASS="COMMAND"
+>configure</TT
+>) para su arquitectura.</P
+></LI
+></UL
+></LI
+><LI
+><P
+><TT
+CLASS="LITERAL"
+>parse error</TT
+> (error de análisis sintáctico)</P
+><P
+>Este es un problema que es relativamente complicado de resolver, porque generalmente es un error que aparece en cierta línea, pero después que el compilador lo encontró. A veces, es simplemente un tipo de datos que no está definido. Si Ud. encuentra un mensaje de error del tipo:</P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="90%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+>main.c:1: parse error before `glloq_t
+main.c:1: warning: data definition has no type or storage class</PRE
+></TD
+></TR
+></TABLE
+><P
+>entonces el problema es que el tipo <TT
+CLASS="LITERAL"
+>glloq_t</TT
+> no está definido. La solución al problema es más o menos la misma que en el problema anterior.</P
+><DIV
+CLASS="NOTE"
+><P
+></P
+><TABLE
+CLASS="NOTE"
+WIDTH="90%"
+BORDER="0"
+><TR
+><TD
+WIDTH="25"
+ALIGN="CENTER"
+VALIGN="TOP"
+><IMG
+SRC="../images/note.png"
+HSPACE="5"
+ALT="Nota"></TD
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+><P
+>puede haber un error del tipo <TT
+CLASS="LITERAL"
+>parse error</TT
+> en las bibliotecas <TT
+CLASS="FILENAME"
+>curses</TT
+> antiguas si la memoria no nos falla.</P
+></TD
+></TR
+></TABLE
+></DIV
+></LI
+><LI
+><P
+><TT
+CLASS="LITERAL"
+>no space left on device</TT
+> (no queda espacio en el dispositivo)</P
+><P
+>El problema es simple de resolver: no hay espacio suficiente en el disco para generar un archivo binario a partir del archivo fuente. La solución consiste en liberar espacio en la partición que contiene el directorio de instalación (borrar archivos innecesarios, archivos temporales, desinstalar programas que no use). Si descomprimió en <TT
+CLASS="FILENAME"
+>/tmp</TT
+>, mejor hágalo en <TT
+CLASS="FILENAME"
+>/usr/local/src</TT
+> que evita la saturación innecesaria de la partición <TT
+CLASS="FILENAME"
+>tmp</TT
+>. Es más, verifique si hay archivos <TT
+CLASS="FILENAME"
+>core</TT
+>&gt; en su disco. De ser así, elimínelos o haga que el usuario al cual pertenezcan los elimine. En fin, trate de liberar espacio en disco.</P
+></LI
+><LI
+><P
+><TT
+CLASS="LITERAL"
+>/usr/bin/ld: cannot open -lglloq: No such file or directory</TT
+> (<TT
+CLASS="LITERAL"
+>/usr/bin/ld</TT
+>: no puedo abrir <TT
+CLASS="LITERAL"
+>-lglloq</TT
+>: no hay archivo o directorio alguno con ese nombre)</P
+><P
+>Esto significa claramente que el programa <TT
+CLASS="COMMAND"
+>ld</TT
+> (usado por <TT
+CLASS="COMMAND"
+>gcc</TT
+> durante la última etapa de la compilación) no puede encontrar una biblioteca. Para incluir una biblioteca, <TT
+CLASS="COMMAND"
+>ld</TT
+> busca un archivo cuyo nombre está en los argumentos del tipo <TT
+CLASS="OPTION"
+>-l&lt;biblioteca&gt;</TT
+>. Este archivo es <TT
+CLASS="COMMAND"
+><TT
+CLASS="OPTION"
+>lib&lt;biblioteca.so&gt;</TT
+></TT
+>. Si <TT
+CLASS="COMMAND"
+>ld</TT
+> no puede encontrarlo, produce un mensaje de error. Para resolver el problema, siga los pasos que se indican a continuación:</P
+><P
+></P
+><OL
+TYPE="a"
+><LI
+><P
+>verifique que el archivo existe en el disco rígido usando el comando <TT
+CLASS="COMMAND"
+>locate</TT
+>. Por lo general, las bibliotecas gráficas se encuentran en <TT
+CLASS="FILENAME"
+>/usr/X11R6/lib</TT
+>. Por ejemplo:</P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="90%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+>$ locate libglloq</PRE
+></TD
+></TR
+></TABLE
+><P
+>Si la búsqueda no tiene resultado, Ud. puede buscar con el comando <TT
+CLASS="COMMAND"
+>find</TT
+> (ej: <TT
+CLASS="COMMAND"
+><TT
+CLASS="COMMAND"
+>find /usr -name libglloq.so*</TT
+></TT
+>). Si Ud. no puede encontrar la biblioteca, entonces tendrá que instalarla.</P
+></LI
+><LI
+><A
+NAME="LD-LIBRARY-PATH"
+></A
+><P
+>una vez que está localizada la biblioteca, verifique que <TT
+CLASS="COMMAND"
+>ld</TT
+> puede accederla: el archivo <TT
+CLASS="FILENAME"
+>/etc/ld.so.conf</TT
+> especifica donde encontrar estas bibliotecas. Agregue el directorio en cuestión al final del mismo y ejecute <TT
+CLASS="LITERAL"
+>ldconfig</TT
+>. También puede agregar este directorio a la variable de entorno <TT
+CLASS="VARNAME"
+>LD_LIBRARY_PATH</TT
+>. Por ejemplo, si el directorio a agregar es <TT
+CLASS="FILENAME"
+>/usr/X11R6/lib</TT
+>, ingrese: <TT
+CLASS="COMMAND"
+>export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/usr/X11R6/lib</TT
+> (si su <TT
+CLASS="FOREIGNPHRASE"
+><I
+>shell</I
+></TT
+> es <TT
+CLASS="APPLICATION"
+><I
+>Bash</I
+></TT
+>).</P
+></LI
+><LI
+><P
+>si todavía no funciona, verifique que el formato de la biblioteca en cuestión es un archivo ejecutable (o <SPAN
+CLASS="ACRONYM"
+>ELF</SPAN
+>) (con el comando <TT
+CLASS="COMMAND"
+>file</TT
+>). Si esta es un vínculo simbólico, verifique que el vínculo es correcto y no apunta a un archivo inexistente (por ejemplo, con <TT
+CLASS="COMMAND"
+>nm &lt;lib&gt;</TT
+>). Los permisos pueden ser erróneos (por ejemplo, Ud. usa una cuenta que no es <TT
+CLASS="USERINPUT"
+><B
+>root</B
+></TT
+> y la biblioteca está protegida contra lectura).</P
+></LI
+></OL
+></LI
+><LI
+><P
+><TT
+CLASS="LITERAL"
+>glloq.c(.text+0x34): undefined reference to `<TT
+CLASS="FILENAME"
+>glloq_init</TT
+>'</TT
+> (<TT
+CLASS="LITERAL"
+>glloq.c(.text+0x34)</TT
+>: referencia indefinida al símbolo `<TT
+CLASS="FILENAME"
+>glloq_init</TT
+>')</P
+><P
+>Esto significa que no se resolvió un símbolo durante la última etapa de la compilación. Por lo general, este es un problema de biblioteca. Puede haber varias causas:</P
+><P
+></P
+><UL
+><LI
+><P
+>la primera cosa a hacer es saber si se <B
+CLASS="EMPHASIS"
+>supone</B
+> que el símbolo esté presente en una biblioteca. Por ejemplo, si es un símbolo que comienza por <TT
+CLASS="LITERAL"
+>gtk</TT
+>, pertenece a la biblioteca <TT
+CLASS="LITERAL"
+>gtk</TT
+>. Si el nombre de la biblioteca es difícil de identificar (como por ejemplo, <TT
+CLASS="FILENAME"
+>zorglub_gloubiboulga</TT
+>), se pueden listar los símbolos de una biblioteca con el comando <TT
+CLASS="COMMAND"
+>nm</TT
+>. Por ejemplo,</P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="90%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+>$ nm libglloq.so
+0000000000109df0 d glloq_message_func
+000000000010a984 b glloq_msg
+0000000000008a58 t glloq_nearest_pow
+0000000000109dd8 d glloq_free_list
+0000000000109cf8 d glloq_mem_chunk</PRE
+></TD
+></TR
+></TABLE
+><P
+>Agregar la opción <TT
+CLASS="OPTION"
+>-o</TT
+> a <TT
+CLASS="COMMAND"
+>nm</TT
+> permite mostrar el nombre de la biblioteca en cada línea, lo cual facilita la búsqueda. Imaginemos que buscamos el símbolo <TT
+CLASS="LITERAL"
+>bulgroz_max</TT
+>, una solución cruda es realizar una búsqueda del tipo:</P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="90%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+>$ nm /usr/lib/lib*.so | grep bulgroz_max
+$ nm /usr/X11R6/lib/lib*.so | grep bulgroz_max
+$ nm /usr/local/lib/lib*.so | grep bulgroz_max
+/usr/local/lib/libfrobnicate.so:000000000004d848 T bulgroz_max</PRE
+></TD
+></TR
+></TABLE
+><P
+>¡Formidable! El símbolo <TT
+CLASS="LITERAL"
+>bulgroz_max</TT
+> está definido en la biblioteca <TT
+CLASS="FILENAME"
+>zorglub</TT
+> (la letra mayúscula <TT
+CLASS="LITERAL"
+>T</TT
+> se encuentra delante de su nombre). Entonces, Ud. solo tiene que agregar la cadena <TT
+CLASS="LITERAL"
+>-lzorglub</TT
+> en la línea de compilación editando el archivo <TT
+CLASS="FILENAME"
+>Makefile</TT
+>: agréguela al final de la línea donde se define la variable <TT
+CLASS="VARNAME"
+>LDFLAGS</TT
+> o <TT
+CLASS="VARNAME"
+>LFGLAGS</TT
+> (o, en el peor de los casos, <TT
+CLASS="VARNAME"
+>CC</TT
+>), o en la línea correspondiente a la creación del archivo binario final.</P
+></LI
+><LI
+><P
+>la compilación está hecha con una versión de la biblioteca que no es la que permite el software. Lea el archivo <TT
+CLASS="FILENAME"
+>README</TT
+> o <TT
+CLASS="FILENAME"
+>INSTALL</TT
+> de la distribución para saber que versión de la biblioteca debe usar.</P
+></LI
+><LI
+><P
+>no todos los archivos objeto de la distribución están vinculados correctamente. Falta, o no se menciona, el archivo donde está definida esta función. Ingrese <TT
+CLASS="COMMAND"
+>nm -o *.o</TT
+>, para saber el nombre del archivo <TT
+CLASS="FILENAME"
+>.o</TT
+> correspondiente y agréguelo en la línea de compilación si es que falta.</P
+></LI
+><LI
+><P
+>la función o variable en cuestión puede ser fantasiosa. Intente eliminarla: edite el archivo fuente en cuestión (el nombre del mismo se especifica al comienzo del mensaje de error). Esta es una solución desesperada cuya consecuencia ciertamente será un funcionamiento anárquico del software (<B
+CLASS="GLOSSTERM"
+><I
+>error de segmentación</I
+></B
+> en el arranque, etc.)</P
+></LI
+></UL
+></LI
+><LI
+><P
+><TT
+CLASS="LITERAL"
+>Segmentation fault (core dumped)</TT
+> (Error de segmentación (se produjo un archivo <TT
+CLASS="FILENAME"
+>core</TT
+>))</P
+><P
+>A veces, el compilador se cuelga lamentablemente y produce este mensaje de error. No tengo consejo alguno salvo pedirle que instale una versión más reciente de su compilador.</P
+></LI
+><LI
+><P
+>no queda espacio en <TT
+CLASS="FILENAME"
+>/tmp</TT
+></P
+><P
+>La compilación necesita espacio temporal durante las diferentes etapas; si no tiene espacio suficiente, falla. Por lo tanto, debe limpiar la partición, pero debe tener cuidado ya que algunos programas en curso de ejecución (servidor <TT
+CLASS="APPLICATION"
+><I
+>X</I
+></TT
+>, tuberías...) se pueden colgar si se borran algunos archivos. ¡Ud. debe saber lo que está haciendo! Si <TT
+CLASS="FILENAME"
+>tmp</TT
+> es parte de una partición que no la contiene solamente (por ejemplo, la raíz), busque y borre algunos archivos <TT
+CLASS="FILENAME"
+>core</TT
+> eventuales.</P
+></LI
+><LI
+><P
+><TT
+CLASS="COMMAND"
+>make</TT
+>/<TT
+CLASS="COMMAND"
+>configure</TT
+> en bucle infinito</P
+><P
+>Generalmente, esto es un problema de la hora en su sistema. En efecto, <TT
+CLASS="COMMAND"
+>make</TT
+> necesita saber la fecha y la hora de la computadora y de los archivos que verifica. Este compara las fechas de los archivos y usa el resultado para saber si el objetivo es más reciente que la dependencia.</P
+><P
+>Algunos problemas en la fecha pueden inducir a <TT
+CLASS="COMMAND"
+>make</TT
+> a reconstruirse a sí mismo indefinidamente (o a construir y reconstruir un sub-árbol en bucle). Si es así, el uso del comando <TT
+CLASS="COMMAND"
+>touch</TT
+> (cuya consecuencia es poner en la hora corriente a los archivos pasados como argumento) resuelve el problema la mayoría de las veces.</P
+><P
+>Por ejemplo:</P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="90%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+>$ touch *</PRE
+></TD
+></TR
+></TABLE
+><P
+>O también, (más bruto, pero eficiente):</P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="90%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+>$ find . | xargs touch</PRE
+></TD
+></TR
+></TABLE
+></LI
+></OL
+></DIV
+></DIV
+><H3
+CLASS="FOOTNOTES"
+>Notas</H3
+><TABLE
+BORDER="0"
+CLASS="FOOTNOTES"
+WIDTH="100%"
+><TR
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+WIDTH="5%"
+><A
+NAME="FTN.AEN6046"
+HREF="install-free-compilation.html#AEN6046"
+>[1]</A
+></TD
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+WIDTH="95%"
+><P
+>Ud. debe analizar el mensaje de error que devuelve <TT
+CLASS="COMMAND"
+>make</TT
+>. Normalmente, las últimas líneas deberían contener un directorio (un mensaje como <TT
+CLASS="LITERAL"
+>make[1]: Leaving directory `/home/benj/Proyecto/pepe'</TT
+>). Elija aquel que tiene el número más grande. Para verificar que es el bueno, vaya al directorio y ejecute <TT
+CLASS="COMMAND"
+>make</TT
+> de nuevo para obtener el mismo error.</P
+></TD
+></TR
+></TABLE
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="install-free-config.html"
+>Anterior</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+>Inicio</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="install-free-installation.html"
+>Siguiente</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>Configuración</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="install-free.html"
+>Subir</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>Instalación</TD
+></TR
+></TABLE
+></DIV
+>
+  <hr align="center">
+  <div align="left"><a href="http://www.linux-mandrake.com"><img
+    src="../images/tux48.png" width="48" height="39" align="left" border="0"
+    alt="Tux sobre Estrella por MandrakeSoft"></a> <font face="Helvetica,
+    Arial, sans-serif" size="2">Linux es una marca registrada de 
+    Linus Torvalds. Todas las otras marcas registradas y copyrights son la
+    propiedad de sus respectivos due&ntilde;os.<br>A menos que se diga lo
+	contrario, todo el contenido de estas p&aacute;ginas y todas las
+	im&aacute;genes tienen Copyright de <i>MandrakeSoft S.A.</i> y de
+	<i>MandrakeSoft Inc.</i> 2000.
+    <br><a
+    href="http://www.linux-mandrake.com/">http://www.linux-mandrake.com/</a>
+    <br>
+</font>
+ </div>
+
+</BODY
+
+></HTML
+>

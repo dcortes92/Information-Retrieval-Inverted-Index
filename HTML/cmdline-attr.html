@@ -1,0 +1,588 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<HTML
+><HEAD
+><TITLE
+>Manipulación de los atributos de los archivos</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.59"><LINK
+REL="HOME"
+TITLE="Linux-Mandrake"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="Introducción a la línea de comandos"
+HREF="cmdline.html"><LINK
+REL="PREVIOUS"
+TITLE="Introducción a la línea de comandos"
+HREF="cmdline.html"><LINK
+REL="NEXT"
+TITLE="Patrones de englobamiento  del shell  y 
+ expresiones  regulares"
+HREF="glob-regex.html">
+<meta name="Author" content="MandrakeSoft">
+<meta name="Description" content="This is Linux-Mandrake Documentation.">
+<meta name="KeyWords" content="Linux, Mandrake, Linux-Mandrake, documentation, Mandrake Books, howto, Powerpack">
+
+</HEAD
+><BODY
+CLASS="SECT1"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#666699"
+VLINK="#980060"
+ALINK="#FF0000"
+>
+
+<DIV
+CLASS="NAVHEADER"
+><TABLE
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+><B
+CLASS="EMPHASIS"
+>Linux-Mandrake</B
+>: <B
+CLASS="EMPHASIS"
+>Manual de Referencia</B
+></TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="cmdline.html"
+>Anterior</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+>Capítulo 3. Introducción a la línea de comandos</TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="glob-regex.html"
+>Siguiente</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><DIV
+CLASS="SECT1"
+><H1
+CLASS="SECT1"
+><A
+NAME="CMDLINE-ATTR"
+>3.2. Manipulación de los atributos de los archivos</A
+></H1
+><P
+>&#13;La serie de comandos que se presentan aquí se usan para cambiar el
+dueño o el grupo propietario 
+
+de un archivo o sus permisos. En el
+capítulo  &#60;<TT
+CLASS="LITERAL"
+>Conceptos básicos de Unix</TT
+> del <B
+CLASS="EMPHASIS"
+>Guía del Usuario</B
+> vimos los diferentes permisos.</P
+><DIV
+CLASS="SECT2"
+><H2
+CLASS="SECT2"
+><A
+NAME="AEN1086"
+>3.2.1. <TT
+CLASS="COMMAND"
+>chown</TT
+>, <TT
+CLASS="COMMAND"
+>chgrp</TT
+>: cambiar el dueño y el grupo propietario de uno o más archivos</A
+></H2
+><P
+>&#13;La sintaxis del comando <TT
+CLASS="COMMAND"
+>chown</TT
+> es la siguiente:</P
+><P
+>&#13;<TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+>chown [opciones] &lt;usuario[.grupo]&gt; &lt;archivo|dir.&gt; [archivo|dir. ...]</PRE
+></TD
+></TR
+></TABLE
+></P
+><P
+>&#13;Las opciones incluyen:</P
+><P
+></P
+><OL
+TYPE="1"
+><LI
+><P
+><TT
+CLASS="OPTION"
+>-R</TT
+> <SPAN
+CLASS="QUOTE"
+>"Recursivo"</SPAN
+>; para cambiar el dueño de todos los archivos y sub-directorios de un directorio dado.&#13;</P
+></LI
+><LI
+><P
+><TT
+CLASS="OPTION"
+>-v</TT
+> Modo <SPAN
+CLASS="QUOTE"
+>"verboso"</SPAN
+>; muestra todas las acciones efectuadas por <TT
+CLASS="COMMAND"
+>chown</TT
+>; reporta cuales archivos cambiaron de dueño como resultado del comando y cuales no han cambiado.&#13;</P
+></LI
+><LI
+><P
+><TT
+CLASS="OPTION"
+>-c</TT
+> Como <TT
+CLASS="OPTION"
+>-v</TT
+>, pero sólo reporta cuales archivos cambiaron.&#13;</P
+></LI
+></OL
+><P
+>&#13;Algunos ejemplos:</P
+><P
+></P
+><OL
+TYPE="1"
+><LI
+><P
+><TT
+CLASS="COMMAND"
+>chown nobody /shared/book.tex</TT
+> cambiar el dueño del archivo <TT
+CLASS="FILENAME"
+>/shared/book.tex</TT
+> a <TT
+CLASS="USERINPUT"
+><B
+>nobody</B
+></TT
+>.&#13;</P
+></LI
+><LI
+><P
+><TT
+CLASS="COMMAND"
+>chown -Rc darth.musica *.mid conciertos/</TT
+> atribuye todos los archivos en el directorio actual que terminan con <TT
+CLASS="LITERAL"
+>.mid</TT
+> y todos los archivos y sub-directorios del directorio <TT
+CLASS="FILENAME"
+>conciertos/</TT
+> al usuario <TT
+CLASS="USERINPUT"
+><B
+>darth</B
+></TT
+> y al grupo <TT
+CLASS="USERINPUT"
+><B
+>musica</B
+></TT
+>, reportando solo los archivos afectados por el comando.</P
+></LI
+></OL
+><P
+>&#13;El comando <TT
+CLASS="COMMAND"
+>chgrp</TT
+> le permite cambiar el grupo propietario de un archivo o un grupo de archivos; su sintaxis es muy similar a la del comando <TT
+CLASS="COMMAND"
+>chown</TT
+>:</P
+><P
+>&#13;<TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+>chgrp [opciones] &lt;grupo&gt; &lt;archivo|dir.&gt; [archivo|dir. ...]</PRE
+></TD
+></TR
+></TABLE
+></P
+><P
+>&#13;Las opciones de este comando son las mismas que las de <TT
+CLASS="COMMAND"
+>chown</TT
+>, y se usa de manera muy similar. Entonces, el comando:</P
+><P
+>&#13;<TT
+CLASS="COMMAND"
+>chgrp disk /dev/hd*</TT
+></P
+><P
+>le atribuye al grupo <TT
+CLASS="USERINPUT"
+><B
+>disk</B
+></TT
+> todos los archivos en el directorio <TT
+CLASS="FILENAME"
+>/dev/</TT
+> cuyos nombres comiencen con <TT
+CLASS="FILENAME"
+>hd</TT
+>.</P
+></DIV
+><DIV
+CLASS="SECT2"
+><H2
+CLASS="SECT2"
+><A
+NAME="AEN1142"
+>3.2.2. <TT
+CLASS="COMMAND"
+>chmod</TT
+>: cambiar los permisos sobre los archivos y directorios (<TT
+CLASS="FOREIGNPHRASE"
+><I
+>CHange MODe</I
+></TT
+>, cambiar el modo)</A
+></H2
+><P
+>&#13;
+El comando <TT
+CLASS="COMMAND"
+>chmod</TT
+> tiene una sintaxis bien particular. La sintaxis general es:</P
+><P
+>&#13;<TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+>chmod [opciones] &lt;cambio de modo&gt; &lt;archivo|dir.&gt; [archivo|dir. ...]</PRE
+></TD
+></TR
+></TABLE
+></P
+><P
+>&#13;pero lo que lo distingue son las diferentes formas que puede tomar el cambio de modo. Se puede especificar de dos maneras:</P
+><P
+></P
+><UL
+><LI
+><P
+>en octal; entonces los derechos del usuario dueño se corresponden con números de la forma <TT
+CLASS="LITERAL"
+>&lt;x&gt;00</TT
+>, donde <TT
+CLASS="OPTION"
+>&lt;x&gt;</TT
+> corresponde al permiso asignado: 4 para lectura, 2 para escritura, y 1 para ejecución; similarmente, los derechos del grupo propietario toman la forma <TT
+CLASS="LITERAL"
+>&lt;x&gt;0</TT
+> y los derechos de los <SPAN
+CLASS="QUOTE"
+>"otros"</SPAN
+> la forma <TT
+CLASS="OPTION"
+>&lt;x&gt;</TT
+>. Por lo tanto, todo lo que Ud. necesita hacer es sumar los derechos asignados para obtener el número correcto. Así, los derechos <TT
+CLASS="LITERAL"
+>rwxr-xr--</TT
+> corresponden a 400+200+100 (derechos del dueño, <TT
+CLASS="LITERAL"
+>rwx</TT
+>) +40+10 (derechos del grupo propietario, <TT
+CLASS="LITERAL"
+>r-x</TT
+>) +4 (derechos de los otros, <TT
+CLASS="LITERAL"
+>r--</TT
+>) = 754; de esta forma, los derechos se expresan en términos absolutos. Esto significa que los derechos previos se reemplazan incondicionalmente;&#13;</P
+></LI
+><LI
+><P
+>con expresiones: aquí los derechos se expresan con una secuencia de expresiones separadas por comas, donde una expresión toma la forma <TT
+CLASS="OPTION"
+>[categoría]&lt;+|-&gt;&lt;permisos&gt;</TT
+>. La categoría puede ser una o más de <TT
+CLASS="LITERAL"
+>u</TT
+> (<TT
+CLASS="FOREIGNPHRASE"
+><I
+>User</I
+></TT
+>, Usuario, permisos para el dueño), <TT
+CLASS="LITERAL"
+>g</TT
+> (<TT
+CLASS="FOREIGNPHRASE"
+><I
+>Group</I
+></TT
+>, Grupo, permisos para el grupo propietario) u <TT
+CLASS="LITERAL"
+>o</TT
+> (<TT
+CLASS="FOREIGNPHRASE"
+><I
+>Others</I
+></TT
+>, Otros, permisos para los <SPAN
+CLASS="QUOTE"
+>"otros"</SPAN
+>).  Si no se especifica categoría alguna, los cambios se aplican para todas las categorías. Un <TT
+CLASS="LITERAL"
+>+</TT
+> garantiza un permiso y un <TT
+CLASS="LITERAL"
+>-</TT
+> lo niega.  Finalmente, el permiso es uno o más de <TT
+CLASS="LITERAL"
+>r</TT
+> (<TT
+CLASS="FOREIGNPHRASE"
+><I
+>Read</I
+></TT
+>, lectura), <TT
+CLASS="LITERAL"
+>w</TT
+> (<TT
+CLASS="FOREIGNPHRASE"
+><I
+>Write</I
+></TT
+>, escritura) o <TT
+CLASS="LITERAL"
+>x</TT
+> (<TT
+CLASS="FOREIGNPHRASE"
+><I
+>eXecute</I
+></TT
+>, ejecución).&#13;</P
+></LI
+></UL
+><P
+>&#13;Las opciones principales son bastante similares a las de <TT
+CLASS="COMMAND"
+>chown</TT
+> o <TT
+CLASS="COMMAND"
+>chgrp</TT
+>:</P
+><P
+></P
+><OL
+TYPE="1"
+><LI
+><P
+><TT
+CLASS="OPTION"
+>-R</TT
+> Cambiar los derechos recursivamente.&#13;</P
+></LI
+><LI
+><P
+><TT
+CLASS="OPTION"
+>-v</TT
+> Modo <SPAN
+CLASS="QUOTE"
+>"verboso"</SPAN
+>, muestra las acciones efectuadas para cada archivo.&#13;</P
+></LI
+><LI
+><P
+><TT
+CLASS="OPTION"
+>-c</TT
+> Como <TT
+CLASS="OPTION"
+>-v</TT
+> pero solo muestra los archivos para los cuales hubo un cambio en los permisos.&#13;</P
+></LI
+></OL
+><P
+>&#13;Ejemplos:</P
+><P
+></P
+><OL
+TYPE="1"
+><LI
+><P
+><TT
+CLASS="COMMAND"
+>chmod -R o-w /shared/docs</TT
+> Quitar, recursivamente, el permiso de escritura para los <SPAN
+CLASS="QUOTE"
+>"otros"</SPAN
+> sobre todos los archivos y sub-directorios de <TT
+CLASS="FILENAME"
+>/shared/docs/</TT
+>.&#13;</P
+></LI
+><LI
+><P
+><TT
+CLASS="COMMAND"
+>chmod -R og-w,o-x privado/</TT
+> Quitar,<SPAN
+CLASS="QUOTE"
+>" recursivamente"</SPAN
+>, el permiso de escritura para el grupo propietario y para los <SPAN
+CLASS="QUOTE"
+>"otros"</SPAN
+> sobre todo el directorio <TT
+CLASS="FILENAME"
+>privado/</TT
+>, y quitar el permiso de ejecución para los <SPAN
+CLASS="QUOTE"
+>"otros"</SPAN
+>.&#13;</P
+></LI
+><LI
+><P
+><TT
+CLASS="COMMAND"
+>chmod -c 644 varios/archivo*</TT
+> cambia los permisos de todos los archivos del directorio <TT
+CLASS="FILENAME"
+>varios/</TT
+> cuyos nombres comiencen con <TT
+CLASS="FILENAME"
+>archivo</TT
+> a <TT
+CLASS="LITERAL"
+>rw-r--r--</TT
+> (es decir, permiso de lectura para todos y permiso de escritura solo para el dueño), y reporta solo los archivos afectados por la operación.&#13;</P
+></LI
+></OL
+></DIV
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="cmdline.html"
+>Anterior</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+>Inicio</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="glob-regex.html"
+>Siguiente</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>Introducción a la línea de comandos</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="cmdline.html"
+>Subir</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>Patrones de englobamiento &nbsp;del <TT
+CLASS="FOREIGNPHRASE"
+><I
+>shell</I
+></TT
+> &nbsp;y 
+<B
+CLASS="GLOSSTERM"
+><I
+>&nbsp;expresiones &nbsp;regulares</I
+></B
+></TD
+></TR
+></TABLE
+></DIV
+>
+  <hr align="center">
+  <div align="left"><a href="http://www.linux-mandrake.com"><img
+    src="../images/tux48.png" width="48" height="39" align="left" border="0"
+    alt="Tux sobre Estrella por MandrakeSoft"></a> <font face="Helvetica,
+    Arial, sans-serif" size="2">Linux es una marca registrada de 
+    Linus Torvalds. Todas las otras marcas registradas y copyrights son la
+    propiedad de sus respectivos due&ntilde;os.<br>A menos que se diga lo
+	contrario, todo el contenido de estas p&aacute;ginas y todas las
+	im&aacute;genes tienen Copyright de <i>MandrakeSoft S.A.</i> y de
+	<i>MandrakeSoft Inc.</i> 2000.
+    <br><a
+    href="http://www.linux-mandrake.com/">http://www.linux-mandrake.com/</a>
+    <br>
+</font>
+ </div>
+
+</BODY
+
+></HTML
+>

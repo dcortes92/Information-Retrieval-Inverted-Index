@@ -1,0 +1,354 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<HTML
+><HEAD
+><TITLE
+>Los vínculos</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.59"><LINK
+REL="HOME"
+TITLE="Linux-Mandrake"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="El sistema de archivos de Linux: ext2fs (EXTended 2 FileSystem)"
+HREF="ext2fs.html"><LINK
+REL="PREVIOUS"
+TITLE="El sistema de archivos de Linux: ext2fs (EXTended 2 FileSystem)"
+HREF="ext2fs.html"><LINK
+REL="NEXT"
+TITLE="Tuberías anónimas y tuberías nombradas"
+HREF="ext2fs-pipe.html">
+<meta name="Author" content="MandrakeSoft">
+<meta name="Description" content="This is Linux-Mandrake Documentation.">
+<meta name="KeyWords" content="Linux, Mandrake, Linux-Mandrake, documentation, Mandrake Books, howto, Powerpack">
+
+</HEAD
+><BODY
+CLASS="SECT1"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#666699"
+VLINK="#980060"
+ALINK="#FF0000"
+>
+
+<DIV
+CLASS="NAVHEADER"
+><TABLE
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+><B
+CLASS="EMPHASIS"
+>Linux-Mandrake</B
+>: <B
+CLASS="EMPHASIS"
+>Manual de Referencia</B
+></TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="ext2fs.html"
+>Anterior</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+>Capítulo 10. El sistema de archivos de Linux: ext2fs (<TT
+CLASS="FOREIGNPHRASE"
+><I
+>EXTended 2 FileSystem</I
+></TT
+>)</TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="ext2fs-pipe.html"
+>Siguiente</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><DIV
+CLASS="SECT1"
+><H1
+CLASS="SECT1"
+><A
+NAME="AEN3803"
+>10.2. Los vínculos</A
+></H1
+><P
+>&#13;La mejor forma de comprender qué hay detrás de esta noción de vínculo es por medio de un ejemplo. Creemos un archivo (regular):</P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="PROGRAMLISTING"
+>$ pwd
+/home/reina/ejemplo
+$ ls
+$ touch a
+$ ls -il a
+  32555 -rw-rw-r--    1 reina       reina              0 sep 10 08:12 a</PRE
+></TD
+></TR
+></TABLE
+><P
+>La opción <TT
+CLASS="OPTION"
+>-i</TT
+> del comando <TT
+CLASS="COMMAND"
+>ls</TT
+> imprime el número de i-nodo, que es el primer campo de la salida. Como puede ver, antes de crear el archivo <TT
+CLASS="FILENAME"
+>a</TT
+>, no había archivo alguno en el directorio. El otro campo de interés es el tercero, que es el contador de vínculos del archivo.</P
+><P
+>&#13;De hecho, el comando <TT
+CLASS="COMMAND"
+>touch a</TT
+> puede separarse en dos acciones distintas:</P
+><P
+></P
+><UL
+><LI
+><P
+> creación de un i-nodo, al cual el sistema le atribuyó el número 32555, y cuyo tipo es el de un archivo regular,&#13;</P
+></LI
+><LI
+><P
+> creación de un vínculo a este i-nodo, llamado <TT
+CLASS="FILENAME"
+>a</TT
+>, en el directorio corriente, <TT
+CLASS="FILENAME"
+>/home/fg/ejemplo</TT
+>. Por lo tanto, el archivo <TT
+CLASS="FILENAME"
+>/home/fg/ejemplo/a</TT
+> es un vínculo al i-nodo numerado 32555, y por el momento es sólo uno: el contador de vínculos está en 1.&#13;</P
+></LI
+></UL
+><P
+>&#13;Pero ahora, si ingresamos:</P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="PROGRAMLISTING"
+>&#13;$ ln a b
+$ ls -il a b
+  32555 -rw-rw-r--    2 reina       reina              0 sep 10 08:12 a
+  32555 -rw-rw-r--    2 reina       reina              0 sep 10 08:12 b
+$</PRE
+></TD
+></TR
+></TABLE
+><P
+>habremos creado otro vínculo al mismo i-nodo. Como puede ver, no hemos creado archivo alguno denominado <TT
+CLASS="FILENAME"
+>b</TT
+>, sino que sólo hemos agregado otro vínculo al i-nodo numerado 32555 en el mismo directorio y lo denominamos <TT
+CLASS="FILENAME"
+>b</TT
+>. Puede ver en la salida de <TT
+CLASS="COMMAND"
+>ls -l</TT
+> que el contador de vínculos para el i-nodo ahora vale 2, y ya no vale 1.</P
+><P
+>&#13;Ahora, si hacemos:</P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="PROGRAMLISTING"
+>$ rm a
+$ ls -il b
+  32555 -rw-rw-r--    1 reina       reina              0 sep 10 08:12 b
+$</PRE
+></TD
+></TR
+></TABLE
+><P
+>vemos que incluso cuando hemos borrado el <SPAN
+CLASS="QUOTE"
+>"archivo original"</SPAN
+>, el i-nodo todavía existe. Pero ahora el único vínculo a él es el archivo denominado <TT
+CLASS="FILENAME"
+>/home/reina/ejemplo/b</TT
+>.</P
+><P
+>Por lo tanto, un i-nodo está <B
+CLASS="GLOSSTERM"
+><I
+>vinculado</I
+></B
+> si y sólo si está referenciado por un nombre al menos una vez en cualquier directorio. <A
+NAME="AEN3837"
+HREF="#FTN.AEN3837"
+>[1]</A
+>. También los directorios se almacenan en i-nodos, pero su contador de vínculos, contrariamente a todos los otros tipos de archivos, es el número de sub-directorios que contiene. Existen al menos dos vínculos por directorio: el directorio en sí mismo (<TT
+CLASS="FILENAME"
+>.</TT
+>) y su directorio padre (<TT
+CLASS="FILENAME"
+>..</TT
+>).</P
+><P
+>&#13;Ejemplos típicos de archivos que no están vinculados (es decir, no tienen un nombre) son las conexiones de red: nunca verá el archivo correspondiente a su conexión con <A
+HREF="www.linux-mandrake.com"
+TARGET="_top"
+>el sitio <TT
+CLASS="SYSTEMITEM"
+><I
+>web</I
+></TT
+> de Linux-Mandrake</A
+> en su árbol de archivos, sin importar que directorio intente. Similarmente, cuando usa una  <B
+CLASS="GLOSSTERM"
+><I
+>tubería</I
+></B
+> en el <TT
+CLASS="FOREIGNPHRASE"
+><I
+>shell</I
+></TT
+>, el archivo que corresponde a la misma existe, pero no está vinculado.&#13;</P
+></DIV
+><H3
+CLASS="FOOTNOTES"
+>Notas</H3
+><TABLE
+BORDER="0"
+CLASS="FOOTNOTES"
+WIDTH="100%"
+><TR
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+WIDTH="5%"
+><A
+NAME="FTN.AEN3837"
+HREF="x3803.html#AEN3837"
+>[1]</A
+></TD
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+WIDTH="95%"
+><P
+>Si este directorio se encuentra en el mismo sistema de archivos que el i-nodo.</P
+></TD
+></TR
+></TABLE
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="ext2fs.html"
+>Anterior</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+>Inicio</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="ext2fs-pipe.html"
+>Siguiente</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>El sistema de archivos de Linux: ext2fs (<TT
+CLASS="FOREIGNPHRASE"
+><I
+>EXTended 2 FileSystem</I
+></TT
+>)</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="ext2fs.html"
+>Subir</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>Tuberías <SPAN
+CLASS="QUOTE"
+>"anónimas"</SPAN
+> y tuberías nombradas</TD
+></TR
+></TABLE
+></DIV
+>
+  <hr align="center">
+  <div align="left"><a href="http://www.linux-mandrake.com"><img
+    src="../images/tux48.png" width="48" height="39" align="left" border="0"
+    alt="Tux sobre Estrella por MandrakeSoft"></a> <font face="Helvetica,
+    Arial, sans-serif" size="2">Linux es una marca registrada de 
+    Linus Torvalds. Todas las otras marcas registradas y copyrights son la
+    propiedad de sus respectivos due&ntilde;os.<br>A menos que se diga lo
+	contrario, todo el contenido de estas p&aacute;ginas y todas las
+	im&aacute;genes tienen Copyright de <i>MandrakeSoft S.A.</i> y de
+	<i>MandrakeSoft Inc.</i> 2000.
+    <br><a
+    href="http://www.linux-mandrake.com/">http://www.linux-mandrake.com/</a>
+    <br>
+</font>
+ </div>
+
+</BODY
+
+></HTML
+>

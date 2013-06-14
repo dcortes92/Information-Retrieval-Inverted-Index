@@ -1,0 +1,275 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<HTML
+><HEAD
+><TITLE
+>Los archivos especiales: en modo bloque y caracter</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.59"><LINK
+REL="HOME"
+TITLE="Linux-Mandrake"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="El sistema de archivos de Linux: ext2fs (EXTended 2 FileSystem)"
+HREF="ext2fs.html"><LINK
+REL="PREVIOUS"
+TITLE="Tuberías anónimas y tuberías nombradas"
+HREF="ext2fs-pipe.html"><LINK
+REL="NEXT"
+TITLE="Los vínculos simbólicos, limitación de los vínculos duros"
+HREF="x3905.html">
+<meta name="Author" content="MandrakeSoft">
+<meta name="Description" content="This is Linux-Mandrake Documentation.">
+<meta name="KeyWords" content="Linux, Mandrake, Linux-Mandrake, documentation, Mandrake Books, howto, Powerpack">
+
+</HEAD
+><BODY
+CLASS="SECT1"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#666699"
+VLINK="#980060"
+ALINK="#FF0000"
+>
+
+<DIV
+CLASS="NAVHEADER"
+><TABLE
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+><B
+CLASS="EMPHASIS"
+>Linux-Mandrake</B
+>: <B
+CLASS="EMPHASIS"
+>Manual de Referencia</B
+></TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="ext2fs-pipe.html"
+>Anterior</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+>Capítulo 10. El sistema de archivos de Linux: ext2fs (<TT
+CLASS="FOREIGNPHRASE"
+><I
+>EXTended 2 FileSystem</I
+></TT
+>)</TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="x3905.html"
+>Siguiente</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><DIV
+CLASS="SECT1"
+><H1
+CLASS="SECT1"
+><A
+NAME="AEN3876"
+>10.4. Los archivos <SPAN
+CLASS="QUOTE"
+>"especiales"</SPAN
+>: en modo bloque y caracter</A
+></H1
+><P
+>Como ya se mencionó, dichos archivos son archivos creados por el sistema o bien, periféricos en su máquina. También hemos mencionado que el contenido de los archivos en modo bloque 
+
+están guardados en memoria mientras que el de los de modo caracter 
+
+no. Para ilustrar esto, inserte un disquete en la disquetera e ingrese el comando siguiente dos veces:</P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="PROGRAMLISTING"
+>$ dd if=/dev/fd0 of=/dev/null</PRE
+></TD
+></TR
+></TABLE
+><P
+>&#13;Ud. puede observar lo siguiente: mientras que, la primera vez que se lanzó el comando, se leyó todo el contenido del disquete, la segunda vez no se accedió a la disquetera en absoluto. Esto se debe simplemente a que el contenido de la disquetera se guardó en memoria la primera vez que se lanzó el comando -- y entre tanto Ud. no cambie el disquete, el mismo permanece allí.</P
+><P
+>&#13;Pero ahora, si quiere imprimir un archivo grande de esta forma (sí, va a funcionar):</P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="PROGRAMLISTING"
+>$ cat /un/archivo/enorme/imprimible/en/cualquier/lugar &gt;/dev/lp0</PRE
+></TD
+></TR
+></TABLE
+><P
+>&#13;el comando tardará el mismo tiempo si lo lanza una vez, dos veces, o cincuenta veces. Esto se debe a que <TT
+CLASS="FILENAME"
+>/dev/lp0</TT
+> es un archivo de modo caracter y su contenido no se conserva en memoria.</P
+><P
+>&#13;El hecho de que los archivos de modo bloque se conserven en memoria tiene un efecto secundario interesante: no sólo se conservan las lecturas sino también las escrituras. Esto permite que las escrituras en el disco sean asincrónicas: cuando Ud. escribe un archivo en disco, la operación de escritura en sí misma no es inmediata. Sólo ocurrirá cuando <TT
+CLASS="APPLICATION"
+><I
+>GNU/Linux</I
+></TT
+> lo decida.</P
+><P
+>&#13;Finalmente, cada archivo especial tiene un número <B
+CLASS="GLOSSTERM"
+><I
+>mayor</I
+></B
+> y uno <B
+CLASS="GLOSSTERM"
+><I
+>menor</I
+></B
+>. Aparecen en la respuesta de <TT
+CLASS="COMMAND"
+>ls -l</TT
+>, en lugar del tamaño, debido a que el tamaño para este tipo de archivos es irrelevante:</P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="PROGRAMLISTING"
+>$ ls -l /dev/hda /dev/lp0
+brw-rw----    1 root     disk       3,   0 may  5  1998 /dev/hda
+crw-rw----    1 root     daemon     6,   0 may  5  1998 /dev/lp0</PRE
+></TD
+></TR
+></TABLE
+><P
+>&#13;Aquí, los números mayor y menor de <TT
+CLASS="FILENAME"
+>/dev/hda</TT
+> son 3 y 0, respectivamente, mientras que para <TT
+CLASS="FILENAME"
+>/dev/lp0</TT
+> son 6 y 0, respectivamente. Note que estos números son únicos por categoría de archivo, lo que significa que puede haber un archivo de modo caracter con 3 por mayor y 0 por menor (de hecho, este  archivo existe: <TT
+CLASS="FILENAME"
+>/dev/ttyp0</TT
+>), y similarmente sólo puede haber un archivo de modo bloque con 6 por mayor y 0 por menor. Estos números existen por una razón simple: le permiten a <TT
+CLASS="APPLICATION"
+><I
+>GNU/Linux</I
+></TT
+> asociar las operaciones adecuadas para estos archivos (es decir, con los periféricos a los cuales se refieren estos archivos). No se puede controlar una disquetera de la misma manera que, digamos, un disco rígido <SPAN
+CLASS="ACRONYM"
+>SCSI</SPAN
+>.</P
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="ext2fs-pipe.html"
+>Anterior</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+>Inicio</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="x3905.html"
+>Siguiente</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>Tuberías <SPAN
+CLASS="QUOTE"
+>"anónimas"</SPAN
+> y tuberías nombradas</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="ext2fs.html"
+>Subir</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>Los vínculos simbólicos, limitación de los vínculos <SPAN
+CLASS="QUOTE"
+>"duros"</SPAN
+></TD
+></TR
+></TABLE
+></DIV
+>
+  <hr align="center">
+  <div align="left"><a href="http://www.linux-mandrake.com"><img
+    src="../images/tux48.png" width="48" height="39" align="left" border="0"
+    alt="Tux sobre Estrella por MandrakeSoft"></a> <font face="Helvetica,
+    Arial, sans-serif" size="2">Linux es una marca registrada de 
+    Linus Torvalds. Todas las otras marcas registradas y copyrights son la
+    propiedad de sus respectivos due&ntilde;os.<br>A menos que se diga lo
+	contrario, todo el contenido de estas p&aacute;ginas y todas las
+	im&aacute;genes tienen Copyright de <i>MandrakeSoft S.A.</i> y de
+	<i>MandrakeSoft Inc.</i> 2000.
+    <br><a
+    href="http://www.linux-mandrake.com/">http://www.linux-mandrake.com/</a>
+    <br>
+</font>
+ </div>
+
+</BODY
+
+></HTML
+>

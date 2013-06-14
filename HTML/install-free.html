@@ -1,0 +1,824 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<HTML
+><HEAD
+><TITLE
+>Compilando e instalando software libre</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.59"><LINK
+REL="HOME"
+TITLE="Linux-Mandrake"
+HREF="index.html"><LINK
+REL="PREVIOUS"
+TITLE="Instalando el núcleo nuevo"
+HREF="compiling-install.html"><LINK
+REL="NEXT"
+TITLE="Descompresión"
+HREF="decompression.html">
+<meta name="Author" content="MandrakeSoft">
+<meta name="Description" content="This is Linux-Mandrake Documentation.">
+<meta name="KeyWords" content="Linux, Mandrake, Linux-Mandrake, documentation, Mandrake Books, howto, Powerpack">
+
+</HEAD
+><BODY
+CLASS="CHAPTER"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#666699"
+VLINK="#980060"
+ALINK="#FF0000"
+>
+
+<DIV
+CLASS="NAVHEADER"
+><TABLE
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+><B
+CLASS="EMPHASIS"
+>Linux-Mandrake</B
+>: <B
+CLASS="EMPHASIS"
+>Manual de Referencia</B
+></TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="compiling-install.html"
+>Anterior</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+></TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="decompression.html"
+>Siguiente</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><DIV
+CLASS="CHAPTER"
+><H1
+><A
+NAME="INSTALL-FREE"
+>Capítulo 15. Compilando e instalando software libre</A
+></H1
+><DIV
+CLASS="TOC"
+><DL
+><DT
+><B
+>Tabla de contenidos</B
+></DT
+><DT
+>15.1. <A
+HREF="install-free.html#AEN5436"
+>Introducción</A
+></DT
+><DD
+><DL
+><DT
+>15.1.1. <A
+HREF="install-free.html#AEN5442"
+>Requisitos</A
+></DT
+><DT
+>15.1.2. <A
+HREF="install-free.html#AEN5468"
+>Compilación</A
+></DT
+><DT
+>15.1.3. <A
+HREF="install-free.html#AEN5519"
+>La estructura de una distribución</A
+></DT
+></DL
+></DD
+><DT
+>15.2. <A
+HREF="decompression.html"
+>Descompresión</A
+></DT
+><DD
+><DL
+><DT
+>15.2.1. <A
+HREF="decompression.html#AEN5569"
+>Archivado <TT
+CLASS="FILENAME"
+>tar.gz</TT
+></A
+></DT
+><DT
+>15.2.2. <A
+HREF="decompression.html#AEN5595"
+>Utilización de <TT
+CLASS="APPLICATION"
+><I
+>GNU Tar</I
+></TT
+></A
+></DT
+><DT
+>15.2.3. <A
+HREF="decompression.html#BZIP2"
+><TT
+CLASS="COMMAND"
+>bzip2</TT
+></A
+></DT
+><DT
+>15.2.4. <A
+HREF="decompression.html#AEN5680"
+>¡Simplemente hágalo!</A
+></DT
+></DL
+></DD
+><DT
+>15.3. <A
+HREF="install-free-config.html"
+>Configuración</A
+></DT
+><DD
+><DL
+><DT
+>155<A
+HREF="install-free-config.html#AEN5725"
+></A
+></DT
+><DT
+>15.3.1. <A
+HREF="install-free-config.html#AUTOCONF"
+><TT
+CLASS="APPLICATION"
+><I
+>Autoconf</I
+></TT
+></A
+></DT
+><DT
+>15.3.2. <A
+HREF="install-free-config.html#IMAKE"
+><TT
+CLASS="APPLICATION"
+><I
+>Imake</I
+></TT
+></A
+></DT
+><DT
+>15.3.3. <A
+HREF="install-free-config.html#AEN5862"
+>Varios scripts del <TT
+CLASS="FOREIGNPHRASE"
+><I
+>shell</I
+></TT
+></A
+></DT
+><DT
+>15.3.4. <A
+HREF="install-free-config.html#AEN5879"
+>Alternativas</A
+></DT
+></DL
+></DD
+><DT
+>15.4. <A
+HREF="install-free-compilation.html"
+>Compilación</A
+></DT
+><DD
+><DL
+><DT
+>15.4.1. <A
+HREF="install-free-compilation.html#MAKE"
+><TT
+CLASS="COMMAND"
+>make</TT
+></A
+></DT
+><DT
+>15.4.2. <A
+HREF="install-free-compilation.html#AEN5911"
+>Reglas</A
+></DT
+><DT
+>15.4.3. <A
+HREF="install-free-compilation.html#AEN5936"
+>Go, go, go!</A
+></DT
+><DT
+>15.4.4. <A
+HREF="install-free-compilation.html#AEN5957"
+>Explicaciones</A
+></DT
+><DT
+>15.4.5. <A
+HREF="install-free-compilation.html#IT-DOES-NOT-WORK"
+>¿Qué pasa si... no funciona?</A
+></DT
+></DL
+></DD
+><DT
+>15.5. <A
+HREF="install-free-installation.html"
+>Instalación</A
+></DT
+><DD
+><DL
+><DT
+>15.5.1. <A
+HREF="install-free-installation.html#AEN6236"
+>Con <TT
+CLASS="COMMAND"
+>make</TT
+></A
+></DT
+><DT
+>15.5.2. <A
+HREF="install-free-installation.html#AEN6283"
+>Problemas</A
+></DT
+></DL
+></DD
+><DT
+>15.6. <A
+HREF="install-free-support.html"
+>Soporte</A
+></DT
+><DD
+><DL
+><DT
+>15.6.1. <A
+HREF="install-free-support.html#AEN6300"
+>Documentación</A
+></DT
+><DT
+>15.6.2. <A
+HREF="install-free-support.html#SUPPORT"
+>Soporte técnico</A
+></DT
+><DT
+>15.6.3. <A
+HREF="install-free-support.html#AEN6358"
+>Como encontrar software libre</A
+></DT
+></DL
+></DD
+><DT
+>15.7. <A
+HREF="install-free-ack.html"
+>Agradecimientos</A
+></DT
+></DL
+></DIV
+><P
+>Frecuentemente se me pregunta como instalar software libre desde los fuentes. Compilar software uno mismo es relativamente fácil debido a que la mayoría de los pasos a seguir son los mismos sin importar cual es el software a instalar. El propósito de este documento es guiar al principiante paso a paso y explicarle el significado de cada movimiento. Presumimos que el lector tiene un conocimiento mínimo de <TT
+CLASS="APPLICATION"
+><I
+>Unix</I
+></TT
+> (del tipo de <TT
+CLASS="COMMAND"
+>ls</TT
+> o <TT
+CLASS="COMMAND"
+>mkdir</TT
+> por ejemplo). </P
+><P
+>Esta guía no es más que una guía, no es un manual de referencia. Es por esto que al final se dan varios vínculos para poder responder las preguntas que queden. Probablemente se pueda mejorar esta guía, por lo que recibiremos con agradecimiento cualquier comentario o corrección sobre su contenido.</P
+><DIV
+CLASS="SECT1"
+><H1
+CLASS="SECT1"
+><A
+NAME="AEN5436"
+>15.1. Introducción</A
+></H1
+><P
+>Lo que hace la diferencia entre el software libre y el software propietario es el acceso al código fuente del software libre<A
+NAME="AEN5439"
+HREF="#FTN.AEN5439"
+>[1]</A
+>. Eso significa que el software libre se distribuye como archivadores de archivos fuente. Esto puede resultarle poco familiar a los principiantes, porque los usuarios de software libre deben compilar ellos mismos los fuentes antes de poder usar el software.</P
+><P
+>Hay versiones compiladas de la mayoría del software libre existente. El usuario apurado no tiene más que instalar estos binarios pre-compilados. Sin embargo, algún software libre no se distribuye bajo esta forma, o las versiones más recientes todavía no se distribuyen en forma binaria. Más aun, si usa un sistema operativo exótico o una arquitectura exótica, un montón de software no va a estar ya compilado para Ud. Es más, compilar el software uno mismo permite conservar solo las opciones interesantes o extender las funcionalidades del mismo agregando extensiones para obtener un software que responde perfectamente a sus necesidades.</P
+><DIV
+CLASS="SECT2"
+><H2
+CLASS="SECT2"
+><A
+NAME="AEN5442"
+>15.1.1. Requisitos</A
+></H2
+><P
+>Para compilar software, necesitará:</P
+><P
+></P
+><UL
+><LI
+><P
+>una computadora con un sistema operativo funcionando,</P
+></LI
+><LI
+><P
+>conocimiento general del sistema operativo que Ud. usa,</P
+></LI
+><LI
+><P
+>algo de espacio en su disco rígido,</P
+></LI
+><LI
+><P
+>un compilador (generalmente para el lenguaje <TT
+CLASS="SYSTEMITEM"
+><I
+>C</I
+></TT
+>) y un archivador 
+(<TT
+CLASS="COMMAND"
+>tar</TT
+>),</P
+></LI
+><LI
+><P
+>algo de comer (en los casos difíciles, puede durar un tiempo largo). Un 
+verdadero <TT
+CLASS="FOREIGNPHRASE"
+><I
+>hacker</I
+></TT
+> come pizza, no tornillos.</P
+></LI
+><LI
+><P
+>algo de beber (por las mismas razones). Un verdadero <TT
+CLASS="FOREIGNPHRASE"
+><I
+>hacker</I
+></TT
+> bebe cola con gas (por la cafeína).&#13;</P
+></LI
+><LI
+><P
+>el número de teléfono de su <SPAN
+CLASS="QUOTE"
+>"gurú"</SPAN
+> tecnológico, ese que recompila su núcleo todas las semanas,&#13;</P
+></LI
+><LI
+><P
+>pero por sobre todo, paciencia, ¡y mucha!.&#13;</P
+></LI
+></UL
+><P
+>Compilar desde el código fuente generalmente no presenta muchos problemas, pero si Ud. no está acostumbrado, el menor tropiezo lo puede poner en una posición dificultosa o puede hacer que desista. El propósito de este documento es precisamente mostrarle como escapar de tal situación.</P
+></DIV
+><DIV
+CLASS="SECT2"
+><H2
+CLASS="SECT2"
+><A
+NAME="AEN5468"
+>15.1.2. Compilación</A
+></H2
+><DIV
+CLASS="SECT3"
+><H3
+CLASS="SECT3"
+><A
+NAME="AEN5470"
+>15.1.2.1. Los principios</A
+></H3
+><P
+>Para poder traducir un código fuente a un archivo binario, es necesario efectuar una <B
+CLASS="GLOSSTERM"
+><I
+>compilación</I
+></B
+>. Esta se hace generalmente sobre programas escritos en lenguaje <TT
+CLASS="SYSTEMITEM"
+><I
+>C</I
+></TT
+> o <TT
+CLASS="SYSTEMITEM"
+><I
+>C++</I
+></TT
+> (que son los lenguajes más usados en la comunidad de software libre, notablemente en el mundo <TT
+CLASS="APPLICATION"
+><I
+>Unix</I
+></TT
+>). Ciertos software libres están escritos en lenguajes que no necesitan compilación (por ejemplo <TT
+CLASS="APPLICATION"
+><I
+>Perl</I
+></TT
+> o el <TT
+CLASS="FOREIGNPHRASE"
+><I
+>shell</I
+></TT
+>, pero aún así, estos necesitan algo de configuración.</P
+><P
+>Lógicamente, la compilación <TT
+CLASS="SYSTEMITEM"
+><I
+>C</I
+></TT
+> está hecha por un compilador <TT
+CLASS="SYSTEMITEM"
+><I
+>C</I
+></TT
+> que por lo general es <TT
+CLASS="COMMAND"
+>gcc</TT
+>, el compilador libre escrito por el proyecto <SPAN
+CLASS="ACRONYM"
+>GNU</SPAN
+> (<A
+HREF="http://www.gnu.org/"
+TARGET="_top"
+>http://www.gnu.org/</A
+>). La compilación de todo un paquete de software es una tarea compleja, que pasa por la compilación satisfactoria de archivos fuente diferentes (para el programador es más fácil poner las diferentes partes de su trabajo en archivos separados, por varios motivos). Para hacer más fácil esta tarea, estas operaciones repetitivas son efectuadas por un utilitario denominado <TT
+CLASS="COMMAND"
+>make</TT
+>.</P
+></DIV
+><DIV
+CLASS="SECT3"
+><H3
+CLASS="SECT3"
+><A
+NAME="STEPS"
+>15.1.2.2. Las cuatro fases de la compilación</A
+></H3
+><P
+>Para comprender bien como funciona la compilación (y por lo tanto, poder resolver posibles problemas), uno tiene que conocer sus cuatro fases. Su objetivo es convertir poco a poco un texto escrito en un lenguaje comprensible por un ser humano entrenado (por ejemplo, el lenguaje <TT
+CLASS="SYSTEMITEM"
+><I
+>C</I
+></TT
+>), a un lenguaje comprensible por una máquina (o por un ser humano <B
+CLASS="EMPHASIS"
+>muy</B
+> entrenado, aunque solo en casos raros). <TT
+CLASS="COMMAND"
+>gcc</TT
+> ejecuta cuatro programas uno tras otro, cada uno de los cuales se encarga de una etapa:</P
+><P
+></P
+><OL
+TYPE="1"
+><LI
+><P
+><TT
+CLASS="COMMAND"
+>cpp</TT
+>: la primera etapa consiste en reemplazar las directivas (<B
+CLASS="GLOSSTERM"
+><I
+>pre-procesadores</I
+></B
+>) por instrucciones <TT
+CLASS="SYSTEMITEM"
+><I
+>C</I
+></TT
+> puras. Típicamente, esto significa insertar un <TT
+CLASS="FOREIGNPHRASE"
+><I
+>header</I
+></TT
+> (archivo de encabezado) (<TT
+CLASS="LITERAL"
+>#include</TT
+>) o definir una función macro (<TT
+CLASS="LITERAL"
+>#define</TT
+>). Al final de esta fase, se genera un código puramente <TT
+CLASS="SYSTEMITEM"
+><I
+>C</I
+></TT
+>.</P
+></LI
+><LI
+><P
+><TT
+CLASS="APPLICATION"
+><I
+>cc1</I
+></TT
+>: esta fase consiste en convertir el <TT
+CLASS="SYSTEMITEM"
+><I
+>C</I
+></TT
+> en <B
+CLASS="GLOSSTERM"
+><I
+>lenguaje ensamblador</I
+></B
+>. El código generado depende de la arquitectura de destino.</P
+></LI
+><LI
+><P
+><TT
+CLASS="COMMAND"
+>as</TT
+>: esta fase consiste en generar el <B
+CLASS="GLOSSTERM"
+><I
+>código objeto</I
+></B
+> (o código binario) a partir del lenguaje ensamblador. Al final de esta fase, se generará un archivo con extensión <TT
+CLASS="FILENAME"
+>.o</TT
+>.</P
+></LI
+><LI
+><P
+><TT
+CLASS="APPLICATION"
+><I
+>ld</I
+></TT
+>: la última fase (la <SPAN
+CLASS="QUOTE"
+>"edición de vínculos"</SPAN
+>, en inglés <TT
+CLASS="FOREIGNPHRASE"
+><I
+>linkage</I
+></TT
+>) ensambla (o <B
+CLASS="GLOSSTERM"
+><I
+>vincula</I
+></B
+>) todos los archivos objeto (<TT
+CLASS="FILENAME"
+>.o</TT
+>) y las bibliotecas asociadas, y produce un archivo ejecutable.</P
+></LI
+></OL
+></DIV
+></DIV
+><DIV
+CLASS="SECT2"
+><H2
+CLASS="SECT2"
+><A
+NAME="AEN5519"
+>15.1.3. La estructura de una distribución</A
+></H2
+><P
+>Una distribución de software libre correctamente estructurado siempre tiene la misma organización:</P
+><P
+></P
+><UL
+><LI
+><P
+>Un archivo denominado <TT
+CLASS="FILENAME"
+>INSTALL</TT
+>, que describe el proceso de instalación.</P
+></LI
+><LI
+><P
+>Un archivo denominado <TT
+CLASS="FILENAME"
+>README</TT
+>, que contiene información general relacionada con el programa (descripción breve, autor, la <SPAN
+CLASS="ACRONYM"
+>URL</SPAN
+> desde donde se puede bajar, documentación relacionada, vínculos útiles, etc). Si falta el archivo <TT
+CLASS="FILENAME"
+>INSTALL</TT
+>, generalmente el archivo <TT
+CLASS="FILENAME"
+>README</TT
+> contiene una descripción breve del procedimiento de instalación.</P
+></LI
+><LI
+><P
+>Un archivo denominado <TT
+CLASS="FILENAME"
+>COPYING</TT
+>, que contiene la licencia o describe las condiciones de distribución del software. A veces lo reemplaza un archivo denominado <TT
+CLASS="FILENAME"
+>LICENCE</TT
+>.</P
+></LI
+><LI
+><P
+>Un archivo denominado <TT
+CLASS="FILENAME"
+>CONTRIB</TT
+> o <TT
+CLASS="FILENAME"
+>CREDITS</TT
+> que contiene una lista de las personas relacionadas con el software (participación activa, comentarios pertinentes, programas de terceros, etc.).</P
+></LI
+><LI
+><P
+>Un archivo denominado <TT
+CLASS="FILENAME"
+>CHANGES</TT
+> (o, con menor frecuencia, <TT
+CLASS="FILENAME"
+>NEWS</TT
+>, que contiene las mejoras y las correcciones de los <TT
+CLASS="FOREIGNPHRASE"
+><I
+>bugs</I
+></TT
+> (errores en el software).</P
+></LI
+><LI
+><P
+>&#13;Un archivo denominado <TT
+CLASS="FILENAME"
+>Makefile</TT
+> (ver la sección <A
+HREF="install-free-compilation.html#MAKE"
+><I
+><TT
+CLASS="COMMAND"
+>make</TT
+></I
+></A
+>), que permite compilar el software (es un archivo que necesita <TT
+CLASS="COMMAND"
+>make</TT
+>). Generalmente este archivo no existe al principio y se genera durante el proceso de configuración.</P
+></LI
+><LI
+><P
+>Bastante seguido, un archivo <TT
+CLASS="FILENAME"
+>configure</TT
+> o <TT
+CLASS="FILENAME"
+>Imakefile</TT
+>, que permitirá generar un archivo <TT
+CLASS="FILENAME"
+>Makefile</TT
+> nuevo.</P
+></LI
+><LI
+><P
+>Un directorio que contendrá los fuentes, y donde generalmente se almacena el archivo binario al final de la compilación. Por lo general, este directorio se denomina <TT
+CLASS="FILENAME"
+>src</TT
+>,</P
+></LI
+><LI
+><P
+>Un directorio que contiene la documentación relacionada con el programa (generalmente en formato <TT
+CLASS="COMMAND"
+>man</TT
+> o en formato <TT
+CLASS="SYSTEMITEM"
+><I
+>Texinfo</I
+></TT
+>), cuyo nombre es, por lo general, <TT
+CLASS="FILENAME"
+>doc</TT
+>,</P
+></LI
+><LI
+><P
+>Eventualmente, un directorio que contiene los datos propios del programa (típicamente, los archivos de configuración, los ejemplos de los datos producidos, o archivos de recursos).</P
+></LI
+></UL
+></DIV
+></DIV
+></DIV
+><H3
+CLASS="FOOTNOTES"
+>Notas</H3
+><TABLE
+BORDER="0"
+CLASS="FOOTNOTES"
+WIDTH="100%"
+><TR
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+WIDTH="5%"
+><A
+NAME="FTN.AEN5439"
+HREF="install-free.html#AEN5439"
+>[1]</A
+></TD
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+WIDTH="95%"
+><P
+>En realidad esto no es cierto, porque algunos software propietarios también ofrecen su código fuente. Pero, al contrario de lo que ocurre con el software libre, el usuario final no puede usar el código fuente de la manera que él desee.</P
+></TD
+></TR
+></TABLE
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="compiling-install.html"
+>Anterior</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+>Inicio</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="decompression.html"
+>Siguiente</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>Instalando el núcleo nuevo</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+>&nbsp;</TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>Descompresión</TD
+></TR
+></TABLE
+></DIV
+>
+  <hr align="center">
+  <div align="left"><a href="http://www.linux-mandrake.com"><img
+    src="../images/tux48.png" width="48" height="39" align="left" border="0"
+    alt="Tux sobre Estrella por MandrakeSoft"></a> <font face="Helvetica,
+    Arial, sans-serif" size="2">Linux es una marca registrada de 
+    Linus Torvalds. Todas las otras marcas registradas y copyrights son la
+    propiedad de sus respectivos due&ntilde;os.<br>A menos que se diga lo
+	contrario, todo el contenido de estas p&aacute;ginas y todas las
+	im&aacute;genes tienen Copyright de <i>MandrakeSoft S.A.</i> y de
+	<i>MandrakeSoft Inc.</i> 2000.
+    <br><a
+    href="http://www.linux-mandrake.com/">http://www.linux-mandrake.com/</a>
+    <br>
+</font>
+ </div>
+
+</BODY
+
+></HTML
+>
