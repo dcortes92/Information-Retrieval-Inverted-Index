@@ -25,12 +25,21 @@ my $id = 0;
 #Variable que va a guardar el numero total de documentos
 my $N;
 
+#Variable que va a guardar la consulta
+my $consulta;
+
+#Variable que va a guardar la consulta
+my @parametros_consulta;
+
 #Hash para las frecuencias de los tÈrminos de la consulta
 %fij_consulta;
 #Hash para el vocabulario de la colecciÛn
-%vocabulario = undef;
+%vocabulario_inicio = undef;
+%vocabulario_docs = undef;
 #Hash para los pesos de la consulta
 %pesos_consulta;
+#Hash para los resultados de la consulta
+%documento_resultado;
 
 #--------------------------MAIN------------------------#
 my $comando = shift;
@@ -38,6 +47,71 @@ my $comando = shift;
 if($comando eq "analizar")
 {
     iniciar();
+}
+if($comando eq "consulta")
+{
+    $consulta = shift;
+
+    @a_consulta = split(" ", $consulta);
+
+    for $word (@a_consulta)
+    {
+        $word =~ s/&aacute;/a/g;
+        $word =~ s/&eacute;/a/g;
+        $word =~ s/&iacute;/a/g;
+        $word =~ s/&oacute;/a/g; 
+        $word =~ s/&uacute;/a/g;
+        $word =~ tr/[A-Z]/[a-z]/;
+        $word =~ tr/·‡ÈËÌÏÛÚˆ˙˘¸¡…Õ”⁄‹/aaeeiiooouuuaeioouu/;
+        $word =~ s/[\.]/ /g;
+        $word =~ s/[\;]/ /g;
+        $word =~ s/[\,]/ /g;
+        $word =~ s/[\(]/ /g;
+        $word =~ s/[\)]/ /g;
+        $word =~ s/[\[]/ /g;
+        $word =~ s/[\]]/ /g;
+        $word =~ s/[\{]/ /g;
+        $word =~ s/[\}]/ /g;
+        $word =~ s/[\:]/ /g;
+        $word =~ s/[\°]/ /g;
+        $word =~ s/[\!]/ /g;
+        $word =~ s/[\@]/ /g;
+        $word =~ s/[\#]/ /g;
+        $word =~ s/[\$]/ /g;
+        $word =~ s/[\%]/ /g;
+        $word =~ s/[\^]/ /g;
+        $word =~ s/[\&]/ /g;
+        $word =~ s/[\*]/ /g;
+        $word =~ s/[\=]/ /g;
+        $word =~ s/[\\]/ /g;
+        $word =~ s/[\"]/ /g;
+        $word =~ s/[\ø]/ /g;
+        $word =~ s/[\?]/ /g;
+        $word =~ s/[\<]/ /g;
+        $word =~ s/[\>]/ /g;
+        $word =~ s/[\']/ /g;
+        $word =~ s/[\`]/ /g;
+        $word =~ s/[\|]/ /g;
+        $word =~ s/[\/]/ /g;
+        $word =~ s/[\+]/ /g;
+        $word =~ s/[\~]/ /g;
+        $word =~ s/[\t]//g;
+        $word =~ s/[ ]//g;
+        $word =~ s/[\n]//g;
+
+        if (($word =~ m/[-_Òa-z0-9]+/))
+        {
+            if(esta($word) == 1)
+            {
+                if($word cmp "")
+                {
+                    push(@parametros_consulta, $word);
+                }
+            }
+        }
+    }
+    &busqueda_vectorial;
+
 }
 if($comando eq "pr")
 {
@@ -136,53 +210,28 @@ sub analizar
 #Busca usando la similitud coseno.
 sub busqueda_vectorial
 {
-    $t = @parametros_consulta;
-    print "Obtieniendo los ni\n";
-    #
-    #obtener el ni del archivo VOCABULARIO.txt que seria la columna docs
-    #
-    print "Calculando fiq\n";
-    &calcular_fij_consulta;
-
     &cargar_vocabulario;
 
-    print "Calculando peso de la consulta\n";
+    #print "Calculando fiq\n";
+    &calcular_fij_consulta;
+
+    #print "Calculando peso de la consulta\n";
     &calcular_pesos_consulta;
+    
+    &calcular_resultados_consulta;
+    
+    #print "Creando archivo $consulta.txt ...\n";
 
-    print "Leyendo archivo ".$prefijo."_PE.txt\n";
-    &abrir_archivo_pesos;
-    
-    print "Creando archivo ".$prefijoconsulta.'_'.$escalafon.".txt ...\n";
-    
-    #Se abre el archivo HTML
-    open(ESCALAFON, '>>'.$prefijoconsulta.'_'.$archivoHTML.'.html');
-        print ESCALAFON "<html><head><title>Resultados b&uacute;squeda</title></head><body>";
-        print ESCALAFON "<h1>Resultados b&uacute;squeda &ldquo;".$consulta."&rdquo;</h1><hr><br>";      
-    close(ESCALAFON);
-    
-    &escribir_archivo_escalafon;
-    
-    print "Creando archivo ".$prefijoconsulta.'_'.$archivoHTML.".html ...\n";
-    &escribir_archivo_HTML;
-    
-    #Cierre del archivo HTML
-    open(ESCALAFON, '>>'.$prefijoconsulta.'_'.$archivoHTML.'.html');
-        print ESCALAFON "</body></html>";
-    close(ESCALAFON);
-    
-    #Se invoca al navegador predeterminado (funciona solo en windows)
-    my @command = ('start', $prefijoconsulta.'_'.$archivoHTML.'.html');
-    system(@command);
-}
-
-#Para calcular las frecuencias de cada termmino en la consulta
-sub calcular_fij_consulta
-{
-    
-    for $palabra(@parametros_consulta)
-    {
-        $fij_consulta{$palabra}++;
+    open(NUEVO, ">>$consulta.txt");
+    foreach $pal (sort { $documento_resultado{$b} <=> $documento_resultado{$a} } keys %documento_resultado) {
+        if($pal cmp "")
+        {
+            printf NUEVO $pal."\t\t"."%.4f",$documento_resultado{$pal};
+            print NUEVO "\n";            
+        }
     }
+    close(NUEVO);
+    
 }
 
 #Para calcular las frecuencias de cada termmino en la consulta
@@ -197,29 +246,70 @@ sub cargar_vocabulario
         chomp($linea);
         @arreglo = split(";", $linea);
         $palabra = $arreglo[0];
-        $ni = $arreglo[1];
-        $vocabulario{$palabra} = $ni;
+        $apariciones = $arreglo[1];
+        $inicio = $arreglo[2];
+        $vocabulario_inicio{$palabra} = $inicio;
+        $vocabulario_docs{$palabra} = $apariciones;
+    }
+    close(MYFILE);
+}
+
+#Para calcular las frecuencias de cada termmino en la consulta
+sub calcular_fij_consulta
+{
+    
+    for $palabra (@parametros_consulta)
+    {
+        $fij_consulta{$palabra}++;
     }
 }
 
+
 sub calcular_pesos_consulta{
     #Se calculan los pesos de los wiq
-    foreach $pal(keys(%vocabulario)) 
+    foreach $pal (@parametros_consulta) 
     {   
         if($pal cmp "")
-        {
-            $ni = $vocabulario{$pal};
+        {            
+            $ni = $vocabulario_docs{$pal};
             $fij = $fij_consulta{$pal};
+            print "$ni --- $fij -- $N";
             if($fij > 0){
                 $pesos_consulta{$pal} = ((log($fij)/log(2))+1)*(log($N/$ni)/log(2));
-            }
-            else
-            {
-                $pesos_consulta{$pal} = 0;
             }
         }
     }
 }
+
+
+sub calcular_resultados_consulta{
+    #Se calculan los pesos de los wiq
+    foreach $pal (@parametros_consulta) 
+    {   
+        $inicio = $vocabulario_inicio{$pal};
+        $docs = $vocabulario_docs{$pal};
+        $pesoq = $pesos_consulta{$pal};
+        open(POSTINGS, "D:/Postings.txt");
+        $i = 0;
+        while (<POSTINGS>) 
+        {
+            print "$pal -> inicio $inicio";
+            print "$pal -> docs   $docs";
+            if ($inicio == $i) 
+            {
+                $linea = $_;
+                chomp($linea);
+                @arreglo = split(";", $linea);
+                $id = $arreglo[0];
+                $peso = $arreglo[1];
+                $documento_resultado{$id} += (peso * pesoq);
+            }
+            $i++;
+        }
+        close(POSTINGS);
+    }
+}
+
 
 sub procesar_linea
 {
