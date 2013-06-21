@@ -228,7 +228,101 @@ sub busqueda_vectorial
         }
     }
     close(NUEVO);
+
+    $consultahtml =~ s/[ ]/_/g;
+
+    #Se abre el archivo HTML
+    open(ESCALAFON, '>>'.$consultahtml.'.html');
+        print ESCALAFON "<html><head><title>Resultados b&uacute;squeda</title></head><body>";
+        print ESCALAFON "<h1>Resultados b&uacute;squeda &ldquo;".$consulta."&rdquo;</h1><hr><br>";      
+    close(ESCALAFON);
     
+    print "Creando archivo ".$prefijoconsulta.'_'.$archivoHTML.".html ...\n";
+    &escribir_archivo_HTML;
+    
+    #Cierre del archivo HTML
+    open(ESCALAFON, '>>'.$consultahtml.'.html');
+        print ESCALAFON "</body></html>";
+    close(ESCALAFON);
+    
+    #Se invoca al navegador predeterminado (funciona solo en windows)
+    my @command = ('start', $consultahtml.'.html');
+    system(@command);
+    
+}
+    
+sub escribir_archivo_HTML
+{
+    if(%documento_resultado)
+    {
+        #Contador i para el rango del escalafon
+        $i = 1;
+        #Contador j para el rango del escalafon
+        $j = 1;
+        #Contador de posiciones en el escalafon
+        $posicion;
+        #Fecha y hora de consulta
+        @months = qw(Jan Feb Mar Apr May Jun Jul Aug Sep Oct Nov Dec);
+        @weekDays = qw(Sun Mon Tue Wed Thu Fri Sat Sun);
+        ($second, $minute, $hour, $dayOfMonth, $month, $yearOffset, $dayOfWeek, $dayOfYear, $daylightSavings) = localtime();
+        $year = 1900 + $yearOffset;
+        $fecha_hora = "$hour:$minute:$second, $weekDays[$dayOfWeek] $months[$month] $dayOfMonth, $year";
+        
+        #Ruta de la coleccion
+        $ruta;
+        #Primeros 200 caracteres del archivo.
+        $prim_200_caracteres;
+        
+        $posicion = $i; 
+        
+        open(ESCALAFON, '>>'.$consulta.'.html');
+        
+        foreach $pal (sort { $documento_resultado{$b} <=> $documento_resultado{$a} } keys %documento_resultado) {
+            if($pal cmp "")
+            {
+                if($i == $numinicio)
+                {
+                    last if($j > $numfin);
+                                      
+                    $prim_200_caracteres = &obtener_caracteres_archivo($pal);
+                    
+                    print ESCALAFON "<table border = 1><tr><th>Pos.</th><th>Similitud</th><th>Ruta</th><th>Fecha Consulta</th><th>Tama&ntilde;o en Bytes</th><th>N&uacute;mero de l&iacute;neas</th><th>Cantidad de palabras</th></tr>";
+                    print ESCALAFON "<tr><td>".$posicion.".</td><td>".$hash_escalafon{$pal}."</td><td>".$pal."</td><td>".$fecha_hora."</td><td>".$ruta."</td></tr></table><br>";
+                    print ESCALAFON "<b>Vista preliminar del archivo:</b> <p>".$prim_200_caracteres."...</p><hr><br>";              
+                    $j++;
+                    $posicion++;
+                    
+                    $prim_200_caracteres = undef;
+                }
+                else
+                {
+                    $i++;
+                    $j++;
+                }               
+            }
+        }
+
+        close(ESCALAFON);
+        
+    }
+    else
+    {
+        print "Error, el escalafon no tiene elementos\n";
+    }
+}
+
+sub obtener_caracteres_archivo
+{
+    my ($dir) = ($_[0]);
+    #print "Leyendo ".$dir."\n";
+    my $texto = read_file($dir);
+    #Reemplaza dos o más espacios por uno solo
+    $texto =~ tr/  +/ /s;
+    #Remplaza los cambios de línea por 3 espacios.
+    $texto =~ tr/\n/   /s;
+    my $texto = substr($texto, 0, 200);
+    
+    return $texto;
 }
 
 #Para calcular las frecuencias de cada termmino en la consulta
@@ -264,13 +358,17 @@ sub calcular_fij_consulta
 
 sub calcular_pesos_consulta{
     #Se calculan los pesos de los wiq
+    open(DOCS, 'D:/N.txt');
+        while (<DOCS>) {
+            $N = $_;
+        }
+    close(DOCS);
     foreach $pal (@parametros_consulta) 
     {   
         if($pal cmp "")
         {            
             $ni = $vocabulario_docs{$pal};
             $fij = $fij_consulta{$pal};
-            print "$ni --- $fij -- $N";
             if($fij > 0){
                 $pesos_consulta{$pal} = ((log($fij)/log(2))+1)*(log($N/$ni)/log(2));
             }
@@ -290,16 +388,19 @@ sub calcular_resultados_consulta{
         $i = 0;
         while (<POSTINGS>) 
         {
-            print "$pal -> inicio $inicio";
-            print "$pal -> docs   $docs";
-            if ($inicio == $i) 
+            print "$pal -> inicio $inicio\n";
+            print "$pal -> docs   $docs\n";
+            if ($inicio + $docs > $i) 
             {
                 $linea = $_;
                 chomp($linea);
                 @arreglo = split(";", $linea);
                 $id = $arreglo[0];
                 $peso = $arreglo[1];
-                $documento_resultado{$id} += (peso * pesoq);
+                $documento_resultado{$id} += ($peso * $pesoq);
+            }
+            else{
+                last;
             }
             $i++;
         }
