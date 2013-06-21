@@ -32,7 +32,7 @@ sub open_dir{
     closedir(DIR);
     my $file;
     my $hash;
-    open (DOCS, '>>Documentos.txt');
+    open (DOCS, '>>D:/Documentos.txt');
     print DOCS "DOCID\t\tRUTA\n";
     foreach $file (@files){
         $file = $path.'/'.$file; #path absoluto del fichero o directorio
@@ -62,7 +62,7 @@ sub analizar
     my $stream = HTML::TokeParser->new($path);
     
     # Este es el archivo que va a tener los terminos
-    open (VOCABULARIO, '>>Vocabulario.txt');
+    open (VOCABULARIO, '>>D:/Vocabulario.txt');
     while (my $token = $stream->get_token)
     {
         if ($token->[0] eq 'T') 
