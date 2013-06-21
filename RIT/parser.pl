@@ -1,11 +1,26 @@
-use strict;
+#use strict;
 use LWP::Simple;
 use HTML::TokeParser;
+use File::Basename;
  
 #Arreglo para los stopwords
 my @stopwords;
 
-    #Variable que va a guardar el id del documento actual
+#Hash para los documentos con su id
+%documentos;
+
+#Parámetros del Page Rank
+$diferencia;
+$iteraciones;
+
+#Hash que llevan el valor del PageRank
+%PageRankAnterior;
+%PageRankActual;
+%Ligas;
+
+@TablaEnlaces;
+
+#Variable que va a guardar el id del documento actual
 my $id = 0;
 
 #Variable que va a guardar el numero total de documentos
@@ -13,9 +28,26 @@ my $N;
 
 #--------------------------MAIN------------------------#
 my $comando = shift;
+
 if($comando eq "analizar")
 {
     iniciar();
+}
+if($comando eq "pr")
+{
+    $diferencia = shift;
+    $iteraciones = shift;
+
+    #En caso de que alguno de los parámetros no se proporcione,
+    #se les asigna el valor por defecto.
+    if(diferencia eq "")
+    {
+        $diferencia = 0.0001;
+    }
+    if(iteraciones eq "")
+    {
+        $iteraciones = 100;
+    }
 }
 #--------------------------MAIN------------------------#
 
@@ -32,10 +64,14 @@ sub open_dir{
     closedir(DIR);
     my $file;
     my $hash;
+    my $filetemp;
     open (DOCS, '>>D:/Documentos.txt');
     print DOCS "DOCID\t\tRUTA\n";
     foreach $file (@files){
         $file = $path.'/'.$file; #path absoluto del fichero o directorio
+        $filetemp = basename($file);
+        #Se mantiene en memoria el arreglo con los documentos
+        $documentos{$filetemp} = $id;
         next unless( -f $file or -d $file ); #se rechazan pipes, links, etc ..
         if( -d $file)
         {
@@ -46,12 +82,17 @@ sub open_dir{
                 #Se incrementa la variable id (ID y Número de documentos)                
                 print DOCS "docId".$id.";".$file."\n";
                 $id++;
-                &analizar($file);               
+                &analizar($file);
         }       
     }
     close (DOCS);
     $N = $id;
+    #&imprimirDocumentos;
+    &procesarDocumentos;
 
+    #&imprimirTablaEnlaces;
+    #print "\n\n";
+    #&imprimirHashLigas;
 }
 
 
@@ -182,4 +223,114 @@ sub esta{
         }
     }
     return 1;
+}
+
+sub imprimirDocumentos
+{
+    print "Lista de documentos:\n";
+    foreach $doc(sort {$documentos{$a} <=> $documentos{$b} } keys %documentos)
+    {
+        if($doc cmp "")
+        {
+            print $doc." id: ".$documentos{$doc}."\n";
+        }
+    }
+}
+
+#Inicia el PageRank de cada documento en 1
+sub inicializarPageRank
+{
+    foreach $doc(sort {$documentos{$a} <=> $documentos{$b} } keys %documentos)
+    {
+        if($doc cmp "")
+        {
+            $PageRankActual{$doc} = 1;
+        }
+    }
+}
+
+#Obtiene quién apunta a quién
+sub procesarDocumentos
+{
+    my ($path) = "D:/HTML";
+    opendir(DIR, $path) or die("Error, No se pudo abrir el directorio\n");
+    my @files = grep(!/^\./,readdir(DIR));
+    closedir(DIR);
+    my $file;
+    foreach $file (@files){
+        $file = $path.'/'.$file; #path absoluto del fichero o directorio
+        if($file =~ /.html/)
+        {
+            &procesarEnlaces($file);
+        }
+    }
+}
+
+sub procesarEnlaces
+{
+    my ($path) = ($_[0]);
+    # Este es el archivo que va a leer
+    my $stream = HTML::TokeParser->new($path);
+
+    $file = basename($path);
+    
+    while (my $token = $stream->get_token)
+    {
+        if ($token->[0] eq 'S') 
+        { # tag de html
+        # los atributos estan en $token->[2]            
+            if($token->[2]{'href'})
+            {
+                $j = entaceEstaEnColeccion($token->[2]{'href'});
+                if($j != -1)
+                {
+                    $i = $documentos{$file};
+                    #Hay enlace entre I,J
+                    if($TablaEnlaces[$i][$j] != 1)
+                    {
+                        $TablaEnlaces[$i][$j] = 1;
+                        #Se incrementa el número de ligas
+                        $Ligas{$file}++;
+
+                        if($file eq "authors.html")
+                        {
+                            print $token->[2]{'href'}."\n";
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
+#Determina si un enlace es interno o externo, los enlaces externos son ignorados
+sub entaceEstaEnColeccion
+{
+    my ($termino) = ($_[0]);
+    foreach $doc(sort {$documentos{$a} <=> $documentos{$b} } keys %documentos)
+    {
+        if($doc eq $termino)
+        {
+            return $documentos{$doc};
+        }
+    }
+    return -1;
+}
+
+sub imprimirTablaEnlaces
+{
+    print "Tabla Enlaces\n";
+    print @$_, "\n" foreach ( @TablaEnlaces );
+}
+
+sub imprimirHashLigas
+{
+    print "Ligas:\n";
+    foreach $doc(sort {$Ligas{$a} <=> $Ligas{$b} } keys %Ligas)
+    {
+        if($doc cmp "")
+        {
+            print "Documento: ".$doc." Cantidad de Ligas: ".$Ligas{$doc}."\n";
+        }
+    }
 }
