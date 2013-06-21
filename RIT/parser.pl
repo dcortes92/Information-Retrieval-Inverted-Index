@@ -1,4 +1,3 @@
-use strict;
 use LWP::Simple;
 use HTML::TokeParser;
  
