@@ -374,7 +374,7 @@ sub calcularPageRank
     #Se inicia la tabla de enlaces en 0
     &inicializarTablaEnlaces;
 
-    #&procesarDocumentos;
+    &procesarDocumentos;
 
     #&imprimirTablaEnlaces;
     #print "\n\n";
@@ -414,11 +414,14 @@ sub inicializarPageRank
 
 sub inicializarTablaEnlaces
 {
-    for $i ( 0 .. $#TablaEnlaces ) 
+    $i = 0;
+    $j = 0;
+
+    for ($i = 0; $i < $N; $i++)
     {
-        for $j ( 0 .. $#{ $TablaEnlaces[$i] } ) 
+        for ($j = 0; $j < $N; $j++)
         {
-            $TablaEnlaces[$i][$j] = 1;
+            $TablaEnlaces[$i][$j] = 0;
         }
     }
 }
