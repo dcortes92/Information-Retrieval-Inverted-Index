@@ -1,4 +1,3 @@
-#use strict;
 use LWP::Simple;
 use HTML::TokeParser;
 use File::Basename;
@@ -25,6 +24,13 @@ my $id = 0;
 
 #Variable que va a guardar el numero total de documentos
 my $N;
+
+#Hash para las frecuencias de los términos de la consulta
+%fij_consulta;
+#Hash para el vocabulario de la colección
+%vocabulario = undef;
+#Hash para los pesos de la consulta
+%pesos_consulta;
 
 #--------------------------MAIN------------------------#
 my $comando = shift;
@@ -123,6 +129,94 @@ sub analizar
     close (VOCABULARIO);
 }
 
+
+#Busca usando la similitud coseno.
+sub busqueda_vectorial
+{
+    $t = @parametros_consulta;
+    print "Obtieniendo los ni\n";
+    #
+    #obtener el ni del archivo VOCABULARIO.txt que seria la columna docs
+    #
+    print "Calculando fiq\n";
+    &calcular_fij_consulta;
+
+    &cargar_vocabulario;
+
+    print "Calculando peso de la consulta\n";
+    &calcular_pesos_consulta;
+
+    print "Leyendo archivo ".$prefijo."_PE.txt\n";
+    &abrir_archivo_pesos;
+    
+    print "Creando archivo ".$prefijoconsulta.'_'.$escalafon.".txt ...\n";
+    
+    #Se abre el archivo HTML
+    open(ESCALAFON, '>>'.$prefijoconsulta.'_'.$archivoHTML.'.html');
+        print ESCALAFON "<html><head><title>Resultados b&uacute;squeda</title></head><body>";
+        print ESCALAFON "<h1>Resultados b&uacute;squeda &ldquo;".$consulta."&rdquo;</h1><hr><br>";      
+    close(ESCALAFON);
+    
+    &escribir_archivo_escalafon;
+    
+    print "Creando archivo ".$prefijoconsulta.'_'.$archivoHTML.".html ...\n";
+    &escribir_archivo_HTML;
+    
+    #Cierre del archivo HTML
+    open(ESCALAFON, '>>'.$prefijoconsulta.'_'.$archivoHTML.'.html');
+        print ESCALAFON "</body></html>";
+    close(ESCALAFON);
+    
+    #Se invoca al navegador predeterminado (funciona solo en windows)
+    my @command = ('start', $prefijoconsulta.'_'.$archivoHTML.'.html');
+    system(@command);
+}
+
+#Para calcular las frecuencias de cada termmino en la consulta
+sub calcular_fij_consulta
+{
+    
+    for $palabra(@parametros_consulta)
+    {
+        $fij_consulta{$palabra}++;
+    }
+}
+
+#Para calcular las frecuencias de cada termmino en la consulta
+sub cargar_vocabulario
+{    
+    open(MYFILE, "D:/Vocabulario.txt");
+    #Mientras que MYFILE sea distinto de 0
+    while (<MYFILE>){
+        #Se lee la línea.
+        $linea = $_;
+        #Quita \n de línea.
+        chomp($linea);
+        @arreglo = split(";", $linea);
+        $palabra = $arreglo[0];
+        $ni = $arreglo[1];
+        $vocabulario{$palabra} = $ni;
+    }
+}
+
+sub calcular_pesos_consulta{
+    #Se calculan los pesos de los wiq
+    foreach $pal(keys(%vocabulario)) 
+    {   
+        if($pal cmp "")
+        {
+            $ni = $vocabulario{$pal};
+            $fij = $fij_consulta{$pal};
+            if($fij > 0){
+                $pesos_consulta{$pal} = ((log($fij)/log(2))+1)*(log($N/$ni)/log(2));
+            }
+            else
+            {
+                $pesos_consulta{$pal} = 0;
+            }
+        }
+    }
+}
 
 sub procesar_linea
 {
