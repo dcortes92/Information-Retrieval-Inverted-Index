@@ -556,39 +556,71 @@ sub calcularPageRank
     #Se inicializan los hash con los page rank
     &abrirArchivoN;
     &abrirArchivoDocumentos;
-    #print "Cantidad de documentos: $N\n";
-    #&imprimirDocumentos;
-
-
     #Se inician los PR en 1
     &inicializarPageRank;
     #Se inicia la tabla de enlaces en 0
     &inicializarTablaEnlaces;
-
-    #&procesarDocumentos;
-
-    #&imprimirTablaEnlaces;
-    #print "\n\n";
-    #&imprimirHashLigas;
-
+    &procesarDocumentos;
     &imprimirTablaEnlaces;
+    &calcularPageRankCiclo;
 }
 
-sub obtenerDocPorID
+sub calcularPageRankCiclo
 {
-    $id = ($_[0]);
-
+    $i = 0;
+    $j = 0;
+    $bandera = 1;
     foreach $doc(sort {$documentos{$a} <=> $documentos{$b} } keys %documentos)
     {
         if($doc cmp "")
         {
-            if($documentos{$doc} == $id)
+            $id = $documentos{$doc};
+            print "Procesando documento $doc con id $id\n\n";
+            while($i < $N)
             {
-                return $doc;
+                if($TablaEnlaces[$i][$id] == 1)
+                {
+                    $bandera = 1;
+                    print "[$i][$id]\n";
+                    $docAux = &obtenerDocPorID($i);
+                    if($docAux != -1)
+                    {                        
+                        $PageRankActual{$doc} += ($PageRankAnterior{$docAux} / $Ligas{$docAux});
+                    }
+                }
+                $i++;
+            }
+            $i = 0;
+
+            if($bandera) 
+            {
+                $PageRankActual{$doc} = 0.15 + 0.85 * $PageRankActual{$doc};
+                $bandera = 0;
+            }
+            else
+            {
+                $PageRankActual{$doc} = 0.15;
             }
         }
     }
-    return "";
+    &imprimirPageRankActual;   
+}
+
+sub obtenerDocPorID
+{
+    $temp = ($_[0]);
+
+    foreach $llave(sort {$documentos{$a} <=> $documentos{$b} } keys %documentos)
+    {
+        if($llave cmp "")
+        {
+            if($documentos{$llave} eq $temp)
+            {
+                return $llave;
+            }
+        }
+    }
+    return 0;
 }
 
 #Inicia el PageRank de cada documento en 1
@@ -599,17 +631,21 @@ sub inicializarPageRank
         if($doc cmp "")
         {
             $PageRankAnterior{$doc} = 1;
+            $PageRankActual{$doc} = 0;
         }
     }
 }
 
 sub inicializarTablaEnlaces
 {
-    for $i ( 0 .. $#TablaEnlaces ) 
+    $i = 0;
+    $j = 0;
+
+    for ($i = 0; $i < $N; $i++)
     {
-        for $j ( 0 .. $#{ $TablaEnlaces[$i] } ) 
+        for ($j = 0; $j < $N; $j++)
         {
-            $TablaEnlaces[$i][$j] = 1;
+            $TablaEnlaces[$i][$j] = 0;
         }
     }
 }
@@ -706,7 +742,7 @@ sub imprimirHashLigas
 
 sub imprimirPageRankActual
 {
-    foreach $doc(sort {$PageRankActual{$a} <=> $PageRankActual{$b} } keys %PageRankActual)
+    foreach $doc(sort {$PageRankActual{$b} <=> $PageRankActual{$a} } keys %PageRankActual)
     {
         print "Documento: $doc Page Rank $PageRankActual{$doc}\n";
     }
