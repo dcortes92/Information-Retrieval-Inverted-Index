@@ -9,14 +9,8 @@ import java.io.BufferedWriter;
 import java.io.DataInputStream;
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
 import java.io.FileWriter;
-import java.io.IOException;
 import java.io.InputStreamReader;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
-import java.io.PrintWriter;
 import java.util.ArrayList;
 
 /**
@@ -34,7 +28,7 @@ public class Lector {
     public void leer()
     {
         try{            
-            String input = "C:\\Users\\SirIsaac\\Documents\\GitHub\\rit2\\RIT\\Vocabulario.txt";
+            String input = "D:\\Vocabulario.txt";
             // Abrimos el archivo
             FileInputStream fstream = new FileInputStream(input);
             // Creamos el objeto de entrada
@@ -85,7 +79,7 @@ public class Lector {
     {
         BufferedWriter writer = null;
 
-        String input = "C:\\Users\\SirIsaac\\Documents\\GitHub\\rit2\\RIT\\Vocabulario.txt";
+        String input = "D:\\Vocabulario.txt";
         try{    
             writer = new BufferedWriter( new FileWriter( input));
             int inicio = 0;
@@ -119,7 +113,7 @@ public class Lector {
     public void recorrer_vocabulario(String contenido, int apariciones)
     {
         BufferedWriter writer = null;
-        String input = "C:\\Users\\SirIsaac\\Documents\\GitHub\\rit2\\RIT\\Postings.txt";
+        String input = "D:\\Postings.txt";
         
         try
         {
