@@ -69,9 +69,8 @@ sub open_dir{
     print DOCS "DOCID\t\tRUTA\n";
     foreach $file (@files){
         $file = $path.'/'.$file; #path absoluto del fichero o directorio
-        $filetemp = basename($file);
         #Se mantiene en memoria el arreglo con los documentos
-        $documentos{$filetemp} = $id;
+        $documentos{$file} = $id;
         next unless( -f $file or -d $file ); #se rechazan pipes, links, etc ..
         if( -d $file)
         {
@@ -244,6 +243,7 @@ sub inicializarPageRank
     {
         if($doc cmp "")
         {
+            $PageRankAnterior{$doc} = 1;
             $PageRankActual{$doc} = 1;
         }
     }
@@ -292,10 +292,10 @@ sub procesarEnlaces
                         #Se incrementa el número de ligas
                         $Ligas{$file}++;
 
-                        if($file eq "authors.html")
-                        {
-                            print $token->[2]{'href'}."\n";
-                        }
+                        #if($file eq "authors.html")
+                        #{
+                        #    print $token->[2]{'href'}."\n";
+                        #}
                     }
                 }
             }
@@ -309,7 +309,7 @@ sub entaceEstaEnColeccion
     my ($termino) = ($_[0]);
     foreach $doc(sort {$documentos{$a} <=> $documentos{$b} } keys %documentos)
     {
-        if($doc eq $termino)
+        if(basename($doc) eq $termino)
         {
             return $documentos{$doc};
         }
