@@ -15,7 +15,7 @@ $iteraciones;
 #Hash que llevan el valor del PageRank
 %PageRankAnterior;
 %PageRankActual;
-%Ligas;
+%Ligas; #Cantidad de ligas de cada documento
 
 @TablaEnlaces;
 
@@ -128,6 +128,8 @@ if($comando eq "pr")
     {
         $iteraciones = 100;
     }
+
+    &calcularPageRank;
 }
 #--------------------------MAIN------------------------#
 
@@ -138,7 +140,7 @@ sub iniciar()
 }
 
 sub open_dir{
-    my ($path) = "D:/HTML";
+    my ($path) = "D:/Prueba";
     opendir(DIR, $path) or die("Error, No se pudo abrir el directorio\n");
     my @files = grep(!/^\./,readdir(DIR));
     closedir(DIR);
@@ -146,11 +148,10 @@ sub open_dir{
     my $hash;
     my $filetemp;
     open (DOCS, '>>D:/Documentos.txt');
-    print DOCS "DOCID\t\tRUTA\n";
     foreach $file (@files){
         $file = $path.'/'.$file; #path absoluto del fichero o directorio
         #Se mantiene en memoria el arreglo con los documentos
-        $documentos{$file} = $id;
+        #$documentos{$file} = $id;
         next unless( -f $file or -d $file ); #se rechazan pipes, links, etc ..
         if( -d $file)
         {
@@ -159,19 +160,15 @@ sub open_dir{
         elsif($file =~ /.html/)
         {
                 #Se incrementa la variable id (ID y Número de documentos)                
-                print DOCS "docId".$id.";".$file."\n";
+                print DOCS $id.";".$file."\n";
                 $id++;
                 &analizar($file);
         }       
     }
     close (DOCS);
     $N = $id;
-    #&imprimirDocumentos;
-    &procesarDocumentos;
-
-    #&imprimirTablaEnlaces;
-    #print "\n\n";
-    #&imprimirHashLigas;
+    #Se guarda el archivo que tiene la cantidad de archivos de la colección
+    &guardarArchivoN;
 }
 
 
@@ -420,6 +417,79 @@ sub imprimirDocumentos
     }
 }
 
+sub guardarArchivoN
+{
+    open(DOCS, '>>D:/N.txt');
+    print DOCS $N;
+    close(DOCS);
+}
+
+sub abrirArchivoN
+{
+    open (MYFILE, '<D:/N.txt');
+    while(<MYFILE>)
+    {
+        $N = $_;
+    }
+    close(MYFILE);
+}
+
+sub abrirArchivoDocumentos
+{
+    open (MYFILE, '<D:/Documentos.txt');
+    while(<MYFILE>)
+    {
+        $linea = $_;
+        chomp($linea);
+        @arreglo_linea = split(';', $linea);
+        $documentos{$arreglo_linea[1]} = $arreglo_linea[0];
+        @arreglo_linea = undef;
+    }
+    close(MYFILE);
+}
+
+######################################################## PAGE RANK ###########################################################
+
+sub calcularPageRank
+{
+    #Se inicializan los hash con los page rank
+    &abrirArchivoN;
+    &abrirArchivoDocumentos;
+    #print "Cantidad de documentos: $N\n";
+    #&imprimirDocumentos;
+
+
+    #Se inician los PR en 1
+    &inicializarPageRank;
+    #Se inicia la tabla de enlaces en 0
+    &inicializarTablaEnlaces;
+
+    #&procesarDocumentos;
+
+    #&imprimirTablaEnlaces;
+    #print "\n\n";
+    #&imprimirHashLigas;
+
+    &imprimirTablaEnlaces;
+}
+
+sub obtenerDocPorID
+{
+    $id = ($_[0]);
+
+    foreach $doc(sort {$documentos{$a} <=> $documentos{$b} } keys %documentos)
+    {
+        if($doc cmp "")
+        {
+            if($documentos{$doc} == $id)
+            {
+                return $doc;
+            }
+        }
+    }
+    return "";
+}
+
 #Inicia el PageRank de cada documento en 1
 sub inicializarPageRank
 {
@@ -428,7 +498,17 @@ sub inicializarPageRank
         if($doc cmp "")
         {
             $PageRankAnterior{$doc} = 1;
-            $PageRankActual{$doc} = 1;
+        }
+    }
+}
+
+sub inicializarTablaEnlaces
+{
+    for $i ( 0 .. $#TablaEnlaces ) 
+    {
+        for $j ( 0 .. $#{ $TablaEnlaces[$i] } ) 
+        {
+            $TablaEnlaces[$i][$j] = 1;
         }
     }
 }
@@ -436,7 +516,7 @@ sub inicializarPageRank
 #Obtiene quién apunta a quién
 sub procesarDocumentos
 {
-    my ($path) = "D:/HTML";
+    my ($path) = "D:/Prueba";
     opendir(DIR, $path) or die("Error, No se pudo abrir el directorio\n");
     my @files = grep(!/^\./,readdir(DIR));
     closedir(DIR);
@@ -450,14 +530,16 @@ sub procesarDocumentos
     }
 }
 
+#Se crea una 'tabla' de enlaces entre los documentos y se actualiza la cantidad
+#de ligas de cada documento.
 sub procesarEnlaces
 {
     my ($path) = ($_[0]);
     # Este es el archivo que va a leer
     my $stream = HTML::TokeParser->new($path);
 
-    $file = basename($path);
-    
+    my $file = $path;
+    print "Enlaces de $file\n";
     while (my $token = $stream->get_token)
     {
         if ($token->[0] eq 'S') 
@@ -468,18 +550,13 @@ sub procesarEnlaces
                 $j = entaceEstaEnColeccion($token->[2]{'href'});
                 if($j != -1)
                 {
-                    $i = $documentos{$file};
+                    my $i = $documentos{$file};
+                    print "[$i][$j]\n";
                     #Hay enlace entre I,J
                     if($TablaEnlaces[$i][$j] != 1)
                     {
                         $TablaEnlaces[$i][$j] = 1;
-                        #Se incrementa el número de ligas
                         $Ligas{$file}++;
-
-                        #if($file eq "authors.html")
-                        #{
-                        #    print $token->[2]{'href'}."\n";
-                        #}
                     }
                 }
             }
@@ -504,7 +581,14 @@ sub entaceEstaEnColeccion
 sub imprimirTablaEnlaces
 {
     print "Tabla Enlaces\n";
-    print @$_, "\n" foreach ( @TablaEnlaces );
+    for $i ( 0 .. $#TablaEnlaces ) 
+    {
+        for $j ( 0 .. $#{ $TablaEnlaces[$i] } ) 
+        {
+            print "$TablaEnlaces[$i][$j]";
+        }
+        print "\n";
+    }
 }
 
 sub imprimirHashLigas
@@ -516,5 +600,13 @@ sub imprimirHashLigas
         {
             print "Documento: ".$doc." Cantidad de Ligas: ".$Ligas{$doc}."\n";
         }
+    }
+}
+
+sub imprimirPageRankActual
+{
+    foreach $doc(sort {$PageRankActual{$a} <=> $PageRankActual{$b} } keys %PageRankActual)
+    {
+        print "Documento: $doc Page Rank $PageRankActual{$doc}\n";
     }
 }
