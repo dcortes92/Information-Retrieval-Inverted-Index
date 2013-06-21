@@ -1,20 +1,59 @@
 use LWP::Simple;
 use HTML::TokeParser;
+use File::Basename;
  
 #Arreglo para los stopwords
 my @stopwords;
 
-    #Variable que va a guardar el id del documento actual
+#Hash para los documentos con su id
+%documentos;
+
+#Parámetros del Page Rank
+$diferencia;
+$iteraciones;
+
+#Hash que llevan el valor del PageRank
+%PageRankAnterior;
+%PageRankActual;
+%Ligas;
+
+@TablaEnlaces;
+
+#Variable que va a guardar el id del documento actual
 my $id = 0;
 
 #Variable que va a guardar el numero total de documentos
 my $N;
 
+#Hash para las frecuencias de los términos de la consulta
+%fij_consulta;
+#Hash para el vocabulario de la colección
+%vocabulario = undef;
+#Hash para los pesos de la consulta
+%pesos_consulta;
+
 #--------------------------MAIN------------------------#
 my $comando = shift;
+
 if($comando eq "analizar")
 {
     iniciar();
+}
+if($comando eq "pr")
+{
+    $diferencia = shift;
+    $iteraciones = shift;
+
+    #En caso de que alguno de los parámetros no se proporcione,
+    #se les asigna el valor por defecto.
+    if(diferencia eq "")
+    {
+        $diferencia = 0.0001;
+    }
+    if(iteraciones eq "")
+    {
+        $iteraciones = 100;
+    }
 }
 #--------------------------MAIN------------------------#
 
@@ -31,10 +70,14 @@ sub open_dir{
     closedir(DIR);
     my $file;
     my $hash;
-    open (DOCS, '>>Documentos.txt');
+    my $filetemp;
+    open (DOCS, '>>D:/Documentos.txt');
     print DOCS "DOCID\t\tRUTA\n";
     foreach $file (@files){
         $file = $path.'/'.$file; #path absoluto del fichero o directorio
+        $filetemp = basename($file);
+        #Se mantiene en memoria el arreglo con los documentos
+        $documentos{$filetemp} = $id;
         next unless( -f $file or -d $file ); #se rechazan pipes, links, etc ..
         if( -d $file)
         {
@@ -45,12 +88,17 @@ sub open_dir{
                 #Se incrementa la variable id (ID y Número de documentos)                
                 print DOCS "docId".$id.";".$file."\n";
                 $id++;
-                &analizar($file);               
+                &analizar($file);
         }       
     }
     close (DOCS);
     $N = $id;
+    #&imprimirDocumentos;
+    &procesarDocumentos;
 
+    #&imprimirTablaEnlaces;
+    #print "\n\n";
+    #&imprimirHashLigas;
 }
 
 
@@ -61,7 +109,7 @@ sub analizar
     my $stream = HTML::TokeParser->new($path);
     
     # Este es el archivo que va a tener los terminos
-    open (VOCABULARIO, '>>Vocabulario.txt');
+    open (VOCABULARIO, '>>D:/Vocabulario.txt');
     while (my $token = $stream->get_token)
     {
         if ($token->[0] eq 'T') 
@@ -85,6 +133,94 @@ sub analizar
     close (VOCABULARIO);
 }
 
+
+#Busca usando la similitud coseno.
+sub busqueda_vectorial
+{
+    $t = @parametros_consulta;
+    print "Obtieniendo los ni\n";
+    #
+    #obtener el ni del archivo VOCABULARIO.txt que seria la columna docs
+    #
+    print "Calculando fiq\n";
+    &calcular_fij_consulta;
+
+    &cargar_vocabulario;
+
+    print "Calculando peso de la consulta\n";
+    &calcular_pesos_consulta;
+
+    print "Leyendo archivo ".$prefijo."_PE.txt\n";
+    &abrir_archivo_pesos;
+    
+    print "Creando archivo ".$prefijoconsulta.'_'.$escalafon.".txt ...\n";
+    
+    #Se abre el archivo HTML
+    open(ESCALAFON, '>>'.$prefijoconsulta.'_'.$archivoHTML.'.html');
+        print ESCALAFON "<html><head><title>Resultados b&uacute;squeda</title></head><body>";
+        print ESCALAFON "<h1>Resultados b&uacute;squeda &ldquo;".$consulta."&rdquo;</h1><hr><br>";      
+    close(ESCALAFON);
+    
+    &escribir_archivo_escalafon;
+    
+    print "Creando archivo ".$prefijoconsulta.'_'.$archivoHTML.".html ...\n";
+    &escribir_archivo_HTML;
+    
+    #Cierre del archivo HTML
+    open(ESCALAFON, '>>'.$prefijoconsulta.'_'.$archivoHTML.'.html');
+        print ESCALAFON "</body></html>";
+    close(ESCALAFON);
+    
+    #Se invoca al navegador predeterminado (funciona solo en windows)
+    my @command = ('start', $prefijoconsulta.'_'.$archivoHTML.'.html');
+    system(@command);
+}
+
+#Para calcular las frecuencias de cada termmino en la consulta
+sub calcular_fij_consulta
+{
+    
+    for $palabra(@parametros_consulta)
+    {
+        $fij_consulta{$palabra}++;
+    }
+}
+
+#Para calcular las frecuencias de cada termmino en la consulta
+sub cargar_vocabulario
+{    
+    open(MYFILE, "D:/Vocabulario.txt");
+    #Mientras que MYFILE sea distinto de 0
+    while (<MYFILE>){
+        #Se lee la línea.
+        $linea = $_;
+        #Quita \n de línea.
+        chomp($linea);
+        @arreglo = split(";", $linea);
+        $palabra = $arreglo[0];
+        $ni = $arreglo[1];
+        $vocabulario{$palabra} = $ni;
+    }
+}
+
+sub calcular_pesos_consulta{
+    #Se calculan los pesos de los wiq
+    foreach $pal(keys(%vocabulario)) 
+    {   
+        if($pal cmp "")
+        {
+            $ni = $vocabulario{$pal};
+            $fij = $fij_consulta{$pal};
+            if($fij > 0){
+                $pesos_consulta{$pal} = ((log($fij)/log(2))+1)*(log($N/$ni)/log(2));
+            }
+            else
+            {
+                $pesos_consulta{$pal} = 0;
+            }
+        }
+    }
+}
 
 sub procesar_linea
 {
@@ -181,4 +317,114 @@ sub esta{
         }
     }
     return 1;
+}
+
+sub imprimirDocumentos
+{
+    print "Lista de documentos:\n";
+    foreach $doc(sort {$documentos{$a} <=> $documentos{$b} } keys %documentos)
+    {
+        if($doc cmp "")
+        {
+            print $doc." id: ".$documentos{$doc}."\n";
+        }
+    }
+}
+
+#Inicia el PageRank de cada documento en 1
+sub inicializarPageRank
+{
+    foreach $doc(sort {$documentos{$a} <=> $documentos{$b} } keys %documentos)
+    {
+        if($doc cmp "")
+        {
+            $PageRankActual{$doc} = 1;
+        }
+    }
+}
+
+#Obtiene quién apunta a quién
+sub procesarDocumentos
+{
+    my ($path) = "D:/HTML";
+    opendir(DIR, $path) or die("Error, No se pudo abrir el directorio\n");
+    my @files = grep(!/^\./,readdir(DIR));
+    closedir(DIR);
+    my $file;
+    foreach $file (@files){
+        $file = $path.'/'.$file; #path absoluto del fichero o directorio
+        if($file =~ /.html/)
+        {
+            &procesarEnlaces($file);
+        }
+    }
+}
+
+sub procesarEnlaces
+{
+    my ($path) = ($_[0]);
+    # Este es el archivo que va a leer
+    my $stream = HTML::TokeParser->new($path);
+
+    $file = basename($path);
+    
+    while (my $token = $stream->get_token)
+    {
+        if ($token->[0] eq 'S') 
+        { # tag de html
+        # los atributos estan en $token->[2]            
+            if($token->[2]{'href'})
+            {
+                $j = entaceEstaEnColeccion($token->[2]{'href'});
+                if($j != -1)
+                {
+                    $i = $documentos{$file};
+                    #Hay enlace entre I,J
+                    if($TablaEnlaces[$i][$j] != 1)
+                    {
+                        $TablaEnlaces[$i][$j] = 1;
+                        #Se incrementa el número de ligas
+                        $Ligas{$file}++;
+
+                        if($file eq "authors.html")
+                        {
+                            print $token->[2]{'href'}."\n";
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
+#Determina si un enlace es interno o externo, los enlaces externos son ignorados
+sub entaceEstaEnColeccion
+{
+    my ($termino) = ($_[0]);
+    foreach $doc(sort {$documentos{$a} <=> $documentos{$b} } keys %documentos)
+    {
+        if($doc eq $termino)
+        {
+            return $documentos{$doc};
+        }
+    }
+    return -1;
+}
+
+sub imprimirTablaEnlaces
+{
+    print "Tabla Enlaces\n";
+    print @$_, "\n" foreach ( @TablaEnlaces );
+}
+
+sub imprimirHashLigas
+{
+    print "Ligas:\n";
+    foreach $doc(sort {$Ligas{$a} <=> $Ligas{$b} } keys %Ligas)
+    {
+        if($doc cmp "")
+        {
+            print "Documento: ".$doc." Cantidad de Ligas: ".$Ligas{$doc}."\n";
+        }
+    }
 }
