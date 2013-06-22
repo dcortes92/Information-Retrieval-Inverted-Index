@@ -152,7 +152,7 @@ sub iniciar()
 }
 
 sub open_dir{
-    my ($path) = "Prueba";
+    my ($path) = "D:/Prueba";
     opendir(DIR, $path) or die("Error, No se pudo abrir el directorio\n");
     my @files = grep(!/^\./,readdir(DIR));
     closedir(DIR);
@@ -738,7 +738,7 @@ sub inicializarTablaEnlaces
 #Obtiene quién apunta a quién
 sub procesarDocumentos
 {
-    my ($path) = "Prueba";
+    my ($path) = "D:/Prueba";
     opendir(DIR, $path) or die("Error, No se pudo abrir el directorio\n");
     my @files = grep(!/^\./,readdir(DIR));
     closedir(DIR);
