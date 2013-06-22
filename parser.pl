@@ -130,11 +130,16 @@ if($comando eq "pr")
     if($diferencia eq "")
     {
         $diferencia = 0.0001;
+		$iteraciones = 100;
     }
-    if($iteraciones eq "")
-    {
-        $iteraciones = 100;
-    }
+	else
+	{
+		if($iteraciones eq "")
+	    {
+	        $iteraciones = 100;
+	    }
+	}
+    
 
     &calcularPageRank;
 }
