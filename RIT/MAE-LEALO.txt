@@ -1,9 +1,0 @@
-Tenes q compilar el perl asi
-
-perl parser.pl analizar
-
-luego te crea el archivo de Documentos.txt Vocabulario.txt
-
-El Vocabulario.txt es el que va a usar java, entonces tiene q estar en C/Documents/GitHub/rit2/RIT/Vocabulario.txt
-
-Le das doble click a Java_Run y listo!!! Esperas q se termine de ejecutar y en todas!!! :D

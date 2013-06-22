@@ -1,1 +1,0 @@
-java -jar Archivo_Invertido.jar
