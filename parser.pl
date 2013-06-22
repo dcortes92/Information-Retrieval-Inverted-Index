@@ -2,6 +2,7 @@ use LWP::Simple;
 use HTML::TokeParser;
 use File::Basename;
 use Config;
+use Storable qw(dclone);
  
 #Arreglo para los stopwords
 my @stopwords;
@@ -17,6 +18,7 @@ $iteraciones;
 %PageRankAnterior;
 %PageRankActual;
 %Ligas; #Cantidad de ligas de cada documento
+%Referencias; #Cantidad de documentos que apuntan a uno especifico
 
 @TablaEnlaces;
 
@@ -306,7 +308,6 @@ sub escribir_archivo_HTML
                 }               
             }
         }
-
         close(ESCALAFON);
         
     }
@@ -572,10 +573,35 @@ sub calcularPageRank
 
 sub calcularPageRankCiclo
 {
-    $i = 0;
+	$contador = 0;
+	ciclo:
+	{
+		while($contador < $iteraciones)
+		{
+			print "Iteracion $contador\n";
+			&iterar;
+			$contador++;
+			&imprimirPageRankActual;
+			print "\n\n";
+			if(&calcularDiferencia)
+			{
+				last ciclo;
+			}
+			else
+			{
+				&copiar;
+				&reiniciarPageRankActual;
+			}
+		}
+	}
+}
+
+sub iterar
+{
+	$i = 0;
     $j = 0;
     $bandera = 1;
-    foreach $doc(sort {$documentos{$a} <=> $documentos{$b} } keys %documentos)
+	foreach $doc(sort {$documentos{$a} <=> $documentos{$b} } keys %documentos)
     {
         if($doc cmp "")
         {
@@ -589,6 +615,7 @@ sub calcularPageRankCiclo
                     if($docAux != -1)
                     {                        
                         $PageRankActual{$doc} += ($PageRankAnterior{$docAux} / $Ligas{$docAux});
+						$Referencias{$doc}++; #Cuantos documentos apuntan a $doc
                     }
                 }
                 $i++;
@@ -603,10 +630,34 @@ sub calcularPageRankCiclo
             else
             {
                 $PageRankActual{$doc} = 0.15;
+				$Referencias{$doc} = 0;
             }
         }
     }
-    &imprimirPageRankActual;   
+}
+
+sub copiar
+{
+	foreach $doc(sort {$PageRankAnterior{$b} <=> $PageRankAnterior{$a} } keys %PageRankAnterior)
+    {
+		$PageRankAnterior{$doc} = $PageRankActual{$doc};
+	}
+}
+
+sub calcularDiferencia
+{
+	foreach $doc(sort {$PageRankAnterior{$b} <=> $PageRankAnterior{$a} } keys %PageRankAnterior)
+    {
+		$anterior = $PageRankAnterior{$doc};
+		$actual = $PageRankActual{$doc};
+		$diferenciaTemp = $anterior - $actual;
+		$diferenciaTemp = sprintf '%.4f', $diferenciaTemp;
+		if( $diferenciaTemp ==  $diferencia)
+		{
+			return 1;
+		}
+	}
+	return 0;
 }
 
 sub obtenerDocPorID
@@ -634,6 +685,17 @@ sub inicializarPageRank
         if($doc cmp "")
         {
             $PageRankAnterior{$doc} = 1;
+            $PageRankActual{$doc} = 0;
+        }
+    }
+}
+
+sub reiniciarPageRankActual
+{
+    foreach $doc(sort {$documentos{$a} <=> $documentos{$b} } keys %documentos)
+    {
+        if($doc cmp "")
+        {
             $PageRankActual{$doc} = 0;
         }
     }
@@ -694,7 +756,7 @@ sub procesarEnlaces
                     if($TablaEnlaces[$i][$j] != 1)
                     {
                         $TablaEnlaces[$i][$j] = 1;
-                        $Ligas{$file}++;
+                        $Ligas{$file}++; #Cuantos documentos apunta doc
                     }
                 }
             }
@@ -743,8 +805,20 @@ sub imprimirHashLigas
 
 sub imprimirPageRankActual
 {
+	print "         \t\tEnlaces\t\tEnlaces\n";
+	print "Page Rank\t\tEntrada\t\tSalida \t\tRuta\n";
     foreach $doc(sort {$PageRankActual{$b} <=> $PageRankActual{$a} } keys %PageRankActual)
     {
-        print "Documento: $doc Page Rank $PageRankActual{$doc}\n";
+		print "$PageRankActual{$doc}\t\t\t$Referencias{$doc}\t\t$Ligas{$doc}\t\t$doc\n";
+        #print "Documento: $doc Page Rank $PageRankActual{$doc}\n";
+    }
+}
+
+sub imprimirPageRankAnterior
+{
+	
+    foreach $doc(sort {$PageRankAnterior{$b} <=> $PageRankAnterior{$a} } keys %PageRankAnterior)
+    {
+        print "Documento: $doc Page Rank $PageRankAnterior{$doc}\n";
     }
 }
