@@ -145,14 +145,14 @@ sub iniciar()
 }
 
 sub open_dir{
-    my ($path) = "D:/Prueba";
+    my ($path) = "Prueba";
     opendir(DIR, $path) or die("Error, No se pudo abrir el directorio\n");
     my @files = grep(!/^\./,readdir(DIR));
     closedir(DIR);
     my $file;
     my $hash;
     my $filetemp;
-    open (DOCS, '>>D:/Documentos.txt');
+    open (DOCS, '>>Documentos.txt');
     foreach $file (@files){
         $file = $path.'/'.$file; #path absoluto del fichero o directorio
         #Se mantiene en memoria el arreglo con los documentos
@@ -184,7 +184,7 @@ sub analizar
     my $stream = HTML::TokeParser->new($path);
     
     # Este es el archivo que va a tener los terminos
-    open (VOCABULARIO, '>>D:/Vocabulario.txt');
+    open (VOCABULARIO, '>>Vocabulario.txt');
     while (my $token = $stream->get_token)
     {
         if ($token->[0] eq 'T') 
@@ -333,7 +333,7 @@ sub obtener_caracteres_archivo
 #Para calcular las frecuencias de cada termmino en la consulta
 sub cargar_vocabulario
 {    
-    open(MYFILE, "D:/Vocabulario.txt");
+    open(MYFILE, "Vocabulario.txt");
     #Mientras que MYFILE sea distinto de 0
     while (<MYFILE>){
         #Se lee la línea.
@@ -363,7 +363,7 @@ sub calcular_fij_consulta
 
 sub calcular_pesos_consulta{
     #Se calculan los pesos de los wiq
-    open(DOCS, 'D:/N.txt');
+    open(DOCS, 'N.txt');
         while (<DOCS>) {
             $N = $_;
         }
@@ -389,7 +389,7 @@ sub calcular_resultados_consulta{
         $inicio = $vocabulario_inicio{$pal};
         $docs = $vocabulario_docs{$pal};
         $pesoq = $pesos_consulta{$pal};
-        open(POSTINGS, "D:/Postings.txt");
+        open(POSTINGS, "Postings.txt");
         $i = 0;
         while (<POSTINGS>) 
         {
@@ -525,14 +525,14 @@ sub imprimirDocumentos
 
 sub guardarArchivoN
 {
-    open(DOCS, '>>D:/N.txt');
+    open(DOCS, '>>N.txt');
     print DOCS $N;
     close(DOCS);
 }
 
 sub abrirArchivoN
 {
-    open (MYFILE, '<D:/N.txt');
+    open (MYFILE, '<N.txt');
     while(<MYFILE>)
     {
         $N = $_;
@@ -542,7 +542,7 @@ sub abrirArchivoN
 
 sub abrirArchivoDocumentos
 {
-    open (MYFILE, '<D:/Documentos.txt');
+    open (MYFILE, '<Documentos.txt');
     while(<MYFILE>)
     {
         $linea = $_;
@@ -658,7 +658,7 @@ sub inicializarTablaEnlaces
 #Obtiene quién apunta a quién
 sub procesarDocumentos
 {
-    my ($path) = "D:/Prueba";
+    my ($path) = "Prueba";
     opendir(DIR, $path) or die("Error, No se pudo abrir el directorio\n");
     my @files = grep(!/^\./,readdir(DIR));
     closedir(DIR);
