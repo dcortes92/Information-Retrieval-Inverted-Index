@@ -1,6 +1,7 @@
 use LWP::Simple;
 use HTML::TokeParser;
 use File::Basename;
+use Config;
  
 #Arreglo para los stopwords
 my @stopwords;
@@ -41,8 +42,12 @@ my @parametros_consulta;
 #Hash para los resultados de la consulta
 %documento_resultado;
 
+#Variable que tiene el nombre del sistema operativo
+$OS;
+
 #--------------------------MAIN------------------------#
 my $comando = shift;
+$OS = $Config{osname};
 
 if($comando eq "analizar")
 {
