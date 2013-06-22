@@ -127,11 +127,11 @@ if($comando eq "pr")
 
     #En caso de que alguno de los parámetros no se proporcione,
     #se les asigna el valor por defecto.
-    if(diferencia eq "")
+    if($diferencia eq "")
     {
         $diferencia = 0.0001;
     }
-    if(iteraciones eq "")
+    if($iteraciones eq "")
     {
         $iteraciones = 100;
     }
@@ -590,6 +590,7 @@ sub calcularPageRankCiclo
 			else
 			{
 				&copiar;
+				&reiniciarReferencias;
 				&reiniciarPageRankActual;
 			}
 		}
@@ -634,6 +635,14 @@ sub iterar
             }
         }
     }
+}
+
+sub reiniciarReferencias
+{
+	foreach $doc(sort {$Referencias{$b} <=> $Referencias{$a} } keys %Referencias)
+	{
+		$Referencias{$doc} = 0;
+	}
 }
 
 sub copiar
@@ -809,7 +818,8 @@ sub imprimirPageRankActual
 	print "Page Rank\t\tEntrada\t\tSalida \t\tRuta\n";
     foreach $doc(sort {$PageRankActual{$b} <=> $PageRankActual{$a} } keys %PageRankActual)
     {
-		print "$PageRankActual{$doc}\t\t\t$Referencias{$doc}\t\t$Ligas{$doc}\t\t$doc\n";
+		$pr = sprintf '%.4f', $PageRankActual{$doc};
+		print "$pr\t\t\t$Referencias{$doc}\t\t$Ligas{$doc}\t\t$doc\n";
         #print "Documento: $doc Page Rank $PageRankActual{$doc}\n";
     }
 }
