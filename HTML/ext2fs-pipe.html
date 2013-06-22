@@ -1,0 +1,350 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<HTML
+><HEAD
+><TITLE
+>Tuberías anónimas y tuberías nombradas</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.59"><LINK
+REL="HOME"
+TITLE="Linux-Mandrake"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="El sistema de archivos de Linux: ext2fs (EXTended 2 FileSystem)"
+HREF="ext2fs.html"><LINK
+REL="PREVIOUS"
+TITLE="Los vínculos"
+HREF="x3803.html"><LINK
+REL="NEXT"
+TITLE="Los archivos especiales: en modo bloque y caracter"
+HREF="x3876.html">
+<meta name="Author" content="MandrakeSoft">
+<meta name="Description" content="This is Linux-Mandrake Documentation.">
+<meta name="KeyWords" content="Linux, Mandrake, Linux-Mandrake, documentation, Mandrake Books, howto, Powerpack">
+
+</HEAD
+><BODY
+CLASS="SECT1"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#666699"
+VLINK="#980060"
+ALINK="#FF0000"
+>
+
+<DIV
+CLASS="NAVHEADER"
+><TABLE
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+><B
+CLASS="EMPHASIS"
+>Linux-Mandrake</B
+>: <B
+CLASS="EMPHASIS"
+>Manual de Referencia</B
+></TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="x3803.html"
+>Anterior</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+>Capítulo 10. El sistema de archivos de Linux: ext2fs (<TT
+CLASS="FOREIGNPHRASE"
+><I
+>EXTended 2 FileSystem</I
+></TT
+>)</TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="x3876.html"
+>Siguiente</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><DIV
+CLASS="SECT1"
+><H1
+CLASS="SECT1"
+><A
+NAME="EXT2FS-PIPE"
+>10.3. Tuberías <SPAN
+CLASS="QUOTE"
+>"anónimas"</SPAN
+> y tuberías nombradas</A
+></H1
+><P
+>Volvamos al ejemplo de las tuberías, ya que es sumamente interesante además de ser una buena ilustración de la noción de vínculos. Cuando usa una tubería en una línea de comandos, el <TT
+CLASS="FOREIGNPHRASE"
+><I
+>shell</I
+></TT
+> crea la tubería por Ud. y la opera de tal manera que el comando antes de la misma escribe en  ella, mientras que el comando después de la misma lee de ella. Todas las tuberías, ya sean anónimas
+
+ (como las que usa el <TT
+CLASS="FOREIGNPHRASE"
+><I
+>shell</I
+></TT
+>) o nombradas
+
+(ver abajo), funcionan según el principio <SPAN
+CLASS="ACRONYM"
+>FIFO</SPAN
+>  (<TT
+CLASS="FOREIGNPHRASE"
+><I
+>First In, First Out</I
+></TT
+>, <TT
+CLASS="FOREIGNPHRASE"
+><I
+>Primero en Llegar,  Primero en Salir</I
+></TT
+>). Ya hemos visto ejemplos de como usar las tuberías en el <TT
+CLASS="FOREIGNPHRASE"
+><I
+>shell</I
+></TT
+>, pero tomemos uno en pos de nuestra ilustración:</P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="PROGRAMLISTING"
+>$ ls -d /proc/[0-9] | head -6
+/proc/1/
+/proc/2/
+/proc/3/
+/proc/4/
+/proc/5/</PRE
+></TD
+></TR
+></TABLE
+><P
+>&#13;Una cosa que no notará en este ejemplo (porque ocurre muy rápido para que uno lo pueda ver) es que las escrituras en las tuberías son bloqueantes. Esto significa que cuando el comando <TT
+CLASS="COMMAND"
+>ls</TT
+> escribe en la tubería, está bloqueado hasta que un proceso del otro lado lea de la misma. Para poder visualizar el efecto, puede crear tuberías nombradas, que al contrario de las usadas por el <TT
+CLASS="FOREIGNPHRASE"
+><I
+>shell</I
+></TT
+>, tienen nombres (es decir, están vinculadas, mientras que las del <TT
+CLASS="FOREIGNPHRASE"
+><I
+>shell</I
+></TT
+> no lo están). El comando para crear dichas tuberías es <TT
+CLASS="COMMAND"
+>mkfifo</TT
+>:</P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="PROGRAMLISTING"
+>$ mkfifo un_tubo
+$ ls -il
+total 0
+    169 prw-rw-r--    1 reina       reina              0 sep 10 14:12 un_tubo|
+  #
+  # Ud. puede ver que el contador de vínculos es 1, y que la salida muestra
+  # que el archivo es una tubería ('p').
+  #
+  # Aquí también puede usar ln:
+  #
+$ ln un_tubo el_mismo_tubo
+$ ls -il
+total 0
+    169 prw-rw-r--    2 reina       reina              0 sep 10 15:37 un_tubo|
+    169 prw-rw-r--    2 reina       reina              0 sep 10 15:37 el_mismo_tubo|
+$ ls -d /proc/[0-9] &gt;un_tubo
+  #
+  # El proceso está bloqueado, ya que no hay quien lea en el otro extremo.
+  # Teclee C-z para suspender el proceso...
+  #
+zsh: 3452 suspended  ls -d /proc/[0-9] &gt; un_tubo
+  #
+  # ...Luego póngalo en 2do. plano:
+  #
+$ bg
+[1]  + continued  ls -d /proc/[0-9] &gt; un_tubo
+  #
+  # ahora lea del tubo...
+  #
+$ head -6 &lt;el_mismo_tubo
+  #
+  # ...el proceso que escribe termina
+  #
+[1]  + 3452 done       ls -d /proc/[0-9] &gt; un_tubo
+/proc/1/
+/proc/2/
+/proc/3/
+/proc/4/
+/proc/5/
+#</PRE
+></TD
+></TR
+></TABLE
+><P
+>Similarmente, también las lecturas son bloqueantes. Si ejecutamos los comandos anteriores en orden inverso, observaremos que <TT
+CLASS="COMMAND"
+>head</TT
+> se bloquea, esperando que algún proceso le de algo para leer:</P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="PROGRAMLISTING"
+>$ head -6 &lt;un_tubo
+#
+# El programa se bloquea, suspenderlo: C-z
+#
+zsh: 741 suspended  head -6 &lt; un_tubo
+#
+# Ponerlo en segundo plano...
+#
+$bg
+[1]  + continued  head -6 &lt; un_tubo
+#
+# ...Y darle algo de comer :)
+#
+$ ls -d /proc/[0-9] &gt;el_mismo_tubo
+$ /proc/1/
+/proc/2/
+/proc/3/
+/proc/4/
+/proc/5/
+[1]  + 741 done       head -6 &lt; un_tubo
+$</PRE
+></TD
+></TR
+></TABLE
+><P
+>En el ejemplo previo también se puede ver un efecto no deseado: el
+ comando <TT
+CLASS="COMMAND"
+>ls</TT
+> terminó antes que el comando <TT
+CLASS="COMMAND"
+>head</TT
+>
+ tomara el relevo. La consecuencia es que Ud. volvió al prompt
+ inmediatamente, pero <TT
+CLASS="COMMAND"
+>head</TT
+> sólo se ejecutará después. Por
+ lo tanto sólo efectuó su salida después que Ud. volvió al prompt.</P
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="x3803.html"
+>Anterior</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+>Inicio</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="x3876.html"
+>Siguiente</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>Los vínculos</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="ext2fs.html"
+>Subir</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>Los archivos <SPAN
+CLASS="QUOTE"
+>"especiales"</SPAN
+>: en modo bloque y caracter</TD
+></TR
+></TABLE
+></DIV
+>
+  <hr align="center">
+  <div align="left"><a href="http://www.linux-mandrake.com"><img
+    src="../images/tux48.png" width="48" height="39" align="left" border="0"
+    alt="Tux sobre Estrella por MandrakeSoft"></a> <font face="Helvetica,
+    Arial, sans-serif" size="2">Linux es una marca registrada de 
+    Linus Torvalds. Todas las otras marcas registradas y copyrights son la
+    propiedad de sus respectivos due&ntilde;os.<br>A menos que se diga lo
+	contrario, todo el contenido de estas p&aacute;ginas y todas las
+	im&aacute;genes tienen Copyright de <i>MandrakeSoft S.A.</i> y de
+	<i>MandrakeSoft Inc.</i> 2000.
+    <br><a
+    href="http://www.linux-mandrake.com/">http://www.linux-mandrake.com/</a>
+    <br>
+</font>
+ </div>
+
+</BODY
+
+></HTML
+>

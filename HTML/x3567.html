@@ -1,0 +1,236 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<HTML
+><HEAD
+><TITLE
+>Particionar un disco rígido y formatear una partición</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.59"><LINK
+REL="HOME"
+TITLE="Linux-Mandrake"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="Sistemas de archivos y puntos de montaje"
+HREF="fs-and-mntpoints.html"><LINK
+REL="PREVIOUS"
+TITLE="Sistemas de archivos y puntos de montaje"
+HREF="fs-and-mntpoints.html"><LINK
+REL="NEXT"
+TITLE="Los comandos mount y umount"
+HREF="x3582.html">
+<meta name="Author" content="MandrakeSoft">
+<meta name="Description" content="This is Linux-Mandrake Documentation.">
+<meta name="KeyWords" content="Linux, Mandrake, Linux-Mandrake, documentation, Mandrake Books, howto, Powerpack">
+
+</HEAD
+><BODY
+CLASS="SECT1"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#666699"
+VLINK="#980060"
+ALINK="#FF0000"
+>
+
+<DIV
+CLASS="NAVHEADER"
+><TABLE
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+><B
+CLASS="EMPHASIS"
+>Linux-Mandrake</B
+>: <B
+CLASS="EMPHASIS"
+>Manual de Referencia</B
+></TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="fs-and-mntpoints.html"
+>Anterior</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+>Capítulo 9. Sistemas de archivos y puntos de montaje</TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="x3582.html"
+>Siguiente</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><DIV
+CLASS="SECT1"
+><H1
+CLASS="SECT1"
+><A
+NAME="AEN3567"
+>9.2. Particionar un disco rígido y formatear una partición</A
+></H1
+><P
+>&#13;Acerca de los principios referidos arriba y para nuestro interés en esta sección, hay una nota: un disco rígido se divide en particiones y cada una de estas particiones alberga un sistema de archivos. Ahora, por este instante, su disco rígido totalmente nuevo no tiene ni uno ni lo otro, así que es aquí por donde debe comenzar, con la partición en primer lugar. Para eso Ud. debe ser <TT
+CLASS="USERINPUT"
+><B
+>root</B
+></TT
+>.</P
+><P
+>&#13;Primero, tiene que saber el <SPAN
+CLASS="QUOTE"
+>"nombre"</SPAN
+> de su disco rígido, es decir, el archivo que lo designa. En los ejemplos usamos discos rígidos <SPAN
+CLASS="ACRONYM"
+>IDE</SPAN
+>, si Ud. tiene discos rígidos <SPAN
+CLASS="ACRONYM"
+>SCSI</SPAN
+> solo deberá reemplazar el nombre de este archivo por el adecuado para su sistema: <TT
+CLASS="FILENAME"
+>/dev/sda</TT
+> para el primero, <TT
+CLASS="FILENAME"
+>/dev/sdb</TT
+> para el segundo, etc. Ahora bien, supongamos que Ud. configura a su disco nuevo como esclavo en la interfase <SPAN
+CLASS="ACRONYM"
+>IDE</SPAN
+> primaria, entonces el nombre del mismo será <TT
+CLASS="FILENAME"
+>/dev/hdb</TT
+><A
+NAME="AEN3579"
+HREF="#FTN.AEN3579"
+>[1]</A
+>.&#13;</P
+></DIV
+><H3
+CLASS="FOOTNOTES"
+>Notas</H3
+><TABLE
+BORDER="0"
+CLASS="FOOTNOTES"
+WIDTH="100%"
+><TR
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+WIDTH="5%"
+><A
+NAME="FTN.AEN3579"
+HREF="x3567.html#AEN3579"
+>[1]</A
+></TD
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+WIDTH="95%"
+><P
+>La forma de encontrar el nombre de un disco rígido se explica en la <B
+CLASS="EMPHASIS"
+>Guía de Instalación</B
+>.</P
+></TD
+></TR
+></TABLE
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="fs-and-mntpoints.html"
+>Anterior</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+>Inicio</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="x3582.html"
+>Siguiente</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>Sistemas de archivos y puntos de montaje</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="fs-and-mntpoints.html"
+>Subir</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>Los comandos <TT
+CLASS="COMMAND"
+>mount</TT
+> y <TT
+CLASS="COMMAND"
+>umount</TT
+></TD
+></TR
+></TABLE
+></DIV
+>
+  <hr align="center">
+  <div align="left"><a href="http://www.linux-mandrake.com"><img
+    src="../images/tux48.png" width="48" height="39" align="left" border="0"
+    alt="Tux sobre Estrella por MandrakeSoft"></a> <font face="Helvetica,
+    Arial, sans-serif" size="2">Linux es una marca registrada de 
+    Linus Torvalds. Todas las otras marcas registradas y copyrights son la
+    propiedad de sus respectivos due&ntilde;os.<br>A menos que se diga lo
+	contrario, todo el contenido de estas p&aacute;ginas y todas las
+	im&aacute;genes tienen Copyright de <i>MandrakeSoft S.A.</i> y de
+	<i>MandrakeSoft Inc.</i> 2000.
+    <br><a
+    href="http://www.linux-mandrake.com/">http://www.linux-mandrake.com/</a>
+    <br>
+</font>
+ </div>
+
+</BODY
+
+></HTML
+>

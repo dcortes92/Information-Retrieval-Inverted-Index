@@ -1,0 +1,413 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<HTML
+><HEAD
+><TITLE
+>Sistemas de archivos y puntos de montaje</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.59"><LINK
+REL="HOME"
+TITLE="Linux-Mandrake"
+HREF="index.html"><LINK
+REL="PREVIOUS"
+TITLE="/etc: los archivos de configuración"
+HREF="fhs-etc.html"><LINK
+REL="NEXT"
+TITLE="Particionar un disco rígido y formatear una partición"
+HREF="x3567.html">
+<meta name="Author" content="MandrakeSoft">
+<meta name="Description" content="This is Linux-Mandrake Documentation.">
+<meta name="KeyWords" content="Linux, Mandrake, Linux-Mandrake, documentation, Mandrake Books, howto, Powerpack">
+
+</HEAD
+><BODY
+CLASS="CHAPTER"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#666699"
+VLINK="#980060"
+ALINK="#FF0000"
+>
+
+<DIV
+CLASS="NAVHEADER"
+><TABLE
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+><B
+CLASS="EMPHASIS"
+>Linux-Mandrake</B
+>: <B
+CLASS="EMPHASIS"
+>Manual de Referencia</B
+></TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="fhs-etc.html"
+>Anterior</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+></TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="x3567.html"
+>Siguiente</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><DIV
+CLASS="CHAPTER"
+><H1
+><A
+NAME="FS-AND-MNTPOINTS"
+>Capítulo 9. Sistemas de archivos y puntos de montaje</A
+></H1
+><DIV
+CLASS="TOC"
+><DL
+><DT
+><B
+>Tabla de contenidos</B
+></DT
+><DT
+>9.1. <A
+HREF="fs-and-mntpoints.html#AEN3525"
+>Principios</A
+></DT
+><DT
+>9.2. <A
+HREF="x3567.html"
+>Particionar un disco rígido y formatear una partición</A
+></DT
+><DT
+>9.3. <A
+HREF="x3582.html"
+>Los comandos <TT
+CLASS="COMMAND"
+>mount</TT
+> y <TT
+CLASS="COMMAND"
+>umount</TT
+></A
+></DT
+><DT
+>9.4. <A
+HREF="x3630.html"
+>El archivo <TT
+CLASS="FILENAME"
+>/etc/fstab</TT
+></A
+></DT
+><DD
+><DL
+><DT
+>92<A
+HREF="x3630.html#AEN3638"
+></A
+></DT
+><DT
+>93<A
+HREF="x3630.html#AEN3687"
+></A
+></DT
+></DL
+></DD
+><DT
+>9.5. <A
+HREF="x3701.html"
+>Una nota acerca de la característica
+ <TT
+CLASS="LITERAL"
+>supermount</TT
+></A
+></DT
+></DL
+></DIV
+><P
+>&#13;La mejor forma de entender <SPAN
+CLASS="QUOTE"
+>"como funciona"</SPAN
+> es ver un caso práctico, que es lo que vamos a hacer aquí. Suponga que Ud. recién ha comprado un disco rígido nuevo, todavía sin partición alguna. Su partición <B
+CLASS="EMPHASIS"
+>Linux-Mandrake</B
+> está llena a más no poder, y en vez de comenzar desde cero, Ud. decide mover toda una sección de la estructura de árbol a su disco rígido nuevo. Como este disco rígido nuevo es muy grande, Ud. decide mover a él su directorio más grande: <TT
+CLASS="FILENAME"
+>/usr</TT
+>. Pero primero, un poquito de teoría.</P
+><DIV
+CLASS="SECT1"
+><H1
+CLASS="SECT1"
+><A
+NAME="AEN3525"
+>9.1. Principios</A
+></H1
+><P
+>&#13;Como ya hemos mencionado en la <B
+CLASS="EMPHASIS"
+>Guía de Instalación</B
+>, cada disco rígido se
+ divide en varias particiones, y cada una de ellas contiene un sistema de
+ archivos. Mientras <TT
+CLASS="APPLICATION"
+><I
+>Windows</I
+></TT
+> asocia una letra a cada uno de estos sistemas
+ de archivos (bueno, en realidad solo a los que reconoce), <TT
+CLASS="APPLICATION"
+><I
+>GNU/Linux</I
+></TT
+> tiene una
+ estructura de árbol de archivos única, y cada sistema de archivos está
+ <B
+CLASS="GLOSSTERM"
+><I
+>montado</I
+></B
+> en alguna ubicación de la
+ estructura del árbol.</P
+><P
+>&#13;Así como <TT
+CLASS="APPLICATION"
+><I
+>Windows</I
+></TT
+> necesita una <SPAN
+CLASS="QUOTE"
+>"unidad C:"</SPAN
+>, <TT
+CLASS="APPLICATION"
+><I
+>GNU/Linux</I
+></TT
+> tiene que
+ poder montar la raíz de su sistema de archivos (<TT
+CLASS="FILENAME"
+>/</TT
+>) en algún
+ lugar, de hecho en una partición que contiene al
+ <B
+CLASS="GLOSSTERM"
+><I
+>sistema de archivos</I
+></B
+> raíz. Una vez que está montada la raíz, Ud. puede montar otros sistemas de archivos en la estructura de árbol, sobre diferentes <B
+CLASS="EMPHASIS"
+>puntos de montaje</B
+> en la misma. Cualquier directorio bajo la raíz puede oficiar de punto de montaje.</P
+><P
+>&#13;Esto permite una gran flexibilidad en la configuración. Por ejemplo, en el caso de un servidor <TT
+CLASS="SYSTEMITEM"
+><I
+>web</I
+></TT
+>, es común dedicar toda una partición al directorio que contiene los datos del servidor <TT
+CLASS="SYSTEMITEM"
+><I
+>web</I
+></TT
+>. El directorio que generalmente los contiene es <TT
+CLASS="FILENAME"
+>/home/httpd</TT
+>, que, por lo tanto, oficiará de punto de montaje para la partición. Ud. puede ver en las figuras<A
+HREF="fs-and-mntpoints.html#BEFOREMOUNT"
+>Figura 9-1</A
+> y<A
+HREF="fs-and-mntpoints.html#AFTERMOUNT"
+>Figura 9-2</A
+> la situación del sistema antes y después de montar el sistema de archivos.</P
+><DIV
+CLASS="FIGURE"
+><A
+NAME="BEFOREMOUNT"
+></A
+><P
+><B
+>Figura 9-1. Un sistema de archivos todavía no montado</B
+></P
+><DIV
+CLASS="MEDIAOBJECT"
+><P
+><IMG
+SRC="../images/beforemount.png"
+></IMG
+></P
+></DIV
+></DIV
+><DIV
+CLASS="FIGURE"
+><A
+NAME="AFTERMOUNT"
+></A
+><P
+><B
+>Figura 9-2. Ahora el sistema de archivos está montado</B
+></P
+><DIV
+CLASS="MEDIAOBJECT"
+><P
+><IMG
+SRC="../images/aftermount.png"
+></IMG
+></P
+></DIV
+></DIV
+><P
+>&#13;Como Ud. puede imaginar, esto presenta un número de ventajas: la estructura de árbol será siempre la misma, ya sea que esta se extiende sobre un solo sistema de archivos o varias docenas<A
+NAME="AEN3556"
+HREF="#FTN.AEN3556"
+>[1]</A
+>. Siempre es posible mover físicamente una parte clave de la estructura de árbol a otra partición cuando empieza a faltar espacio, que es lo que vamos a hacer aquí.</P
+><P
+>&#13;Hay dos cosas que Ud. debe saber sobre los puntos de montaje:</P
+><P
+></P
+><UL
+><LI
+><P
+>el directorio que oficia de punto de montaje debe existir,&#13;</P
+></LI
+><LI
+><P
+>dicho directorio <B
+CLASS="EMPHASIS"
+>debe estar vacío</B
+>: si un directorio elegido como punto de montaje ya contiene archivos y sub-directorios, estos sencillamente serán <SPAN
+CLASS="QUOTE"
+>"ocultados"</SPAN
+> por el sistema de archivos recién montado, pero no serán borrados.&#13;</P
+></LI
+></UL
+></DIV
+></DIV
+><H3
+CLASS="FOOTNOTES"
+>Notas</H3
+><TABLE
+BORDER="0"
+CLASS="FOOTNOTES"
+WIDTH="100%"
+><TR
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+WIDTH="5%"
+><A
+NAME="FTN.AEN3556"
+HREF="fs-and-mntpoints.html#AEN3556"
+>[1]</A
+></TD
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+WIDTH="95%"
+><P
+><TT
+CLASS="APPLICATION"
+><I
+>GNU/Linux</I
+></TT
+> puede administrar hasta 64 sistemas de archivos montados simultáneamente</P
+></TD
+></TR
+></TABLE
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="fhs-etc.html"
+>Anterior</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+>Inicio</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="x3567.html"
+>Siguiente</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><TT
+CLASS="FILENAME"
+>/etc</TT
+>: los archivos de configuración</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+>&nbsp;</TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>Particionar un disco rígido y formatear una partición</TD
+></TR
+></TABLE
+></DIV
+>
+  <hr align="center">
+  <div align="left"><a href="http://www.linux-mandrake.com"><img
+    src="../images/tux48.png" width="48" height="39" align="left" border="0"
+    alt="Tux sobre Estrella por MandrakeSoft"></a> <font face="Helvetica,
+    Arial, sans-serif" size="2">Linux es una marca registrada de 
+    Linus Torvalds. Todas las otras marcas registradas y copyrights son la
+    propiedad de sus respectivos due&ntilde;os.<br>A menos que se diga lo
+	contrario, todo el contenido de estas p&aacute;ginas y todas las
+	im&aacute;genes tienen Copyright de <i>MandrakeSoft S.A.</i> y de
+	<i>MandrakeSoft Inc.</i> 2000.
+    <br><a
+    href="http://www.linux-mandrake.com/">http://www.linux-mandrake.com/</a>
+    <br>
+</font>
+ </div>
+
+</BODY
+
+></HTML
+>

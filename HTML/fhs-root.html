@@ -1,0 +1,336 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<HTML
+><HEAD
+><TITLE
+>El directorio raíz: /</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.59"><LINK
+REL="HOME"
+TITLE="Linux-Mandrake"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="Organización del árbol de archivos"
+HREF="fhs.html"><LINK
+REL="PREVIOUS"
+TITLE="Organización del árbol de archivos"
+HREF="fhs.html"><LINK
+REL="NEXT"
+TITLE="/usr: el grandote"
+HREF="fhs-usr.html">
+<meta name="Author" content="MandrakeSoft">
+<meta name="Description" content="This is Linux-Mandrake Documentation.">
+<meta name="KeyWords" content="Linux, Mandrake, Linux-Mandrake, documentation, Mandrake Books, howto, Powerpack">
+
+</HEAD
+><BODY
+CLASS="SECT1"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#666699"
+VLINK="#980060"
+ALINK="#FF0000"
+>
+
+<DIV
+CLASS="NAVHEADER"
+><TABLE
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+><B
+CLASS="EMPHASIS"
+>Linux-Mandrake</B
+>: <B
+CLASS="EMPHASIS"
+>Manual de Referencia</B
+></TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="fhs.html"
+>Anterior</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+>Capítulo 8. Organización del árbol de archivos</TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="fhs-usr.html"
+>Siguiente</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><DIV
+CLASS="SECT1"
+><H1
+CLASS="SECT1"
+><A
+NAME="FHS-ROOT"
+>8.2. El directorio raíz: <TT
+CLASS="FILENAME"
+>/</TT
+></A
+></H1
+><P
+>&#13;El directorio raíz contiene toda la jerarquía del sistema. No se puede clasificar ya que sus sub-directorios pueden, o no, ser estáticos o compartibles. Aquí tiene una lista de los directorios y sub-directorios principales, junto con sus clasificaciones:</P
+><P
+></P
+><UL
+><LI
+><P
+> <TT
+CLASS="FILENAME"
+>/bin</TT
+>: archivos binarios esenciales del sistema. Este directorio contiene los comandos básicos que usarán todos los usuarios y son necesarios para la operación del sistema: <TT
+CLASS="COMMAND"
+>ls</TT
+>, <TT
+CLASS="COMMAND"
+>cp</TT
+>, <TT
+CLASS="FOREIGNPHRASE"
+><I
+>login</I
+></TT
+>, etc. Estático, no compartible.&#13;</P
+></LI
+><LI
+><P
+> <TT
+CLASS="FILENAME"
+>/boot</TT
+>: contiene los archivos que necesita el administrador de arranque de <TT
+CLASS="APPLICATION"
+><I
+>GNU/Linux</I
+></TT
+> (<TT
+CLASS="APPLICATION"
+><I
+>LILO</I
+></TT
+> para las plataformas <B
+CLASS="EMPHASIS"
+>Intel</B
+>). Este puede, o no, contener al núcleo: si el núcleo no está aquí, debe estar ubicado en el directorio raíz. Estático, no compartible.&#13;</P
+></LI
+><LI
+><P
+> <TT
+CLASS="FILENAME"
+>/dev</TT
+>: archivos de los dispositivos del sistema (<TT
+CLASS="LITERAL"
+>dev</TT
+> por <TT
+CLASS="FOREIGNPHRASE"
+><I
+>DEVices</I
+></TT
+>, <TT
+CLASS="FOREIGNPHRASE"
+><I
+>dispositivos</I
+></TT
+>). Estático, no compartible.&#13;</P
+></LI
+><LI
+><P
+> <TT
+CLASS="FILENAME"
+>/etc</TT
+>: este directorio contiene todos los archivos de configuración específicos a la máquina. Estático, no compartible.</P
+></LI
+><LI
+><P
+> <TT
+CLASS="FILENAME"
+>/home</TT
+>: contiene todos los directorios personales de los usuarios del sistema. Este directorio puede, o no, ser compartible (algunas redes grandes lo hacen compartible por <SPAN
+CLASS="ACRONYM"
+>NFS</SPAN
+>). No estático, compartible.</P
+></LI
+><LI
+><P
+> <TT
+CLASS="FILENAME"
+>/lib</TT
+>: este directorio contiene las bibliotecas esenciales al sistema y los módulos del núcleo, en <TT
+CLASS="FILENAME"
+>/lib/modules</TT
+>. Todas las bibliotecas que necesitan los binarios presentes en los directorios <TT
+CLASS="FILENAME"
+>/bin</TT
+> y <TT
+CLASS="FILENAME"
+>/sbin</TT
+> se deben ubicar aquí, junto con el vinculador <TT
+CLASS="FILENAME"
+>ld.so</TT
+>. Estático, no compartible.&#13;</P
+></LI
+><LI
+><P
+> <TT
+CLASS="FILENAME"
+>/mnt</TT
+>: directorio que contiene los puntos de montaje para los sistemas de archivos temporales. No estático, no compartible.&#13;</P
+></LI
+><LI
+><P
+> <TT
+CLASS="FILENAME"
+>/opt</TT
+>: este directorio contiene los paquetes que no son necesarios para la operación del sistema. Se recomienda poner los archivos estáticos (binarios, bibliotecas, páginas de manual, etc.) de tales paquetes en el directorio <TT
+CLASS="FILENAME"
+>/opt/nombre_del_paquete</TT
+> y sus archivos de configuración específicos para la máquina en <TT
+CLASS="FILENAME"
+>/etc/opt</TT
+>.&#13;</P
+></LI
+><LI
+><P
+> <TT
+CLASS="FILENAME"
+>/root</TT
+>: directorio personal del que Todo lo Puede. No estático, no compartible.&#13;</P
+></LI
+><LI
+><P
+> <TT
+CLASS="FILENAME"
+>/usr</TT
+>: ver la sección siguiente. Estático, compartible.&#13;</P
+></LI
+><LI
+><P
+> <TT
+CLASS="FILENAME"
+>/sbin</TT
+>: contiene los binarios del sistema esenciales para el arranque del mismo, sólo utilizables por <TT
+CLASS="USERINPUT"
+><B
+>root</B
+></TT
+>. Un usuario no privilegiado también puede ejecutarlos pero no llegará muy lejos. Estático, no compartible.&#13;</P
+></LI
+><LI
+><P
+> <TT
+CLASS="FILENAME"
+>/tmp</TT
+>: directorio destinado a contener archivos temporales que pueden crear ciertos programas. No estático, no compartible.&#13;</P
+></LI
+><LI
+><P
+> <TT
+CLASS="FILENAME"
+>/var</TT
+>: ubicación para los datos que los programas pueden modificar en tiempo real (ej: el servidor de correo electrónico, los programas de auditoría, el servidor de impresión, etc.) Todo <TT
+CLASS="FILENAME"
+>var</TT
+> es no estático, pero sus diferentes sub-directorios pueden ser compartibles, o no.&#13;</P
+></LI
+></UL
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="fhs.html"
+>Anterior</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+>Inicio</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="fhs-usr.html"
+>Siguiente</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>Organización del árbol de archivos</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="fhs.html"
+>Subir</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><TT
+CLASS="FILENAME"
+>/usr</TT
+>: el grandote</TD
+></TR
+></TABLE
+></DIV
+>
+  <hr align="center">
+  <div align="left"><a href="http://www.linux-mandrake.com"><img
+    src="../images/tux48.png" width="48" height="39" align="left" border="0"
+    alt="Tux sobre Estrella por MandrakeSoft"></a> <font face="Helvetica,
+    Arial, sans-serif" size="2">Linux es una marca registrada de 
+    Linus Torvalds. Todas las otras marcas registradas y copyrights son la
+    propiedad de sus respectivos due&ntilde;os.<br>A menos que se diga lo
+	contrario, todo el contenido de estas p&aacute;ginas y todas las
+	im&aacute;genes tienen Copyright de <i>MandrakeSoft S.A.</i> y de
+	<i>MandrakeSoft Inc.</i> 2000.
+    <br><a
+    href="http://www.linux-mandrake.com/">http://www.linux-mandrake.com/</a>
+    <br>
+</font>
+ </div>
+
+</BODY
+
+></HTML
+>

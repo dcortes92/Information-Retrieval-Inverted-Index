@@ -1,0 +1,294 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<HTML
+><HEAD
+><TITLE
+>Los comandos mount y umount</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.59"><LINK
+REL="HOME"
+TITLE="Linux-Mandrake"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="Sistemas de archivos y puntos de montaje"
+HREF="fs-and-mntpoints.html"><LINK
+REL="PREVIOUS"
+TITLE="Particionar un disco rígido y formatear una partición"
+HREF="x3567.html"><LINK
+REL="NEXT"
+TITLE="El archivo /etc/fstab"
+HREF="x3630.html">
+<meta name="Author" content="MandrakeSoft">
+<meta name="Description" content="This is Linux-Mandrake Documentation.">
+<meta name="KeyWords" content="Linux, Mandrake, Linux-Mandrake, documentation, Mandrake Books, howto, Powerpack">
+
+</HEAD
+><BODY
+CLASS="SECT1"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#666699"
+VLINK="#980060"
+ALINK="#FF0000"
+>
+
+<DIV
+CLASS="NAVHEADER"
+><TABLE
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+><B
+CLASS="EMPHASIS"
+>Linux-Mandrake</B
+>: <B
+CLASS="EMPHASIS"
+>Manual de Referencia</B
+></TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="x3567.html"
+>Anterior</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+>Capítulo 9. Sistemas de archivos y puntos de montaje</TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="x3630.html"
+>Siguiente</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><DIV
+CLASS="SECT1"
+><H1
+CLASS="SECT1"
+><A
+NAME="AEN3582"
+>9.3. Los comandos <TT
+CLASS="COMMAND"
+>mount</TT
+> y <TT
+CLASS="COMMAND"
+>umount</TT
+></A
+></H1
+><P
+>Ahora que se creó el sistema de archivos, Ud. puede montar la partición. Inicialmente, por supuesto, estará vacía. El comando para montar sistemas de archivos es <TT
+CLASS="COMMAND"
+>mount</TT
+>
+
+, y su sintaxis es la siguiente:</P
+><P
+>&#13;<TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+>mount [opciones] &lt;-t tipo&gt; [-o opciones de montaje] 
+  &lt;dispositivo&gt; &lt;punto de montaje&gt;</PRE
+></TD
+></TR
+></TABLE
+></P
+><P
+>&#13;En este caso, nosotros queremos montar nuestra partición sobre <TT
+CLASS="FILENAME"
+>/mnt</TT
+> (o cualquier otro punto de montaje que Ud. haya elegido -- no se olvide que debe existir); el comando para montar nuestra partición recientemente creada es el siguiente:</P
+><P
+>&#13;<TT
+CLASS="COMMAND"
+>$ mount -t ext2 /dev/hdb1 /mnt</TT
+></P
+><P
+>&#13;La opción <TT
+CLASS="OPTION"
+>-t</TT
+> se usa para especificar el tipo de sistema de archivos que se supone alberga la partición. Entre los sistemas de archivos que Ud. encontrará con mayor frecuencia, están <TT
+CLASS="LITERAL"
+>ext2</TT
+> (el sistema de archivos de <TT
+CLASS="APPLICATION"
+><I
+>GNU/Linux</I
+></TT
+>), <TT
+CLASS="LITERAL"
+>vfat</TT
+> (para todas las particiones <TT
+CLASS="APPLICATION"
+><I
+>DOS</I
+></TT
+>/<TT
+CLASS="APPLICATION"
+><I
+>Windows</I
+></TT
+>: <SPAN
+CLASS="ACRONYM"
+>FAT</SPAN
+> 12, 16 or 32) e <TT
+CLASS="LITERAL"
+>iso9660</TT
+> (sistema de archivos de <SPAN
+CLASS="ACRONYM"
+>CD-ROM</SPAN
+>).</P
+><P
+>&#13;La opción <TT
+CLASS="OPTION"
+>-o</TT
+> se usa para especificar una o más opciones de montaje. Estas opciones dependen del sistema de archivos usado. Refiérase a la página de manual de <TT
+CLASS="COMMAND"
+>man 8 mount</TT
+> para más detalles.</P
+><P
+>&#13;Ahora que Ud. ha montado su partición nueva, necesita copiar todo el directorio <TT
+CLASS="FILENAME"
+>/usr</TT
+> en la misma:</P
+><P
+>&#13;<TT
+CLASS="COMMAND"
+>$ (cd /usr &amp;&amp; tar cf - .) | (cd /mnt &amp;&amp; tar xpvf -)</TT
+></P
+><P
+>&#13;Ahora que se copiaron los archivos, podemos desmontar nuestra partición. Para hacerlo, el comando es <TT
+CLASS="COMMAND"
+>umount</TT
+>
+. La sintaxis es simple:</P
+><P
+>&#13;<TT
+CLASS="OPTION"
+>umount &lt;punto de montaje|dispositivo&gt;</TT
+></P
+><P
+>&#13;Entonces, para desmontar nuestra partición, podemos ingresar:</P
+><P
+>&#13;<TT
+CLASS="COMMAND"
+>$ umount /mnt</TT
+> </P
+><P
+>&#13;o bien:</P
+><P
+>&#13;<TT
+CLASS="COMMAND"
+>$ umount /dev/hdb1</TT
+></P
+><P
+>&#13;Como esta partición se va a <SPAN
+CLASS="QUOTE"
+>"convertir"</SPAN
+> en nuestro directorio <TT
+CLASS="FILENAME"
+>/usr</TT
+>, necesitamos informarle al sistema. Para hacerlo, llenamos:</P
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="x3567.html"
+>Anterior</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+>Inicio</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="x3630.html"
+>Siguiente</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>Particionar un disco rígido y formatear una partición</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="fs-and-mntpoints.html"
+>Subir</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>El archivo <TT
+CLASS="FILENAME"
+>/etc/fstab</TT
+></TD
+></TR
+></TABLE
+></DIV
+>
+  <hr align="center">
+  <div align="left"><a href="http://www.linux-mandrake.com"><img
+    src="../images/tux48.png" width="48" height="39" align="left" border="0"
+    alt="Tux sobre Estrella por MandrakeSoft"></a> <font face="Helvetica,
+    Arial, sans-serif" size="2">Linux es una marca registrada de 
+    Linus Torvalds. Todas las otras marcas registradas y copyrights son la
+    propiedad de sus respectivos due&ntilde;os.<br>A menos que se diga lo
+	contrario, todo el contenido de estas p&aacute;ginas y todas las
+	im&aacute;genes tienen Copyright de <i>MandrakeSoft S.A.</i> y de
+	<i>MandrakeSoft Inc.</i> 2000.
+    <br><a
+    href="http://www.linux-mandrake.com/">http://www.linux-mandrake.com/</a>
+    <br>
+</font>
+ </div>
+
+</BODY
+
+></HTML
+>

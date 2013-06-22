@@ -1,0 +1,781 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<HTML
+><HEAD
+><TITLE
+>Descripción del archivo /etc/smb.conf</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.59"><LINK
+REL="HOME"
+TITLE="Linux-Mandrake"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="Samba"
+HREF="samba.html"><LINK
+REL="PREVIOUS"
+TITLE="Instalación de Samba"
+HREF="samba-installation.html"><LINK
+REL="NEXT"
+TITLE="Verificaciones y arranque"
+HREF="samba-check.html">
+<meta name="Author" content="MandrakeSoft">
+<meta name="Description" content="This is Linux-Mandrake Documentation.">
+<meta name="KeyWords" content="Linux, Mandrake, Linux-Mandrake, documentation, Mandrake Books, howto, Powerpack">
+
+</HEAD
+><BODY
+CLASS="SECT1"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#666699"
+VLINK="#980060"
+ALINK="#FF0000"
+>
+
+<DIV
+CLASS="NAVHEADER"
+><TABLE
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+><B
+CLASS="EMPHASIS"
+>Linux-Mandrake</B
+>: <B
+CLASS="EMPHASIS"
+>Manual de Referencia</B
+></TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="samba-installation.html"
+>Anterior</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+>Capítulo 6. <TT
+CLASS="APPLICATION"
+><I
+>Samba</I
+></TT
+></TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="samba-check.html"
+>Siguiente</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><DIV
+CLASS="SECT1"
+><H1
+CLASS="SECT1"
+><A
+NAME="SAMBA-CONF"
+>6.4. Descripción del archivo <TT
+CLASS="FILENAME"
+>/etc/smb.conf</TT
+></A
+></H1
+><P
+>Este es el archivo de texto que le permite configurar el servidor <TT
+CLASS="APPLICATION"
+><I
+>Samba</I
+></TT
+>.</P
+><P
+>El mismo se compone de secciones diferentes cuyos títulos se ponen entre corchetes <TT
+CLASS="LITERAL"
+>[&nbsp;]</TT
+>. Cada línea que comienza con un <B
+CLASS="KEYCAP"
+>;</B
+> o un <B
+CLASS="KEYCAP"
+>#</B
+> se ignora al ejecutar <TT
+CLASS="APPLICATION"
+><I
+>Samba</I
+></TT
+>. Generalmente estos símbolos se usan para agregar comentarios explicativos sobre las diferentes secciones. Gracias a esto, será más fácil comprender las secciones cuando más tarde vuelva a leer el archivo.</P
+><P
+>Durante la instalación del paquete, se ha copiado en su computadora un archivo <TT
+CLASS="FILENAME"
+>/etc/smb.conf</TT
+>. Usaremos este archivo como planilla.</P
+><P
+>Hay tres secciones especiales: <TT
+CLASS="LITERAL"
+>[global]</TT
+> (generalidades), <TT
+CLASS="LITERAL"
+>[printers]</TT
+> (impresoras), y <TT
+CLASS="LITERAL"
+>[homes]</TT
+> (directorios personales).</P
+><P
+>&nbsp;</P
+><P
+>&nbsp;</P
+><DIV
+CLASS="SECT2"
+><H2
+CLASS="SECT2"
+><A
+NAME="AEN2497"
+>6.4.1. Sección <TT
+CLASS="LITERAL"
+>[global]</TT
+></A
+></H2
+><P
+>Aquí se introducen los parámetros que se aplican al servidor en sí mismo, en su totalidad, o que se usarán como parámetros predeterminados para algunas secciones.
+
+<TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="PROGRAMLISTING"
+>[global]
+netbios name =          Zeus
+netbios aliases =       creacion
+# sin estas dos entradas, se usará en su lugar
+# la primer parte del nombre DNS.
+
+workgroup =             DISENIO
+# Samba sólo puede pertenecer a un grupo de trabajo 
+# a la vez
+
+server string =         Servidor de archivos [%v]
+# esto indica el nombre y el número de versión a
+# mostrar 
+
+deadtime =              15              
+# máximo tiempo de inactividad 
+
+auto services =         reina
+# este servicio, aunque está presente en la lista de
+# exploración, no está disponible hasta que reina se
+# conecte al servidor
+
+security = user
+
+# habilitar la impresión con cups
+printing = cups
+printcap name = lpstat
+load printers = yes
+
+security = user</PRE
+></TD
+></TR
+></TABLE
+>
+
+Este último parámetro puede tomar uno de cuatro valores: <TT
+CLASS="LITERAL"
+>share</TT
+> (compartido), <TT
+CLASS="LITERAL"
+>user</TT
+> (usuario), <TT
+CLASS="LITERAL"
+>server</TT
+> (servidor) o <TT
+CLASS="LITERAL"
+>domain</TT
+> (dominio).</P
+><P
+></P
+><DIV
+CLASS="VARIABLELIST"
+><DL
+><DT
+>Modo <TT
+CLASS="LITERAL"
+>share</TT
+> (compartido):</DT
+><DD
+><P
+>En este modo, el cliente envía una contraseña mientras pide la conexión, pero no se necesita un nombre de usuario. Este modo es el modo de seguridad predeterminado para los archivos o las impresoras bajo <TT
+CLASS="APPLICATION"
+><I
+>Windows 95</I
+></TT
+>. Se puede cambiar, bajo <TT
+CLASS="APPLICATION"
+><I
+>Windows 95</I
+></TT
+> en la sección <SPAN
+CLASS="GUIMENU"
+>Red</SPAN
+> del <SPAN
+CLASS="GUIMENU"
+>Panel de Control</SPAN
+>, bajo <SPAN
+CLASS="GUIMENU"
+>Control de acceso</SPAN
+>.</P
+></DD
+><DT
+>Modo <TT
+CLASS="LITERAL"
+>user</TT
+> (usuario):</DT
+><DD
+><P
+>Este es el modo de seguridad recomendado. En este modo se le pide al usuario un nombre de usuario y contraseña asociada válida.</P
+></DD
+><DT
+>Modo <TT
+CLASS="LITERAL"
+>server</TT
+> (servidor):</DT
+><DD
+><P
+>Este modo es una variante del modo <TT
+CLASS="LITERAL"
+>user</TT
+>. El servidor <TT
+CLASS="APPLICATION"
+><I
+>Samba</I
+></TT
+> envía un pedido de apertura de sesión al servidor de contraseñas.  </P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="90%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+>password server = NT_servclaves 
+# donde NT_servclaves es el nombre del servidor de contraseñas NT. 
+# Se pueden listar varios servidores.</PRE
+></TD
+></TR
+></TABLE
+></DD
+><DT
+>Modo <TT
+CLASS="LITERAL"
+>domain</TT
+> (dominio):</DT
+><DD
+><P
+>Este modo es prácticamente el mismo que el anterior.</P
+></DD
+></DL
+></DIV
+><P
+>Para estos tres últimos modos, el usuario debe ser <SPAN
+CLASS="QUOTE"
+>"creado"</SPAN
+> sobre el servidor <TT
+CLASS="APPLICATION"
+><I
+>Samba</I
+></TT
+>.
+
+<TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+>hosts allow = reina.disenio.org 192.168.2.</PRE
+></TD
+></TR
+></TABLE
+>
+
+Con esta línea, se aceptarán a todos los usuarios de la máquina <TT
+CLASS="SYSTEMITEM"
+><I
+>reina.disenio.org</I
+></TT
+> y de la red <TT
+CLASS="SYSTEMITEM"
+><I
+>192.168.2.</I
+></TT
+>.
+
+<TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+>hosts deny = 192.168.2.5</PRE
+></TD
+></TR
+></TABLE
+>
+
+Esta línea niega el acceso sólo a la máquina <TT
+CLASS="SYSTEMITEM"
+><I
+>192.168.2.5</I
+></TT
+>. Tiene el mismo efecto que la palabra clave <TT
+CLASS="LITERAL"
+>EXCEPT</TT
+> dentro de <TT
+CLASS="LITERAL"
+>hosts allow</TT
+>.</P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+>guest account = pcinvitado   
+# Si desea agregar un usuario invitado; a ser 
+# agregado en /etc/passwd</PRE
+></TD
+></TR
+></TABLE
+></DIV
+><DIV
+CLASS="SECT2"
+><H2
+CLASS="SECT2"
+><A
+NAME="AEN2546"
+>6.4.2. Definir un recurso compartido</A
+></H2
+><P
+>Antes que nada, Ud. debe crear el directorio compartido con el comando <TT
+CLASS="COMMAND"
+>mkdir /home/comun</TT
+> y configurar los dueños y los permisos con los comandos <TT
+CLASS="COMMAND"
+>chmod</TT
+> y <TT
+CLASS="COMMAND"
+>chown</TT
+>. Por ejemplo, <TT
+CLASS="COMMAND"
+>chmod 0777</TT
+> le da todos los derechos sobre esta carpeta del lado <TT
+CLASS="APPLICATION"
+><I
+>Unix</I
+></TT
+>. Sin embargo, también <TT
+CLASS="APPLICATION"
+><I
+>Samba</I
+></TT
+> debe permitir esto.
+
+<TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+>[share]
+  comment = acceso compartido garantizado a cualquiera
+  path = /home/comun
+  browsable = yes
+  writable = yes
+  create mask = 0750 
+# significa que el creador del archivo tiene derechos rwx 
+# sobre el mismo, el grupo r-x, y los otros r--
+
+  directory mask = 0750 
+# el mismo significado pero para los directorios
+
+  mangled names = yes 
+# convierte los nombres en una forma tipo DOS/Windows, con 
+# ocho caracteres para el nombre y tres caracteres para la
+# extensión.
+
+  preserve case = no 
+# no distinguir entre mayúsculas y minúsculas.</PRE
+></TD
+></TR
+></TABLE
+>
+
+Otro ejemplo de recurso compartido</P
+><P
+>Antes que nada, asegúrese de cargar el módulo <SPAN
+CLASS="ACRONYM"
+>ppa</SPAN
+> con el comando <TT
+CLASS="COMMAND"
+>modprobe ppa.o</TT
+>.
+
+<TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+>[zip]
+comment = montar/desmontar la unidad zip automáticamente
+  browseable = yes
+  path = /mnt/zip
+  root preexec = /bin/mount /dev/sda4 /mnt/zip
+  root postexec = /bin/unmount /mnt/zip</PRE
+></TD
+></TR
+></TABLE
+>&#13;</P
+><P
+>&nbsp;</P
+><P
+>&nbsp;</P
+></DIV
+><DIV
+CLASS="SECT2"
+><H2
+CLASS="SECT2"
+><A
+NAME="AEN2562"
+>6.4.3. Sección <TT
+CLASS="LITERAL"
+>[homes]</TT
+></A
+></H2
+><P
+>Hace que el directorio personal de cada usuario esté disponible desde una máquina <TT
+CLASS="APPLICATION"
+><I
+>Windows</I
+></TT
+> con su nombre de usuario y contraseña. Este es un tipo de compartido especial.
+
+<TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+>[homes]
+  comment = Directorios personales
+  browseable = no
+  writable = yes
+  path = /export/homes/%U
+  valid users = %S</PRE
+></TD
+></TR
+></TABLE
+></P
+></DIV
+><DIV
+CLASS="SECT2"
+><H2
+CLASS="SECT2"
+><A
+NAME="AEN2568"
+>6.4.4. Sección <TT
+CLASS="LITERAL"
+>[printers]</TT
+></A
+></H2
+><P
+>&#13;Aquí hay otro tipo especial de recurso compartido.
+
+<TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+>[printers]
+   comment = Todas las Impresoras
+   browseable = yes
+   printable = yes
+   public = yes
+   writable = no
+   create mode = 0700
+   print command = lpr-cups -P 0 
+   lpq command = lpstat -o 0
+   lprm command = cancel 0-&percnt;j</PRE
+></TD
+></TR
+></TABLE
+>
+
+Ud. también puede imprimir desde <TT
+CLASS="APPLICATION"
+><I
+>GNU/Linux</I
+></TT
+> sobre una impresora conectada a una <TT
+CLASS="HARDWARE"
+><I
+>PC</I
+></TT
+> que corre <TT
+CLASS="APPLICATION"
+><I
+>Windows</I
+></TT
+>. <TT
+CLASS="APPLICATION"
+><I
+>CUPS</I
+></TT
+> automáticamente <SPAN
+CLASS="QUOTE"
+>"ve"</SPAN
+> las impresoras compartidas de todas las máquinas <TT
+CLASS="APPLICATION"
+><I
+>Windows</I
+></TT
+> de su red, simplemente debe seleccionarla cuando imprima (ver <A
+HREF="print.html"
+><I
+>Impresión</I
+></A
+>) . Asegúrese que la impresora se puede compartir bajo <TT
+CLASS="APPLICATION"
+><I
+>Windows</I
+></TT
+>.</P
+><DIV
+CLASS="NOTE"
+><P
+></P
+><TABLE
+CLASS="NOTE"
+WIDTH="100%"
+BORDER="0"
+><TR
+><TD
+WIDTH="25"
+ALIGN="CENTER"
+VALIGN="TOP"
+><IMG
+SRC="../images/note.png"
+HSPACE="5"
+ALT="Nota"></TD
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+><P
+>Siempre que desee imprimir o servir una impresora con su computadora,
+ no olvide instalar el paquete <TT
+CLASS="APPLICATION"
+><I
+>CUPS</I
+></TT
+>.</P
+></TD
+></TR
+></TABLE
+></DIV
+><P
+>Hay un montón de parámetros más, para información adicional, ejecute <TT
+CLASS="COMMAND"
+>man smb.conf</TT
+>.</P
+><P
+>&#13;Archivo <TT
+CLASS="FILENAME"
+>smb.conf</TT
+> de ejemplo:
+
+<TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+>[global]
+  workgroup = MiGrupoDeTrabajo
+  server string = (Samba %v)
+  #server string = Servidor Samba
+  browseable = yes
+  printing = bsd
+  printcap name = /etc/printcap
+  load printers = yes
+  log file = /var/log/samba/log.%m
+  max log size = 100
+  lock directory = /var/lock/samba
+  locking = no
+  strict locking = no
+  share modes = yes
+  security = user
+  null passwords = yes
+  socket options = TCP_NODELAY
+
+  # Permite que el servidor Samba se convierta en el controlador del dominio
+  #os level = 33
+  #domain master = yes
+
+  # Facilita el reconocimiento de los nombres largos
+  preserve case = no
+  short preserve case = no
+  character set = iso8859-1
+
+[homes]
+  comment = Directorios personales
+  preexec = /bin/sh -c 'echo /usr/bin/smbclient -M %m -I %I'&amp;
+  browseable = yes
+  readonfiltered= no
+  writable = yes
+  create mode = 0750
+  public = yes
+
+[public]
+  comment = Público
+  path = /public/
+  browseable = yes
+  hide dot files = yes
+  readonfiltered= no
+  public = yes
+  pritable = yes
+  #create mode = 0775
+  printable = no 
+
+
+[printers]
+   comment = Todas las Impresoras
+   browseable = yes
+   printable = yes
+   public = yes
+   writable = no
+   create mode = 0700
+   print command = lpr-cups -P 0 
+   lpq command = lpstat -o 0
+   lprm command = cancel 0-&percnt;j</PRE
+></TD
+></TR
+></TABLE
+>&#13;</P
+></DIV
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="samba-installation.html"
+>Anterior</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+>Inicio</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="samba-check.html"
+>Siguiente</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>Instalación de <TT
+CLASS="APPLICATION"
+><I
+>Samba</I
+></TT
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="samba.html"
+>Subir</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>Verificaciones y arranque</TD
+></TR
+></TABLE
+></DIV
+>
+  <hr align="center">
+  <div align="left"><a href="http://www.linux-mandrake.com"><img
+    src="../images/tux48.png" width="48" height="39" align="left" border="0"
+    alt="Tux sobre Estrella por MandrakeSoft"></a> <font face="Helvetica,
+    Arial, sans-serif" size="2">Linux es una marca registrada de 
+    Linus Torvalds. Todas las otras marcas registradas y copyrights son la
+    propiedad de sus respectivos due&ntilde;os.<br>A menos que se diga lo
+	contrario, todo el contenido de estas p&aacute;ginas y todas las
+	im&aacute;genes tienen Copyright de <i>MandrakeSoft S.A.</i> y de
+	<i>MandrakeSoft Inc.</i> 2000.
+    <br><a
+    href="http://www.linux-mandrake.com/">http://www.linux-mandrake.com/</a>
+    <br>
+</font>
+ </div>
+
+</BODY
+
+></HTML
+>

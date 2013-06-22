@@ -1,0 +1,297 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<HTML
+><HEAD
+><TITLE
+>Herramienta gráfica de administración: SWAT</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.59"><LINK
+REL="HOME"
+TITLE="Linux-Mandrake"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="Samba"
+HREF="samba.html"><LINK
+REL="PREVIOUS"
+TITLE="Algunas herramientas"
+HREF="samba-tools.html"><LINK
+REL="NEXT"
+TITLE="MSEC -- Mandrake SECurity tools (Herramientas de seguridad de Mandrake)"
+HREF="prog-msec.html">
+<meta name="Author" content="MandrakeSoft">
+<meta name="Description" content="This is Linux-Mandrake Documentation.">
+<meta name="KeyWords" content="Linux, Mandrake, Linux-Mandrake, documentation, Mandrake Books, howto, Powerpack">
+
+</HEAD
+><BODY
+CLASS="SECT1"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#666699"
+VLINK="#980060"
+ALINK="#FF0000"
+>
+
+<DIV
+CLASS="NAVHEADER"
+><TABLE
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+><B
+CLASS="EMPHASIS"
+>Linux-Mandrake</B
+>: <B
+CLASS="EMPHASIS"
+>Manual de Referencia</B
+></TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="samba-tools.html"
+>Anterior</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+>Capítulo 6. <TT
+CLASS="APPLICATION"
+><I
+>Samba</I
+></TT
+></TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="prog-msec.html"
+>Siguiente</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><DIV
+CLASS="SECT1"
+><H1
+CLASS="SECT1"
+><A
+NAME="SAMBA-GUI"
+>6.7. Herramienta gráfica de administración: <TT
+CLASS="APPLICATION"
+><I
+>SWAT</I
+></TT
+></A
+></H1
+><P
+><TT
+CLASS="APPLICATION"
+><I
+>SWAT</I
+></TT
+> es un utilitario de configuración incluido con el paquete <TT
+CLASS="APPLICATION"
+><I
+>Samba</I
+></TT
+>. Para poder iniciar esta herramienta, primero deberá editar el archivo <TT
+CLASS="FILENAME"
+>/etc/inet.conf</TT
+> y quitar el comentario (es decir, borrar el <TT
+CLASS="LITERAL"
+>#</TT
+> que está al principio de la línea) el cual que dice lo siguiente: 
+
+<TT
+CLASS="LITERAL"
+>swat stream tcp nowait.400 root /usr/sbin/swat swat</TT
+>
+
+y luego volver a iniciar los servicios <TT
+CLASS="COMMAND"
+>inet</TT
+> con el comando <TT
+CLASS="COMMAND"
+>/etc/rc.d/init.d/inet restart</TT
+>.</P
+><P
+>Desde su navegador <TT
+CLASS="SYSTEMITEM"
+><I
+>web</I
+></TT
+> favorito (preferentemente uno gráfico), ingrese la <SPAN
+CLASS="ACRONYM"
+>URL</SPAN
+> siguiente: <A
+HREF="http://localhost:901"
+TARGET="_top"
+>http://localhost:901</A
+>. Debería aparecer una ventana de autenticación (<A
+HREF="samba-gui.html#SAMBA-SWAT-AUTH"
+>Figura 6-1</A
+>) donde se le pedirá un nombre de usuario y una contraseña. La contraseña de <TT
+CLASS="USERINPUT"
+><B
+>root</B
+></TT
+> debería ser lo suficientemente segura.  </P
+><DIV
+CLASS="FIGURE"
+><A
+NAME="SAMBA-SWAT-AUTH"
+></A
+><P
+><B
+>Figura 6-1. Conectándose a <TT
+CLASS="APPLICATION"
+><I
+>Samba</I
+></TT
+></B
+></P
+><DIV
+CLASS="MEDIAOBJECT"
+><P
+><IMG
+SRC="../images/samba-swat-auth.png"
+></IMG
+></P
+></DIV
+></DIV
+><P
+> 
+Aquí está, en una interfaz gráfica para editar los parámetros del archivo <TT
+CLASS="FILENAME"
+>smb.conf</TT
+>. Ud. debería poder utilizar esta interfaz sin problemas siguiendo las explicaciones dadas aquí y consultando las páginas de manual para configuraciones más específicas.  </P
+><DIV
+CLASS="FIGURE"
+><A
+NAME="SAMBA-SWAT"
+></A
+><P
+><B
+>Figura 6-2. La página de bienvenida de <TT
+CLASS="APPLICATION"
+><I
+>SWAT</I
+></TT
+></B
+></P
+><DIV
+CLASS="MEDIAOBJECT"
+><P
+><IMG
+SRC="../images/samba-swat.png"
+></IMG
+></P
+></DIV
+></DIV
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="samba-tools.html"
+>Anterior</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+>Inicio</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="prog-msec.html"
+>Siguiente</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>Algunas herramientas</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="samba.html"
+>Subir</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><TT
+CLASS="APPLICATION"
+><I
+>MSEC</I
+></TT
+> -- <TT
+CLASS="FOREIGNPHRASE"
+><I
+>Mandrake SECurity tools</I
+></TT
+> (<TT
+CLASS="FOREIGNPHRASE"
+><I
+>Herramientas de seguridad de Mandrake</I
+></TT
+>)</TD
+></TR
+></TABLE
+></DIV
+>
+  <hr align="center">
+  <div align="left"><a href="http://www.linux-mandrake.com"><img
+    src="../images/tux48.png" width="48" height="39" align="left" border="0"
+    alt="Tux sobre Estrella por MandrakeSoft"></a> <font face="Helvetica,
+    Arial, sans-serif" size="2">Linux es una marca registrada de 
+    Linus Torvalds. Todas las otras marcas registradas y copyrights son la
+    propiedad de sus respectivos due&ntilde;os.<br>A menos que se diga lo
+	contrario, todo el contenido de estas p&aacute;ginas y todas las
+	im&aacute;genes tienen Copyright de <i>MandrakeSoft S.A.</i> y de
+	<i>MandrakeSoft Inc.</i> 2000.
+    <br><a
+    href="http://www.linux-mandrake.com/">http://www.linux-mandrake.com/</a>
+    <br>
+</font>
+ </div>
+
+</BODY
+
+></HTML
+>

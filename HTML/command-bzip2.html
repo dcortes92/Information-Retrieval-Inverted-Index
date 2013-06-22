@@ -1,0 +1,422 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<HTML
+><HEAD
+><TITLE
+>bzip2 y gzip: comandos de compresión de
+ datos</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.59"><LINK
+REL="HOME"
+TITLE="Linux-Mandrake"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="Los utilitarios de la línea de
+ comandos"
+HREF="command.html"><LINK
+REL="PREVIOUS"
+TITLE="tar: Tape ARchiver (Archivador de
+ cinta)"
+HREF="command-tar.html"><LINK
+REL="NEXT"
+TITLE="Mucho, mucho más..."
+HREF="command-many.html">
+<meta name="Author" content="MandrakeSoft">
+<meta name="Description" content="This is Linux-Mandrake Documentation.">
+<meta name="KeyWords" content="Linux, Mandrake, Linux-Mandrake, documentation, Mandrake Books, howto, Powerpack">
+
+</HEAD
+><BODY
+CLASS="SECT1"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#666699"
+VLINK="#980060"
+ALINK="#FF0000"
+>
+
+<DIV
+CLASS="NAVHEADER"
+><TABLE
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+><B
+CLASS="EMPHASIS"
+>Linux-Mandrake</B
+>: <B
+CLASS="EMPHASIS"
+>Manual de Referencia</B
+></TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="command-tar.html"
+>Anterior</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+>Capítulo 16. Los utilitarios de la línea de
+ comandos</TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="command-many.html"
+>Siguiente</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><DIV
+CLASS="SECT1"
+><H1
+CLASS="SECT1"
+><A
+NAME="COMMAND-BZIP2"
+>16.6. <TT
+CLASS="COMMAND"
+>bzip2</TT
+> y <TT
+CLASS="COMMAND"
+>gzip</TT
+>: comandos de compresión de
+ datos</A
+></H1
+><P
+>&#13;
+Puede ver que ya hemos hablado de estos dos programas cuando tratábamos
+ con <TT
+CLASS="COMMAND"
+>tar</TT
+>. A diferencia de <TT
+CLASS="APPLICATION"
+><I
+>WinZip</I
+></TT
+> bajo
+ <TT
+CLASS="APPLICATION"
+><I
+>Windows</I
+></TT
+>, el archivador y la compresión se hacen usando dos
+ utilitarios separados -- <TT
+CLASS="COMMAND"
+>tar</TT
+> para el archivador, y
+ los dos programas que presentaremos ahora para la compresión de datos,
+ <TT
+CLASS="COMMAND"
+>bzip2</TT
+> y <TT
+CLASS="COMMAND"
+>gzip</TT
+>.</P
+><P
+>Al principio, <TT
+CLASS="COMMAND"
+>bzip2</TT
+> había sido escrito como un reemplazo
+ de <TT
+CLASS="COMMAND"
+>gzip</TT
+>. Sus relaciones de compresión generalmente son
+ mejores, pero por otra parte, toma más memoria. La razón por la cual
+ todavía está aquí <TT
+CLASS="COMMAND"
+>gzip</TT
+> es que todavía es más usado que
+ <TT
+CLASS="COMMAND"
+>bzip2</TT
+>. Tal vez <TT
+CLASS="COMMAND"
+>bzip2</TT
+> reemplazará eventualmente
+ a <TT
+CLASS="COMMAND"
+>gzip</TT
+>, pero tal vez no. </P
+><P
+>Ambos comandos tienen una sintaxis similar:</P
+><P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+>gzip [opciones] [archivo(s)]</PRE
+></TD
+></TR
+></TABLE
+></P
+><P
+>Si no se especifica un nombre de archivo, tanto <TT
+CLASS="COMMAND"
+>gzip</TT
+> como
+ <TT
+CLASS="COMMAND"
+>bzip2</TT
+> esperarán datos de la entrada estándar y enviarán
+ los resultados a la salida estándar. Por lo tanto, puede usar ambos
+ programas en tuberías. También ambos programas tienen un conjunto de
+ opciones en común:</P
+><P
+></P
+><OL
+TYPE="1"
+><LI
+><P
+><TT
+CLASS="OPTION"
+>-1</TT
+>, ..., <TT
+CLASS="OPTION"
+>-9</TT
+>: Configuran el nivel de compresión.
+ A mayor número, mejor compresión, pero mejor también significa más
+ lenta: <SPAN
+CLASS="QUOTE"
+>"dar para recibir"</SPAN
+>.</P
+></LI
+><LI
+><P
+><TT
+CLASS="OPTION"
+>-d</TT
+>: Descomprimir el(los) archivo(s). Esto es equivalente a
+ usar <TT
+CLASS="COMMAND"
+>gunzip</TT
+> o <TT
+CLASS="COMMAND"
+>bunzip2</TT
+>.</P
+></LI
+><LI
+><P
+><TT
+CLASS="OPTION"
+>-c</TT
+>: Volcar el resultado de la compresión/descompresión de
+ los archivos dados en la línea de comandos a la salida estándar.</P
+></LI
+></OL
+><P
+>¡Cuidado! Predeterminadamente, tanto <TT
+CLASS="COMMAND"
+>gzip</TT
+> como
+ <TT
+CLASS="COMMAND"
+>bzip2</TT
+> borran el o los archivos que han comprimido (o
+ descomprimido) si no usa la opción <TT
+CLASS="OPTION"
+>-c</TT
+>. Con
+ <TT
+CLASS="COMMAND"
+>bzip2</TT
+> lo puede evitar usando la opción <TT
+CLASS="OPTION"
+>-k</TT
+>
+ pero, <TT
+CLASS="COMMAND"
+>gzip</TT
+> ¡no tiene tal opción!</P
+><P
+>Ahora, algunos ejemplos. Digamos que quiere comprimir todos los
+ archivos que terminan con <TT
+CLASS="LITERAL"
+>.txt</TT
+> en el directorio corriente
+ usando <TT
+CLASS="COMMAND"
+>bzip2</TT
+>, entonces usará:</P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="PROGRAMLISTING"
+>$ bzip2 -9 *.txt</PRE
+></TD
+></TR
+></TABLE
+><P
+>Digamos que quiere compartir su archivado de imágenes con alguien,
+ pero dicha persona no tiene <TT
+CLASS="COMMAND"
+>bzip2</TT
+>, solo tiene
+ <TT
+CLASS="COMMAND"
+>gzip</TT
+>. Ud. no necesita descomprimir el archivador y volver
+ a comprimirlo, simplemente puede descomprimirlo a la salida estándar,
+ usar una tubería, comprimir la entrada estándar y volver a direccionar
+ la salida al archivador nuevo:</P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="PROGRAMLISTING"
+>bzip2 -dc images.tar.bz2 | gzip -9 &gt;images.tar.gz</PRE
+></TD
+></TR
+></TABLE
+><P
+>Y eso es todo. Podría haber ingresado <TT
+CLASS="COMMAND"
+>bzcat</TT
+> en lugar de
+ <TT
+CLASS="COMMAND"
+>bzip2 -dc</TT
+>. Hay un equivalente para <TT
+CLASS="COMMAND"
+>gzip</TT
+> pero
+ su nombre es <TT
+CLASS="COMMAND"
+>zcat</TT
+>, no <TT
+CLASS="COMMAND"
+>gzcat</TT
+>. También tiene
+ <TT
+CLASS="COMMAND"
+>bzless</TT
+> (y <TT
+CLASS="COMMAND"
+>zless</TT
+>) si quiere ver un archivo
+ comprimido directamente, sin tener que descomprimirlo. Como ejercicio,
+ intente encontrar el comando que tendría que ingresar para ver los
+ archivos comprimidos sin descomprimirlos, y sin usar
+ <TT
+CLASS="COMMAND"
+>bzless</TT
+> o <TT
+CLASS="COMMAND"
+>zless</TT
+> <B
+CLASS="KEYCAP"
+>:-)</B
+></P
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="command-tar.html"
+>Anterior</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+>Inicio</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="command-many.html"
+>Siguiente</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><TT
+CLASS="COMMAND"
+>tar</TT
+>: <TT
+CLASS="FOREIGNPHRASE"
+><I
+>Tape ARchiver</I
+></TT
+> (Archivador de
+ cinta)</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="command.html"
+>Subir</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>Mucho, mucho más...</TD
+></TR
+></TABLE
+></DIV
+>
+  <hr align="center">
+  <div align="left"><a href="http://www.linux-mandrake.com"><img
+    src="../images/tux48.png" width="48" height="39" align="left" border="0"
+    alt="Tux sobre Estrella por MandrakeSoft"></a> <font face="Helvetica,
+    Arial, sans-serif" size="2">Linux es una marca registrada de 
+    Linus Torvalds. Todas las otras marcas registradas y copyrights son la
+    propiedad de sus respectivos due&ntilde;os.<br>A menos que se diga lo
+	contrario, todo el contenido de estas p&aacute;ginas y todas las
+	im&aacute;genes tienen Copyright de <i>MandrakeSoft S.A.</i> y de
+	<i>MandrakeSoft Inc.</i> 2000.
+    <br><a
+    href="http://www.linux-mandrake.com/">http://www.linux-mandrake.com/</a>
+    <br>
+</font>
+ </div>
+
+</BODY
+
+></HTML
+>

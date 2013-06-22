@@ -1,0 +1,521 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<HTML
+><HEAD
+><TITLE
+>Los utilitarios de la línea de
+ comandos</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.59"><LINK
+REL="HOME"
+TITLE="Linux-Mandrake"
+HREF="index.html"><LINK
+REL="PREVIOUS"
+TITLE="Agradecimientos"
+HREF="install-free-ack.html"><LINK
+REL="NEXT"
+TITLE="find: busca archivos en función de ciertos
+ criterios"
+HREF="command-find.html">
+<meta name="Author" content="MandrakeSoft">
+<meta name="Description" content="This is Linux-Mandrake Documentation.">
+<meta name="KeyWords" content="Linux, Mandrake, Linux-Mandrake, documentation, Mandrake Books, howto, Powerpack">
+
+</HEAD
+><BODY
+CLASS="CHAPTER"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#666699"
+VLINK="#980060"
+ALINK="#FF0000"
+>
+
+<DIV
+CLASS="NAVHEADER"
+><TABLE
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+><B
+CLASS="EMPHASIS"
+>Linux-Mandrake</B
+>: <B
+CLASS="EMPHASIS"
+>Manual de Referencia</B
+></TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="install-free-ack.html"
+>Anterior</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+></TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="command-find.html"
+>Siguiente</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><DIV
+CLASS="CHAPTER"
+><H1
+><A
+NAME="COMMAND"
+>Capítulo 16. Los utilitarios de la línea de
+ comandos</A
+></H1
+><DIV
+CLASS="TOC"
+><DL
+><DT
+><B
+>Tabla de contenidos</B
+></DT
+><DT
+>16.1. <A
+HREF="command.html#AEN6418"
+><TT
+CLASS="COMMAND"
+>grep</TT
+>: (<TT
+CLASS="FOREIGNPHRASE"
+><I
+>General Regular Expression
+ Parser</I
+></TT
+>)</A
+></DT
+><DT
+>16.2. <A
+HREF="command-find.html"
+><TT
+CLASS="COMMAND"
+>find</TT
+>: busca archivos en función de ciertos
+ criterios</A
+></DT
+><DD
+><DL
+><DT
+>162. <A
+HREF="command-find.html#AEN6480"
+></A
+></DT
+><DT
+>163. <A
+HREF="command-find.html#AEN6501"
+></A
+></DT
+><DT
+>164. <A
+HREF="command-find.html#AEN6562"
+></A
+></DT
+><DT
+>165. <A
+HREF="command-find.html#AEN6593"
+></A
+></DT
+></DL
+></DD
+><DT
+>16.3. <A
+HREF="command-cron.html"
+><TT
+CLASS="COMMAND"
+>crontab</TT
+>: reportar o editar su archivo
+ <TT
+CLASS="FILENAME"
+>crontab</TT
+></A
+></DT
+><DT
+>16.4. <A
+HREF="command-at.html"
+><TT
+CLASS="COMMAND"
+>at</TT
+>: programar un comando, pero solo una vez</A
+></DT
+><DD
+><DL
+><DT
+>167. <A
+HREF="command-at.html#AEN6734"
+></A
+></DT
+><DT
+>168. <A
+HREF="command-at.html#AEN6762"
+></A
+></DT
+></DL
+></DD
+><DT
+>16.5. <A
+HREF="command-tar.html"
+><TT
+CLASS="COMMAND"
+>tar</TT
+>: <TT
+CLASS="FOREIGNPHRASE"
+><I
+>Tape ARchiver</I
+></TT
+> (Archivador de
+ cinta)</A
+></DT
+><DT
+>16.6. <A
+HREF="command-bzip2.html"
+><TT
+CLASS="COMMAND"
+>bzip2</TT
+> y <TT
+CLASS="COMMAND"
+>gzip</TT
+>: comandos de compresión de
+ datos</A
+></DT
+><DT
+>16.7. <A
+HREF="command-many.html"
+>Mucho, mucho más...</A
+></DT
+></DL
+></DIV
+><P
+>El propósito de este capítulo es introducir un número pequeño de
+ herramientas de la línea de comandos que pueden resultar ser útiles
+ para el uso diario. Por supuesto, puede saltar este capítulo si tiene
+ la intención de usar sólo un entorno gráfico, pero un pequeño vistazo
+ puede cambiar su opinión <B
+CLASS="KEYCAP"
+>:-)</B
+></P
+><P
+>En realidad este capítulo no está organizado. Los utilitarios se
+ indican sin un orden en particular, desde los más usados hasta los más
+ complejos. Cada comando se ilustrará con un ejemplo, pero se le deja
+ como ejercicio encontrar usos más útiles para ellos.</P
+><DIV
+CLASS="SECT1"
+><H1
+CLASS="SECT1"
+><A
+NAME="AEN6418"
+>16.1. <TT
+CLASS="COMMAND"
+>grep</TT
+>: (<TT
+CLASS="FOREIGNPHRASE"
+><I
+>General Regular Expression
+ Parser</I
+></TT
+>)</A
+></H1
+><P
+>(Analizador Sintáctico General de Expresiones Regulares)</P
+><P
+>&#13;De acuerdo, el nombre no es muy intuitivo, tampoco su acrónimo, pero su
+ uso es simple: buscar el patrón pasado como argumento en uno o más
+ archivos. Su sintaxis es:</P
+><P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+>grep [opciones] &lt;patrón&gt; [uno o más archivos]</PRE
+></TD
+></TR
+></TABLE
+></P
+><P
+>Si se mencionan varios archivos, su nombre aparecerá antes de las
+ líneas que muestran los resultados que se corresponden con el criterio
+ de búsqueda. Use la opción <TT
+CLASS="OPTION"
+>-h</TT
+> para ocultar estos nombres;
+ use la opción <TT
+CLASS="OPTION"
+>-l</TT
+> para mostrar solo los nombres de archivo
+ en los cuales se cumple la condición de búsqueda. Puede ser útil,
+ especialmente en listas de argumentos largas, recorrer los archivos
+ con un bucle del <TT
+CLASS="FOREIGNPHRASE"
+><I
+>shell</I
+></TT
+> y usar el truco siguiente:
+ <TT
+CLASS="OPTION"
+>grep &lt;patrón&gt; &lt;nombre_de_archivo&gt; /dev/null</TT
+>.
+ El patrón es una expresión regular, aunque generalmente consiste en
+ una palabra simple. Las opciones usadas más frecuentemente son las
+ siguientes:</P
+><P
+></P
+><OL
+TYPE="1"
+><LI
+><P
+><TT
+CLASS="OPTION"
+>-i</TT
+>: Realizar una búsqueda que ignore la
+ <B
+CLASS="GLOSSTERM"
+><I
+>capitalización</I
+></B
+>
+<A
+NAME="AEN6439"
+HREF="#FTN.AEN6439"
+>[1]</A
+>.</P
+></LI
+><LI
+><P
+><TT
+CLASS="OPTION"
+>-v</TT
+>: Búsqueda inversa: mostrar las líneas que <SPAN
+CLASS="QUOTE"
+>"no"</SPAN
+>
+ se corresponden con el patrón.</P
+></LI
+><LI
+><P
+><TT
+CLASS="OPTION"
+>-n</TT
+>: Mostrar, para cada línea encontrada, el número de línea.</P
+></LI
+><LI
+><P
+><TT
+CLASS="OPTION"
+>-w</TT
+>: Le dice a <TT
+CLASS="COMMAND"
+>grep</TT
+> que el patrón debe
+ corresponderse con una palabra completa, es decir debe aparecer tal
+ cual y no como parte de otra palabra.</P
+></LI
+></OL
+><P
+>Aquí tiene un ejemplo del uso de <TT
+CLASS="COMMAND"
+>grep</TT
+>:</P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="PROGRAMLISTING"
+>$ cat mi_padre
+Hola papá
+Hola papi
+Adiós papá
+
+  # Buscar la cadena "hola", sin distinguir entre mayúsculas y minúsculas
+$ grep -i hola mi_padre
+Hola papá
+Hola papi
+
+  # Buscar "papá" como palabra completa, e imprimir el número de línea 
+  #   al principio de cada coincidencia
+$ grep -nw papá mi_padre
+1:Hola papá
+3:Adiós papá
+
+  # Queremos que coincidan todas las líneas que no comiencen con una "H"
+$ grep -v "^H" mi_padre
+Adiós papá
+$</PRE
+></TD
+></TR
+></TABLE
+><P
+>&#13;
+En caso que quiera usar <TT
+CLASS="COMMAND"
+>grep</TT
+> en una tubería, no tiene que
+ especificar el nombre del archivo ya que, predeterminadamente, toma
+ su entrada desde la
+ <B
+CLASS="GLOSSTERM"
+><I
+>entrada estándar</I
+></B
+>.
+ Similarmente, de manera predeterminada, imprime los resultados en la
+ <B
+CLASS="GLOSSTERM"
+><I
+>salida estándar</I
+></B
+>, por lo
+ que puede meter la salida de un <TT
+CLASS="COMMAND"
+>grep</TT
+> por una tubería a
+ otro programa más sin miedo. Ejemplo:</P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="PROGRAMLISTING"
+>$ cat /usr/doc/HOWTO/Parallel-Processing-HOWTO | \
+  grep -n thread | less</PRE
+></TD
+></TR
+></TABLE
+></DIV
+></DIV
+><H3
+CLASS="FOOTNOTES"
+>Notas</H3
+><TABLE
+BORDER="0"
+CLASS="FOOTNOTES"
+WIDTH="100%"
+><TR
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+WIDTH="5%"
+><A
+NAME="FTN.AEN6439"
+HREF="command.html#AEN6439"
+>[1]</A
+></TD
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+WIDTH="95%"
+><P
+>Distinción entre las mayúsculas y las
+ minúsculas</P
+></TD
+></TR
+></TABLE
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="install-free-ack.html"
+>Anterior</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+>Inicio</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="command-find.html"
+>Siguiente</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>Agradecimientos</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+>&nbsp;</TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><TT
+CLASS="COMMAND"
+>find</TT
+>: busca archivos en función de ciertos
+ criterios</TD
+></TR
+></TABLE
+></DIV
+>
+  <hr align="center">
+  <div align="left"><a href="http://www.linux-mandrake.com"><img
+    src="../images/tux48.png" width="48" height="39" align="left" border="0"
+    alt="Tux sobre Estrella por MandrakeSoft"></a> <font face="Helvetica,
+    Arial, sans-serif" size="2">Linux es una marca registrada de 
+    Linus Torvalds. Todas las otras marcas registradas y copyrights son la
+    propiedad de sus respectivos due&ntilde;os.<br>A menos que se diga lo
+	contrario, todo el contenido de estas p&aacute;ginas y todas las
+	im&aacute;genes tienen Copyright de <i>MandrakeSoft S.A.</i> y de
+	<i>MandrakeSoft Inc.</i> 2000.
+    <br><a
+    href="http://www.linux-mandrake.com/">http://www.linux-mandrake.com/</a>
+    <br>
+</font>
+ </div>
+
+</BODY
+
+></HTML
+>

@@ -1,0 +1,435 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<HTML
+><HEAD
+><TITLE
+>Compilando e instalando núcleos nuevos</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.59"><LINK
+REL="HOME"
+TITLE="Linux-Mandrake"
+HREF="index.html"><LINK
+REL="PREVIOUS"
+TITLE="Envío de señales a los procesos: kill, killall y top"
+HREF="x4343.html"><LINK
+REL="NEXT"
+TITLE="Descompactando los fuentes, corrigiendo el núcleo (si es necesario)"
+HREF="compiling-unpack.html">
+<meta name="Author" content="MandrakeSoft">
+<meta name="Description" content="This is Linux-Mandrake Documentation.">
+<meta name="KeyWords" content="Linux, Mandrake, Linux-Mandrake, documentation, Mandrake Books, howto, Powerpack">
+
+</HEAD
+><BODY
+CLASS="CHAPTER"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#666699"
+VLINK="#980060"
+ALINK="#FF0000"
+>
+
+<DIV
+CLASS="NAVHEADER"
+><TABLE
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+><B
+CLASS="EMPHASIS"
+>Linux-Mandrake</B
+>: <B
+CLASS="EMPHASIS"
+>Manual de Referencia</B
+></TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="x4343.html"
+>Anterior</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+></TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="compiling-unpack.html"
+>Siguiente</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><DIV
+CLASS="CHAPTER"
+><H1
+><A
+NAME="COMPILING"
+>Capítulo 14. Compilando e instalando núcleos nuevos</A
+></H1
+><DIV
+CLASS="TOC"
+><DL
+><DT
+><B
+>Tabla de contenidos</B
+></DT
+><DT
+>14.1. <A
+HREF="compiling.html#AEN4439"
+>Dónde conseguir los fuentes del núcleo</A
+></DT
+><DT
+>14.2. <A
+HREF="compiling-unpack.html"
+>Descompactando los fuentes, corrigiendo el núcleo (si es necesario)</A
+></DT
+><DT
+>14.3. <A
+HREF="compiling-conf.html"
+>Configurando el núcleo</A
+></DT
+><DD
+><DL
+><DT
+>141<A
+HREF="compiling-conf.html#AEN4513"
+></A
+></DT
+><DT
+>142<A
+HREF="compiling-conf.html#AEN4555"
+></A
+></DT
+></DL
+></DD
+><DT
+>14.4. <A
+HREF="compiling-module.html"
+>Compilar el núcleo y los módulos, instalar los módulos</A
+></DT
+><DT
+>14.5. <A
+HREF="compiling-install.html"
+>Instalando el núcleo nuevo</A
+></DT
+><DD
+><DL
+><DT
+>14.5.1. <A
+HREF="compiling-install.html#COMPILING-INSTALL-GRUB"
+>Actualizando a <TT
+CLASS="APPLICATION"
+><I
+>GRUB</I
+></TT
+></A
+></DT
+><DT
+>14.5.2. <A
+HREF="compiling-install.html#COMPILING-INSTALL-LILO"
+>Actualizando a <TT
+CLASS="APPLICATION"
+><I
+>LILO</I
+></TT
+></A
+></DT
+></DL
+></DD
+></DL
+></DIV
+><P
+>Junto con la noción del montaje de los sistemas de archivos y la compilación de los fuentes, la compilación del núcleo es el tema que causa la mayoría de los problemas a los principiantes. Generalmente no es necesario compilar un núcleo nuevo, ya que los núcleos que instala <B
+CLASS="EMPHASIS"
+>Linux-Mandrake</B
+> contienen soportes para un número significativo de dispositivos, así como también un montón de <TT
+CLASS="FOREIGNPHRASE"
+><I
+>patches</I
+></TT
+>, etc. Pero...</P
+><P
+>Podría ser, que quiera hacerlo, por el sólo hecho de ver <SPAN
+CLASS="QUOTE"
+>"que es lo que hace"</SPAN
+>. Además de hacer que su <TT
+CLASS="HARDWARE"
+><I
+>PC</I
+></TT
+> y su cafetera funcionen un poco más de lo normal, no mucho. Las razones por las cuales Ud. debería querer volver a compilar el núcleo varían desde desactivar una opción hasta volver a construir un núcleo experimental completamente nuevo. Sin embargo, el objetivo de este capítulo es que su cafetera debería seguir funcionando luego de la compilación.</P
+><P
+>También hay motivos válidos para volver a compilar el núcleo.. Por ejemplo, Ud. leyó que el núcleo que está usando tiene un <B
+CLASS="GLOSSTERM"
+><I
+>bug</I
+></B
+> que afecta a la seguridad, un bug que se corrige en una versión más reciente; o bien, que un núcleo nuevo incluye soporte para un dispositivo que necesita. Por supuesto que en estos casos Ud. tiene la opción de esperar a las actualizaciones de los binarios, pero actualizar los fuentes del núcleo y volver a compilar el núcleo nuevo Ud. mismo es una solución más rápida.</P
+><P
+>&#13;Haga lo que haga, consiga algo de café.</P
+><DIV
+CLASS="SECT1"
+><H1
+CLASS="SECT1"
+><A
+NAME="AEN4439"
+>14.1. Dónde conseguir los fuentes del núcleo</A
+></H1
+><P
+>El sitio principal de alojamiento de los fuentes del núcleo es <A
+HREF="ftp.kernel.org"
+TARGET="_top"
+>ftp.kernel.org</A
+>, pero tiene un gran número de
+espejos, todos se llaman <A
+HREF="ftp.xx.kernel.org"
+TARGET="_top"
+>ftp.xx.kernel.org</A
+>, donde <A
+HREF="xx"
+TARGET="_top"
+>xx</A
+> representa el código <SPAN
+CLASS="ACRONYM"
+>ISO</SPAN
+> del país.  Para Argentina,
+este código es <A
+HREF="ar"
+TARGET="_top"
+>ar</A
+>, por lo tanto el espejo preferido
+será la máquina <TT
+CLASS="SYSTEMITEM"
+><I
+>ftp.ar.kernel. org</I
+></TT
+>.  Ejemplos de otros
+códigos <SPAN
+CLASS="ACRONYM"
+>ISO</SPAN
+> de países de habla hispana son: <A
+HREF="es"
+TARGET="_top"
+>es</A
+>,
+España; <A
+HREF="mx"
+TARGET="_top"
+>mx</A
+>, Méjico; <A
+HREF="ve"
+TARGET="_top"
+>ve</A
+>,
+Venezuela; <A
+HREF="ec"
+TARGET="_top"
+>ec</A
+>, Ecuador.  Luego del anuncio oficial
+de la disponibilidad del núcleo, debería dejar pasar dos horas para
+que todos los espejos se actualicen.</P
+><P
+>&#13;En todos estos servidores <SPAN
+CLASS="ACRONYM"
+>FTP</SPAN
+>, los fuentes están en el directorio
+<TT
+CLASS="FILENAME"
+>/pub/linux/kernel</TT
+>. Luego, debe dirigirse al directorio
+con la serie que le interesa: seguramente será la
+<TT
+CLASS="FILENAME"
+>v2.2</TT
+><A
+NAME="AEN4457"
+HREF="#FTN.AEN4457"
+>[1]</A
+>. No hay nada que le impida probar los núcleos
+de la versión 2.3<A
+NAME="AEN4459"
+HREF="#FTN.AEN4459"
+>[2]</A
+>, pero recuerde que estos son núcleos experimentales. El
+archivo que contiene los fuentes del núcleo se denomina
+<TT
+CLASS="FILENAME"
+>linux-&lt;version.del.núcleo&gt;.tar.gz</TT
+>, por ejemplo
+<TT
+CLASS="FILENAME"
+>linux-2.2.15.tar.gz</TT
+>.</P
+><P
+>También existen los <TT
+CLASS="FOREIGNPHRASE"
+><I
+>patches</I
+></TT
+> (correcciones o parches) para aplicar a los fuentes del núcleo para actualizarlo incrementalmente: de esta manera, si ya tiene los fuentes del núcleo versión 2.2.15 y los quiere actualizar a 2.2.17, no necesita bajarse todos los fuentes, sino que simplemente puede bajar los <B
+CLASS="GLOSSTERM"
+><I
+><TT
+CLASS="FOREIGNPHRASE"
+><I
+>patches</I
+></TT
+></I
+></B
+> <TT
+CLASS="FILENAME"
+>patch-2.2.16.gz</TT
+> y <TT
+CLASS="FILENAME"
+>patch-2.2.17.gz</TT
+>. Como regla general, esta es una idea buena, ya que los fuentes actualmente ocupan más de  12 <SPAN
+CLASS="ACRONYM"
+>MB</SPAN
+>.</P
+></DIV
+></DIV
+><H3
+CLASS="FOOTNOTES"
+>Notas</H3
+><TABLE
+BORDER="0"
+CLASS="FOOTNOTES"
+WIDTH="100%"
+><TR
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+WIDTH="5%"
+><A
+NAME="FTN.AEN4457"
+HREF="compiling.html#AEN4457"
+>[1]</A
+></TD
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+WIDTH="95%"
+><P
+>Al momento de escribir este
+manual</P
+></TD
+></TR
+><TR
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+WIDTH="5%"
+><A
+NAME="FTN.AEN4459"
+HREF="compiling.html#AEN4459"
+>[2]</A
+></TD
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+WIDTH="95%"
+><P
+>O cualquier otra versión impar</P
+></TD
+></TR
+></TABLE
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="x4343.html"
+>Anterior</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+>Inicio</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="compiling-unpack.html"
+>Siguiente</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>Envío de señales a los procesos: <TT
+CLASS="COMMAND"
+>kill</TT
+>, <TT
+CLASS="COMMAND"
+>killall</TT
+> y <TT
+CLASS="COMMAND"
+>top</TT
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+>&nbsp;</TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>Descompactando los fuentes, corrigiendo el núcleo (si es necesario)</TD
+></TR
+></TABLE
+></DIV
+>
+  <hr align="center">
+  <div align="left"><a href="http://www.linux-mandrake.com"><img
+    src="../images/tux48.png" width="48" height="39" align="left" border="0"
+    alt="Tux sobre Estrella por MandrakeSoft"></a> <font face="Helvetica,
+    Arial, sans-serif" size="2">Linux es una marca registrada de 
+    Linus Torvalds. Todas las otras marcas registradas y copyrights son la
+    propiedad de sus respectivos due&ntilde;os.<br>A menos que se diga lo
+	contrario, todo el contenido de estas p&aacute;ginas y todas las
+	im&aacute;genes tienen Copyright de <i>MandrakeSoft S.A.</i> y de
+	<i>MandrakeSoft Inc.</i> 2000.
+    <br><a
+    href="http://www.linux-mandrake.com/">http://www.linux-mandrake.com/</a>
+    <br>
+</font>
+ </div>
+
+</BODY
+
+></HTML
+>

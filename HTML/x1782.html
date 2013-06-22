@@ -1,0 +1,1323 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<HTML
+><HEAD
+><TITLE
+>VI: el ancestro</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.59"><LINK
+REL="HOME"
+TITLE="Linux-Mandrake"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="La edición de texto: Emacs y VI"
+HREF="text.html"><LINK
+REL="PREVIOUS"
+TITLE="La edición de texto: Emacs y VI"
+HREF="text.html"><LINK
+REL="NEXT"
+TITLE="Una última palabra..."
+HREF="x2056.html">
+<meta name="Author" content="MandrakeSoft">
+<meta name="Description" content="This is Linux-Mandrake Documentation.">
+<meta name="KeyWords" content="Linux, Mandrake, Linux-Mandrake, documentation, Mandrake Books, howto, Powerpack">
+
+</HEAD
+><BODY
+CLASS="SECT1"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#666699"
+VLINK="#980060"
+ALINK="#FF0000"
+>
+
+<DIV
+CLASS="NAVHEADER"
+><TABLE
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+><B
+CLASS="EMPHASIS"
+>Linux-Mandrake</B
+>: <B
+CLASS="EMPHASIS"
+>Manual de Referencia</B
+></TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="text.html"
+>Anterior</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+>Capítulo 4. La edición de texto: <TT
+CLASS="APPLICATION"
+><I
+>Emacs</I
+></TT
+> y <TT
+CLASS="APPLICATION"
+><I
+>VI</I
+></TT
+></TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="x2056.html"
+>Siguiente</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><DIV
+CLASS="SECT1"
+><H1
+CLASS="SECT1"
+><A
+NAME="AEN1782"
+>4.2. <TT
+CLASS="APPLICATION"
+><I
+>VI</I
+></TT
+>: el ancestro</A
+></H1
+><P
+>&#13;<TT
+CLASS="APPLICATION"
+><I
+>VI</I
+></TT
+> fue el primer editor de pantalla completa que existió. Ese es 
+uno de los argumentos de los detractores de <TT
+CLASS="APPLICATION"
+><I
+>Unix</I
+></TT
+>, pero también 
+uno de los argumentos principales de sus defensores: si bien es 
+complicado de aprender, también es una herramienta extremadamente 
+potente una vez que uno se acostumbra a usarlo. Con unos pocos tecleos, 
+un usuario de <TT
+CLASS="APPLICATION"
+><I
+>VI</I
+></TT
+> puede mover montañas y, aparte de <TT
+CLASS="APPLICATION"
+><I
+>Emacs</I
+></TT
+>, 
+pocos editores de texto pueden decir lo mismo.</P
+><P
+>La versión provista con <B
+CLASS="EMPHASIS"
+>Linux-Mandrake</B
+> es de hecho, <TT
+CLASS="APPLICATION"
+><I
+>VIm</I
+></TT
+>, por 
+<TT
+CLASS="FOREIGNPHRASE"
+><I
+>VI iMproved</I
+></TT
+> (VI Mejorado), pero lo llamaremos 
+<TT
+CLASS="APPLICATION"
+><I
+>VI</I
+></TT
+> a lo largo de este capítulo.</P
+><DIV
+CLASS="SECT2"
+><H2
+CLASS="SECT2"
+><A
+NAME="AEN1798"
+>4.2.1. Modo de inserción, modo comando, modo <TT
+CLASS="COMMAND"
+>ex</TT
+>...</A
+></H2
+><P
+>Primero, necesitamos iniciar <TT
+CLASS="APPLICATION"
+><I
+>VI</I
+></TT
+>, lo cual se hace exactamente como con <TT
+CLASS="APPLICATION"
+><I
+>Emacs</I
+></TT
+>. Así que, volvamos a nuestros dos archivos e ingresemos:</P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+>$ <TT
+CLASS="COMMAND"
+>vi archivo1 archivo2</TT
+></PRE
+></TD
+></TR
+></TABLE
+><P
+>En este punto, Ud. se encontrará frente a una ventana como la que se 
+muestra en la <A
+HREF="x1782.html#VI-1"
+>Figura 4-4</A
+>.</P
+><DIV
+CLASS="FIGURE"
+><A
+NAME="VI-1"
+></A
+><P
+><B
+>Figura 4-4. Situación inicial en <TT
+CLASS="APPLICATION"
+><I
+>VIm</I
+></TT
+></B
+></P
+><DIV
+CLASS="MEDIAOBJECT"
+><P
+><IMG
+SRC="../images/vi-1.png"
+></IMG
+></P
+></DIV
+></DIV
+><P
+>Ahora Ud. está en <B
+CLASS="GLOSSTERM"
+><I
+>modo comando</I
+></B
+> frente al primer archivo 
+abierto. En modo comando, Ud. no puede insertar texto en un archivo... Para hacer esto, Ud. debe pasar a <B
+CLASS="GLOSSTERM"
+><I
+>modo inserción</I
+></B
+>, y por lo tanto debe ingresar uno de los comandos que le permiten hacerlo:</P
+><P
+></P
+><UL
+><LI
+><P
+><B
+CLASS="KEYCAP"
+>a</B
+> e <B
+CLASS="KEYCAP"
+>i</B
+>: para insertar texto antes y después del 
+cursor, respectivamente (<B
+CLASS="KEYCAP"
+>A</B
+> e <B
+CLASS="KEYCAP"
+>I</B
+> insertan texto al 
+final y al principio de la línea corriente);</P
+></LI
+><LI
+><P
+><B
+CLASS="KEYCAP"
+>o</B
+> y <B
+CLASS="KEYCAP"
+>O</B
+>: para insertar texto debajo y por encima, 
+respectivamente, de la línea corriente.</P
+></LI
+></UL
+><P
+>En modo de inserción, Ud. verá aparecer la cadena 
+<TT
+CLASS="LITERAL"
+>--INSERT--</TT
+> en la base de la pantalla (de 
+esta forma, Ud. sabrá en que modo se encuentra). Es en este, y sólo en 
+este modo, que Ud. puede ingresar texto. Para volver al modo comando, 
+presione la tecla <TT
+CLASS="USERINPUT"
+><B
+>Esc</B
+></TT
+>.</P
+><P
+>En modo de inserción, Ud. puede usar las teclas <TT
+CLASS="USERINPUT"
+><B
+>Backspace</B
+></TT
+> 
+y <TT
+CLASS="USERINPUT"
+><B
+>Supr</B
+></TT
+> para borrar texto a medida que avanza. Para 
+desplazarse por el texto, tanto en modo comando como en modo inserción, 
+Ud. usa las teclas de las flechas. También hay otras combinaciones de 
+teclas en modo comando, que veremos más adelante.</P
+><P
+>Ud. accede al modo <TT
+CLASS="COMMAND"
+>ex</TT
+> presionando la tecla <B
+CLASS="KEYCAP"
+>:</B
+> en modo 
+comando. Aparecerá en la base de la pantalla los mismos <B
+CLASS="KEYCAP"
+>:</B
+>, y 
+allí se posicionará el cursor. Todo lo que Ud. ingrese subsecuentemente, 
+seguido por la presión de la tecla <TT
+CLASS="USERINPUT"
+><B
+>Intro</B
+></TT
+>, <TT
+CLASS="APPLICATION"
+><I
+>VI</I
+></TT
+> lo 
+considerará como un comando <TT
+CLASS="COMMAND"
+>ex</TT
+>. Si Ud. borra el comando y los 
+<B
+CLASS="KEYCAP"
+>:</B
+> que ingresó, volverá al modo comando y el cursor retornará 
+a su posición original.</P
+><P
+>Para grabar los cambios hechos a un archivo, Ud. ingresa la secuencia 
+<TT
+CLASS="USERINPUT"
+><B
+>:w</B
+></TT
+> en modo comando. Si Ud. quiere grabe el contenido del 
+<TT
+CLASS="FOREIGNPHRASE"
+><I
+>buffer</I
+></TT
+> en otro archivo, ingrese <TT
+CLASS="USERINPUT"
+><B
+>:w 
+&lt;nombre_de_archivo&gt;</B
+></TT
+></P
+></DIV
+><DIV
+CLASS="SECT2"
+><H2
+CLASS="SECT2"
+><A
+NAME="AEN1846"
+>4.2.2. Manipulación de los <TT
+CLASS="FOREIGNPHRASE"
+><I
+>buffers</I
+></TT
+></A
+></H2
+><P
+>Ud. puede tener varios <TT
+CLASS="FOREIGNPHRASE"
+><I
+>buffers</I
+></TT
+> visibles en la 
+pantalla a la vez, como con <TT
+CLASS="APPLICATION"
+><I
+>Emacs</I
+></TT
+>. Para esto, use el comando 
+<TT
+CLASS="USERINPUT"
+><B
+>:split</B
+></TT
+>.</P
+><P
+>Para pasar de un archivo a otro, en un <TT
+CLASS="FOREIGNPHRASE"
+><I
+>buffer</I
+></TT
+>, Ud. 
+ingresa <TT
+CLASS="USERINPUT"
+><B
+>:next</B
+></TT
+> para moverse al archivo siguiente y 
+<TT
+CLASS="USERINPUT"
+><B
+>:prev</B
+></TT
+> para moverse al archivo previo. Ud. puede usar 
+<TT
+CLASS="USERINPUT"
+><B
+>:e &lt;nombre_de_archivo&gt;</B
+></TT
+> también, lo cual le permite 
+tanto cambiar al archivo deseado, si es que ya está abierto, como 
+también abrir otro archivo. Aquí también Ud. dispone del <SPAN
+CLASS="QUOTE"
+>"completado"</SPAN
+>.</P
+><P
+>Para cambiar de <TT
+CLASS="FOREIGNPHRASE"
+><I
+>buffer</I
+></TT
+>, ingrese <TT
+CLASS="USERINPUT"
+><B
+>C-w j</B
+></TT
+> 
+para ir al <TT
+CLASS="FOREIGNPHRASE"
+><I
+>buffer</I
+></TT
+> de abajo o <TT
+CLASS="USERINPUT"
+><B
+>C-w k</B
+></TT
+> para 
+ir al <TT
+CLASS="FOREIGNPHRASE"
+><I
+>buffer</I
+></TT
+> de arriba. Ud. también puede usar las 
+teclas de las flechas para arriba y para abajo, en lugar de <B
+CLASS="KEYCAP"
+>k</B
+> 
+o <B
+CLASS="KEYCAP"
+>j</B
+>, respectivamente. El comando <TT
+CLASS="USERINPUT"
+><B
+>:close</B
+></TT
+> oculta 
+un <TT
+CLASS="FOREIGNPHRASE"
+><I
+>buffer</I
+></TT
+>, el comando <TT
+CLASS="USERINPUT"
+><B
+>:q</B
+></TT
+> lo cierra.</P
+><P
+>Atención, <TT
+CLASS="APPLICATION"
+><I
+>VI</I
+></TT
+> es fastidioso: si Ud. intenta ocultar o cerrar un 
+<TT
+CLASS="FOREIGNPHRASE"
+><I
+>buffer</I
+></TT
+> sin guardar los cambios, el comando no se 
+llevará a cabo y Ud. obtendrá este mensaje:</P
+><P
+><TT
+CLASS="COMPUTEROUTPUT"
+>No write since last change (use! to override)</TT
+></P
+><P
+>(<TT
+CLASS="FOREIGNPHRASE"
+><I
+>no se escribió desde el ultimo cambio (use <B
+CLASS="KEYCAP"
+>!</B
+> 
+para forzar el comando)</I
+></TT
+>) En este caso, haga lo que se le dice e ingrese <TT
+CLASS="USERINPUT"
+><B
+>:q!</B
+></TT
+> o <TT
+CLASS="USERINPUT"
+><B
+>:close!</B
+></TT
+>.</P
+></DIV
+><DIV
+CLASS="SECT2"
+><H2
+CLASS="SECT2"
+><A
+NAME="AEN1880"
+>4.2.3. Edición de texto y comandos de desplazamiento</A
+></H2
+><P
+>Además de las teclas <TT
+CLASS="USERINPUT"
+><B
+>Backspace</B
+></TT
+> y <TT
+CLASS="USERINPUT"
+><B
+>Supr</B
+></TT
+> en 
+modo de edición, <TT
+CLASS="APPLICATION"
+><I
+>VI</I
+></TT
+> tiene muchos otros comandos para borrar, copiar, 
+pegar, y reemplazar texto -- en modo comando. Aquí, veremos 
+algunos. Todos los comandos que se muestran aquí están, de hecho, 
+separados en dos partes: la acción a realizar y su efecto. La acción 
+puede ser:</P
+><P
+></P
+><UL
+><LI
+><P
+><B
+CLASS="KEYCAP"
+>c</B
+>: para cambiar (<TT
+CLASS="FOREIGNPHRASE"
+><I
+>Change</I
+></TT
+>) o reemplazar; el 
+editor borra el texto que se pide y vuelve al modo de inserción después 
+de este comando;</P
+></LI
+><LI
+><P
+><B
+CLASS="KEYCAP"
+>d</B
+>: para borrar (<TT
+CLASS="FOREIGNPHRASE"
+><I
+>Delete</I
+></TT
+>);</P
+></LI
+><LI
+><P
+><B
+CLASS="KEYCAP"
+>y</B
+>: para copiar (<TT
+CLASS="FOREIGNPHRASE"
+><I
+>Yank</I
+></TT
+>), lo veremos en la 
+sección siguiente.</P
+></LI
+><LI
+><P
+><B
+CLASS="KEYCAP"
+>.</B
+>: repite la última acción.</P
+></LI
+></UL
+><P
+>El efecto define al grupo de caracteres sobre los cuales actúa el 
+comando. Estos mismos comandos de efecto ingresados como están en modo 
+comando corresponden a los desplazamientos:</P
+><P
+></P
+><UL
+><LI
+><P
+><B
+CLASS="KEYCAP"
+>h</B
+>, <B
+CLASS="KEYCAP"
+>j</B
+>, <B
+CLASS="KEYCAP"
+>k</B
+>, <B
+CLASS="KEYCAP"
+>l</B
+>: un caracter a 
+la izquierda, abajo, arriba, a la derecha<A
+NAME="AEN1910"
+HREF="#FTN.AEN1910"
+>[1]</A
+> respectivamente;</P
+></LI
+><LI
+><P
+><B
+CLASS="KEYCAP"
+>e</B
+>, <B
+CLASS="KEYCAP"
+>b</B
+>, <B
+CLASS="KEYCAP"
+>w</B
+>: hasta el final (respecto al 
+comienzo) de la palabra corriente; del comienzo de la palabra siguiente;</P
+></LI
+><LI
+><P
+><B
+CLASS="KEYCAP"
+>^</B
+>, <B
+CLASS="KEYCAP"
+>0</B
+>, <B
+CLASS="KEYCAP"
+>$</B
+>: hasta el primer caracter no 
+blanco de la línea corriente, hasta el comienzo de la línea corriente, 
+hasta el final de la línea corriente;</P
+></LI
+><LI
+><P
+><TT
+CLASS="USERINPUT"
+><B
+>f&lt;x&gt;</B
+></TT
+>: hasta la próxima ocurrencia del caracter 
+<TT
+CLASS="USERINPUT"
+><B
+>&lt;x&gt;</B
+></TT
+>; por ejemplo, <TT
+CLASS="USERINPUT"
+><B
+>fe</B
+></TT
+> desplaza el 
+cursor hasta la próxima ocurrencia del caracter <B
+CLASS="KEYCAP"
+>e</B
+>;</P
+></LI
+><LI
+><P
+><TT
+CLASS="USERINPUT"
+><B
+>/&lt;cadena&gt;</B
+></TT
+>, <TT
+CLASS="USERINPUT"
+><B
+>?&lt;cadena&gt;</B
+></TT
+>: hasta la 
+próxima ocurrencia de la cadena o expresión regular 
+<TT
+CLASS="USERINPUT"
+><B
+>&lt;cadena&gt;</B
+></TT
+>, y lo mismo yendo hacia atrás en el 
+archivo; por ejemplo, <TT
+CLASS="USERINPUT"
+><B
+>/pepe</B
+></TT
+> mueve el cursor hasta la 
+próxima ocurrencia de la palabra <TT
+CLASS="USERINPUT"
+><B
+>pepe</B
+></TT
+>;</P
+></LI
+><LI
+><P
+><B
+CLASS="KEYCAP"
+>&lcub;</B
+>, <B
+CLASS="KEYCAP"
+>&rcub;</B
+>: hasta el comienzo, hasta el 
+final, del párrafo corriente;</P
+></LI
+><LI
+><P
+><B
+CLASS="KEYCAP"
+>G</B
+>, <B
+CLASS="KEYCAP"
+>H</B
+>: hasta el final del archivo, hasta el 
+comienzo de la pantalla.</P
+></LI
+></UL
+><P
+>Cada uno de estos caracteres de efecto o comandos de movimiento puede 
+estar precedido por un número de repetición. <B
+CLASS="KEYCAP"
+>G</B
+> referencia al 
+número de línea en el archivo. A partir de esto, Ud. puede hacer toda 
+clase de combinaciones. Algunos ejemplos:</P
+><P
+></P
+><UL
+><LI
+><P
+><TT
+CLASS="USERINPUT"
+><B
+>6b</B
+></TT
+>: se mueve 6 palabras hacia atrás;</P
+></LI
+><LI
+><P
+><TT
+CLASS="USERINPUT"
+><B
+>c8fk</B
+></TT
+>: borrar todo el texto hasta la octava ocurrencia del 
+caracter <B
+CLASS="KEYCAP"
+>k</B
+> y luego pasar a modo de inserción;</P
+></LI
+><LI
+><P
+><TT
+CLASS="USERINPUT"
+><B
+>91G</B
+></TT
+>: ir a la línea 91 del archivo;</P
+></LI
+><LI
+><P
+><TT
+CLASS="USERINPUT"
+><B
+>d3$</B
+></TT
+>: borra hasta el final de la línea corriente más las 
+dos líneas siguientes.</P
+></LI
+></UL
+><P
+>Es cierto que estos comandos no son muy intuitivos, pero como siempre, 
+el mejor método es la práctica. Aunque Ud. puede ver que la expresión 
+<SPAN
+CLASS="QUOTE"
+>"mover montañas con unas pocas teclas"</SPAN
+> no es tan exagerada 
+<B
+CLASS="KEYCAP"
+>:-)</B
+></P
+></DIV
+><DIV
+CLASS="SECT2"
+><H2
+CLASS="SECT2"
+><A
+NAME="AEN1967"
+>4.2.4. Cortar, copiar, pegar</A
+></H2
+><P
+><TT
+CLASS="APPLICATION"
+><I
+>VI</I
+></TT
+> tiene un comando para copiar texto que ya hemos visto: el 
+comando <B
+CLASS="KEYCAP"
+>y</B
+>. Para cortar texto, simplemente use el comando 
+<B
+CLASS="KEYCAP"
+>d</B
+>. Ud. tiene 27 memorias para almacenar texto: una memoria 
+anónima y 26 memorias que llevan el nombre de las 26 letras minúsculas 
+del alfabeto inglés.</P
+><P
+>Para usar la memoria anónima Ud. ingresa el comando tal cual. Así, el 
+comando <TT
+CLASS="USERINPUT"
+><B
+>y12w</B
+></TT
+> copia a la memoria anónima las 12 palabras 
+que están después del cursor<A
+NAME="AEN1975"
+HREF="#FTN.AEN1975"
+>[2]</A
+>. Si 
+Ud. quiere cortar este área, use <TT
+CLASS="USERINPUT"
+><B
+>d12w</B
+></TT
+>.</P
+><P
+>Para usar una de las 26 memorias nombradas, ingrese la secuencia 
+<TT
+CLASS="USERINPUT"
+><B
+>"&lt;x&gt;</B
+></TT
+> después del comando, donde 
+<TT
+CLASS="USERINPUT"
+><B
+>&lt;x&gt;</B
+></TT
+> da el nombre de la memoria. Entonces, para 
+copiar las mismas 12 palabras en la memoria <B
+CLASS="KEYCAP"
+>k</B
+>, Ud. 
+puede ingresar <TT
+CLASS="USERINPUT"
+><B
+>"ky12w</B
+></TT
+>, y <TT
+CLASS="USERINPUT"
+><B
+>"kd12w</B
+></TT
+> para cortarlas.</P
+><P
+>Para pegar el contenido de la memoria anónima, Ud. usa los comandos 
+<B
+CLASS="KEYCAP"
+>p</B
+> o <B
+CLASS="KEYCAP"
+>P</B
+> (por <TT
+CLASS="FOREIGNPHRASE"
+><I
+>Paste</I
+></TT
+>, 
+<TT
+CLASS="FOREIGNPHRASE"
+><I
+>Pegar</I
+></TT
+>), para insertar texto después o antes del 
+cursor, respectivamente. Para pegar el contenido de una memoria 
+nombrada, use <TT
+CLASS="USERINPUT"
+><B
+>"&lt;x&gt;p</B
+></TT
+> o <TT
+CLASS="USERINPUT"
+><B
+>"&lt;x&gt;P</B
+></TT
+> de 
+la misma forma (por ejemplo, <TT
+CLASS="USERINPUT"
+><B
+>"dp</B
+></TT
+> pegará el contenido de 
+la memoria <TT
+CLASS="USERINPUT"
+><B
+>d</B
+></TT
+> después del cursor).</P
+><P
+>Veamos el ejemplo de la <A
+HREF="x1782.html#VI-2"
+>Figura 4-5</A
+>.</P
+><DIV
+CLASS="FIGURE"
+><A
+NAME="VI-2"
+></A
+><P
+><B
+>Figura 4-5. <TT
+CLASS="APPLICATION"
+><I
+>VIm</I
+></TT
+>, antes de copiar el bloque de texto</B
+></P
+><DIV
+CLASS="MEDIAOBJECT"
+><P
+><IMG
+SRC="../images/vi-2.png"
+></IMG
+></P
+></DIV
+></DIV
+><P
+>Para efectuar esta acción, nosotros:</P
+><P
+></P
+><UL
+><LI
+><P
+>volveremos a copiar las primeras 6 palabras de la oración en la memoria 
+<B
+CLASS="KEYCAP"
+>r</B
+> (por ejemplo): <TT
+CLASS="USERINPUT"
+><B
+>"ry6w</B
+></TT
+><A
+NAME="AEN2007"
+HREF="#FTN.AEN2007"
+>[3]</A
+>;</P
+></LI
+><LI
+><P
+>pasaremos al buffer <TT
+CLASS="FILENAME"
+>file2</TT
+>, que está ubicado abajo: 
+<TT
+CLASS="USERINPUT"
+><B
+>C-w j</B
+></TT
+>;</P
+></LI
+><LI
+><P
+>copiaremos el contenido de la memoria <B
+CLASS="KEYCAP"
+>r</B
+> antes del cursor: 
+<TT
+CLASS="USERINPUT"
+><B
+>"rp</B
+></TT
+>.</P
+></LI
+></UL
+><P
+>El resultado, mostrado en la <A
+HREF="x1782.html#VI-3"
+>Figura 4-6</A
+>, es el que 
+esperábamos.</P
+><DIV
+CLASS="FIGURE"
+><A
+NAME="VI-3"
+></A
+><P
+><B
+>Figura 4-6. <TT
+CLASS="APPLICATION"
+><I
+>VIm</I
+></TT
+>, después de copiar un bloque de texto</B
+></P
+><DIV
+CLASS="MEDIAOBJECT"
+><P
+><IMG
+SRC="../images/vi-3.png"
+></IMG
+></P
+></DIV
+></DIV
+><P
+>La búsqueda de texto es muy simple: en modo comando, Ud. simplemente 
+ingresa <B
+CLASS="KEYCAP"
+>/</B
+> seguida de la cadena a buscar, y luego presiona la 
+tecla <TT
+CLASS="USERINPUT"
+><B
+>Intro</B
+></TT
+>. Por ejemplo, <TT
+CLASS="USERINPUT"
+><B
+>/fiesta</B
+></TT
+> buscará 
+la cadena <TT
+CLASS="LITERAL"
+>fiesta</TT
+> desde la posición corriente del cursor. 
+Presionar <B
+CLASS="KEYCAP"
+>n</B
+> lo lleva a la próxima ocurrencia, y si Ud. llega 
+al final del archivo, la búsqueda comenzará nuevamente por el 
+principio. Para iniciar una búsqueda hacia atrás, use <B
+CLASS="KEYCAP"
+>?</B
+> en 
+vez de <B
+CLASS="KEYCAP"
+>/</B
+>.</P
+></DIV
+><DIV
+CLASS="SECT2"
+><H2
+CLASS="SECT2"
+><A
+NAME="AEN2036"
+>4.2.5. Salir de <TT
+CLASS="APPLICATION"
+><I
+>VI</I
+></TT
+></A
+></H2
+><P
+>El comando para salir, es <TT
+CLASS="USERINPUT"
+><B
+>:q</B
+></TT
+> (de hecho, este comando 
+cierra el <TT
+CLASS="FOREIGNPHRASE"
+><I
+>buffer</I
+></TT
+> activo, como hemos visto, pero si es 
+el único <TT
+CLASS="FOREIGNPHRASE"
+><I
+>buffer</I
+></TT
+> presente, Ud. sale de <TT
+CLASS="APPLICATION"
+><I
+>VI</I
+></TT
+>). Hay 
+un atajo: la mayoría de las veces, Ud. edita solo un archivo. Entonces, 
+para salir Ud. usará:</P
+><P
+></P
+><UL
+><LI
+><P
+><TT
+CLASS="USERINPUT"
+><B
+>:wq</B
+></TT
+> para guardar los cambios y salir (una solución más 
+rápida es <TT
+CLASS="USERINPUT"
+><B
+>ZZ</B
+></TT
+>), o</P
+></LI
+><LI
+><P
+><TT
+CLASS="USERINPUT"
+><B
+>:q!</B
+></TT
+> para salir sin grabar.</P
+></LI
+></UL
+><P
+>Ud. habrá notado que si tiene varios <TT
+CLASS="FOREIGNPHRASE"
+><I
+>buffers</I
+></TT
+>, 
+<TT
+CLASS="USERINPUT"
+><B
+>:wq</B
+></TT
+> escribirá el <TT
+CLASS="FOREIGNPHRASE"
+><I
+>buffer</I
+></TT
+> activo y luego lo 
+cerrará.</P
+></DIV
+></DIV
+><H3
+CLASS="FOOTNOTES"
+>Notas</H3
+><TABLE
+BORDER="0"
+CLASS="FOOTNOTES"
+WIDTH="100%"
+><TR
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+WIDTH="5%"
+><A
+NAME="FTN.AEN1910"
+HREF="x1782.html#AEN1910"
+>[1]</A
+></TD
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+WIDTH="95%"
+><P
+>Un atajo para 
+<TT
+CLASS="USERINPUT"
+><B
+>dl</B
+></TT
+> (borrar un caracter hacia adelante) es <B
+CLASS="KEYCAP"
+>x</B
+>; 
+un atajo para <TT
+CLASS="USERINPUT"
+><B
+>dh</B
+></TT
+> es <B
+CLASS="KEYCAP"
+>X</B
+>; <TT
+CLASS="USERINPUT"
+><B
+>dd</B
+></TT
+> borra 
+la línea corriente.</P
+></TD
+></TR
+><TR
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+WIDTH="5%"
+><A
+NAME="FTN.AEN1975"
+HREF="x1782.html#AEN1975"
+>[2]</A
+></TD
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+WIDTH="95%"
+><P
+>... si el cursor está 
+posicionado ¡al comienzo de la primer palabra!</P
+></TD
+></TR
+><TR
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+WIDTH="5%"
+><A
+NAME="FTN.AEN2007"
+HREF="x1782.html#AEN2007"
+>[3]</A
+></TD
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+WIDTH="95%"
+><P
+><TT
+CLASS="USERINPUT"
+><B
+>y6w</B
+></TT
+> significa literalmente: <SPAN
+CLASS="QUOTE"
+>"<TT
+CLASS="FOREIGNPHRASE"
+><I
+>Yank 6 
+words</I
+></TT
+>"</SPAN
+>.</P
+></TD
+></TR
+></TABLE
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="text.html"
+>Anterior</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+>Inicio</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="x2056.html"
+>Siguiente</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>La edición de texto: <TT
+CLASS="APPLICATION"
+><I
+>Emacs</I
+></TT
+> y <TT
+CLASS="APPLICATION"
+><I
+>VI</I
+></TT
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="text.html"
+>Subir</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>Una última palabra...</TD
+></TR
+></TABLE
+></DIV
+>
+  <hr align="center">
+  <div align="left"><a href="http://www.linux-mandrake.com"><img
+    src="../images/tux48.png" width="48" height="39" align="left" border="0"
+    alt="Tux sobre Estrella por MandrakeSoft"></a> <font face="Helvetica,
+    Arial, sans-serif" size="2">Linux es una marca registrada de 
+    Linus Torvalds. Todas las otras marcas registradas y copyrights son la
+    propiedad de sus respectivos due&ntilde;os.<br>A menos que se diga lo
+	contrario, todo el contenido de estas p&aacute;ginas y todas las
+	im&aacute;genes tienen Copyright de <i>MandrakeSoft S.A.</i> y de
+	<i>MandrakeSoft Inc.</i> 2000.
+    <br><a
+    href="http://www.linux-mandrake.com/">http://www.linux-mandrake.com/</a>
+    <br>
+</font>
+ </div>
+
+</BODY
+
+></HTML
+>

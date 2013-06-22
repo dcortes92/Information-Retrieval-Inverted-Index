@@ -1,0 +1,1110 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<HTML
+><HEAD
+><TITLE
+>Instalando el núcleo nuevo</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.59"><LINK
+REL="HOME"
+TITLE="Linux-Mandrake"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="Compilando e instalando núcleos nuevos"
+HREF="compiling.html"><LINK
+REL="PREVIOUS"
+TITLE="Compilar el núcleo y los módulos, instalar los módulos"
+HREF="compiling-module.html"><LINK
+REL="NEXT"
+TITLE="Compilando e instalando software libre"
+HREF="install-free.html">
+<meta name="Author" content="MandrakeSoft">
+<meta name="Description" content="This is Linux-Mandrake Documentation.">
+<meta name="KeyWords" content="Linux, Mandrake, Linux-Mandrake, documentation, Mandrake Books, howto, Powerpack">
+
+</HEAD
+><BODY
+CLASS="SECT1"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#666699"
+VLINK="#980060"
+ALINK="#FF0000"
+>
+
+<DIV
+CLASS="NAVHEADER"
+><TABLE
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+><B
+CLASS="EMPHASIS"
+>Linux-Mandrake</B
+>: <B
+CLASS="EMPHASIS"
+>Manual de Referencia</B
+></TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="compiling-module.html"
+>Anterior</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+>Capítulo 14. Compilando e instalando núcleos nuevos</TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="install-free.html"
+>Siguiente</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><DIV
+CLASS="SECT1"
+><H1
+CLASS="SECT1"
+><A
+NAME="COMPILING-INSTALL"
+>14.5. Instalando el núcleo nuevo</A
+></H1
+><P
+>Ahora, con su núcleo ya compilado satisfactoriamente, todo lo que tiene que hacer es instalarlo. Nuevamente en pos de la claridad y para identificar a sus núcleos inequívocamente, es preferible mantener cierta disciplina con los nombres.  Asumiremos que está instalando un núcleo <TT
+CLASS="LITERAL"
+>2.2.17</TT
+>. Los tipos de comandos son los siguientes:</P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="PROGRAMLISTING"
+>$ make install</PRE
+></TD
+></TR
+></TABLE
+><P
+>&#13;Después de esto, todavía tiene que actualizar el cargador de arranque que Ud. utiliza. Hay dos posibilidades principales: <TT
+CLASS="APPLICATION"
+><I
+>GRUB</I
+></TT
+> o <TT
+CLASS="APPLICATION"
+><I
+>LILO</I
+></TT
+>. Note que <B
+CLASS="EMPHASIS"
+>Linux-Mandrake</B
+> ahora se proporciona con <TT
+CLASS="APPLICATION"
+><I
+>GRUB</I
+></TT
+> como cargador de arranque predeterminado.</P
+><P
+>&nbsp;</P
+><P
+>&nbsp;</P
+><DIV
+CLASS="SECT2"
+><H2
+CLASS="SECT2"
+><A
+NAME="COMPILING-INSTALL-GRUB"
+>14.5.1. Actualizando a <TT
+CLASS="APPLICATION"
+><I
+>GRUB</I
+></TT
+></A
+></H2
+><P
+>Obviamente, ¡retenga la posibilidad de iniciar su núcleo corriente! La
+ forma más fácil de actualizar a <TT
+CLASS="APPLICATION"
+><I
+>GRUB</I
+></TT
+> es usar <TT
+CLASS="APPLICATION"
+><I
+>DrakBoot</I
+></TT
+>
+ (vea el capítulo <TT
+CLASS="APPLICATION"
+><I
+>DrakBoot</I
+></TT
+>: cambiar sus
+ configuraciones de arranque de la <B
+CLASS="EMPHASIS"
+>Guía del Usuario</B
+>).
+ Alternativamente, Ud. puede editar manualmente el archivo de
+ configuración de la manera siguiente.</P
+><P
+>&#13;Ahora debe editar el archivo <TT
+CLASS="FILENAME"
+>/boot/grub/menu.lst</TT
+>. Así es
+ como luce un archivo <TT
+CLASS="FILENAME"
+>menu.lst</TT
+> típico, luego de que Ud.
+ ha instalado su distribución <B
+CLASS="EMPHASIS"
+>Linux-Mandrake</B
+> y antes de la
+ modificación:</P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="PROGRAMLISTING"
+>timeout 5
+color black/cyan yellow/cyan
+i18n (hd0,4)/boot/grub/messages
+keytable (hd0,4)/boot/es-latin1.klt
+default 0
+
+title linux
+kernel (hd0,4)/boot/vmlinuz root=/dev/hda5  
+
+title failsafe
+kernel (hd0,4)/boot/vmlinuz root=/dev/hda5  failsafe 
+
+title Windows
+root (hd0,0)
+makeactive
+chainloader  +1 
+
+title floppy
+root (fd0)
+chainloader +1</PRE
+></TD
+></TR
+></TABLE
+><P
+>Este archivo está compuesto por dos partes: el encabezado con las opciones en común (las primeras cinco líneas), y las secciones (o entradas), cada una correspondiente a un núcleo de <TT
+CLASS="APPLICATION"
+><I
+>GNU/Linux</I
+></TT
+> diferente o al sistema operativo (<SPAN
+CLASS="ACRONYM"
+>SO</SPAN
+>) que sea. <TT
+CLASS="LITERAL"
+>timeout 5</TT
+> define el tiempo del que Ud. dispone para elegir una opción en particular antes que <TT
+CLASS="APPLICATION"
+><I
+>GRUB</I
+></TT
+> lance la predeterminada. Dicha opción predeterminada está definida por <TT
+CLASS="LITERAL"
+>default 0</TT
+>, lo cual significa que la primera sección definida es la predeterminada. La línea <TT
+CLASS="LITERAL"
+>color</TT
+> define los colores del menú; la línea <TT
+CLASS="LITERAL"
+>i18n</TT
+> define donde se debe leer el mensaje de bienvenida: <TT
+CLASS="LITERAL"
+>(hd0,4)</TT
+> significa que el mismo está ubicado en la cuarta partición del primer disco rígido. La opción <TT
+CLASS="LITERAL"
+>keytable (hd0,4)/boot/es-latin1.klt</TT
+> le dice a <TT
+CLASS="APPLICATION"
+><I
+>GRUB</I
+></TT
+> el tipo de teclado usado cuando Ud. le suministra argumentos al momento del arranque. </P
+><P
+>Luego viene la sección de las entradas. Aquí tenemos cuatro de ellas: <TT
+CLASS="LITERAL"
+>linux</TT
+>, <TT
+CLASS="LITERAL"
+>failsafe</TT
+>, <TT
+CLASS="LITERAL"
+>windows</TT
+>, y <TT
+CLASS="LITERAL"
+>floppy</TT
+>.</P
+><P
+></P
+><OL
+TYPE="1"
+><LI
+><P
+>La línea de opciones para la sección <TT
+CLASS="LITERAL"
+>linux</TT
+> le dice a <TT
+CLASS="APPLICATION"
+><I
+>GRUB</I
+></TT
+> que queremos cargar la imagen de arranque primaria denominada <TT
+CLASS="FILENAME"
+>vmlinuz</TT
+> que se encuentra en el directorio <TT
+CLASS="FILENAME"
+>/boot/</TT
+> de la cuarta partición del primer disco rígido. La opción <TT
+CLASS="LITERAL"
+>root=/dev/hda5</TT
+> no es una opción de <TT
+CLASS="APPLICATION"
+><I
+>GRUB</I
+></TT
+>, esta es, de hecho, una opción pasada al núcleo para informarle que el sistema de archivos raíz se ubica en <TT
+CLASS="FILENAME"
+>/dev/hda5</TT
+>.</P
+></LI
+><LI
+><P
+>La entrada <TT
+CLASS="LITERAL"
+>failsafe</TT
+> se parece muchísimo a la anterior, a diferencia que nosotros le pasaremos un argumento al núcleo (<TT
+CLASS="LITERAL"
+>failsafe</TT
+>) lo cual le instruye que se ponga en el modo <SPAN
+CLASS="QUOTE"
+>"single"</SPAN
+> o <SPAN
+CLASS="QUOTE"
+>"rescue"</SPAN
+>.</P
+></LI
+><LI
+><P
+>La entrada <TT
+CLASS="LITERAL"
+>Windows</TT
+> le indica a <TT
+CLASS="APPLICATION"
+><I
+>GRUB</I
+></TT
+> que simplemente cargue el sector de arranque de la primera partición, el cual probablemente contiene un sector de arranque de <TT
+CLASS="APPLICATION"
+><I
+>Windows</I
+></TT
+>.</P
+></LI
+><LI
+><P
+>La última entrada, <TT
+CLASS="LITERAL"
+>floppy</TT
+>, simplemente arranca a su sistema desde un disquete en la primera disquetera, cualquiera sea el sistema que esté instalado sobre el mismo.</P
+></LI
+></OL
+><DIV
+CLASS="NOTE"
+><P
+></P
+><TABLE
+CLASS="NOTE"
+WIDTH="100%"
+BORDER="0"
+><TR
+><TD
+WIDTH="25"
+ALIGN="CENTER"
+VALIGN="TOP"
+><IMG
+SRC="../images/note.png"
+HSPACE="5"
+ALT="Nota"></TD
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+><P
+>Dependiendo del nivel de seguridad que use en su sistema, algunas de las entradas descriptas aquí pueden no estar presentes en su archivo.</P
+></TD
+></TR
+></TABLE
+></DIV
+><P
+>Ahora, vayamos al grano. Necesitamos agregar otra sección <TT
+CLASS="APPLICATION"
+><I
+>GNU/Linux</I
+></TT
+> para poder iniciar con el núcleo nuevo. En este ejemplo, la misma se ubicará al comienzo de las otras entradas, pero nada le prohibe ponerla en otro lugar:</P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="PROGRAMLISTING"
+>title linux-experimental
+kernel (hd0,4)/boot/vmlinuz-2.2.17 root=/dev/hda5  </PRE
+></TD
+></TR
+></TABLE
+><P
+>¡No se olvide de adaptar el archivo a su configuración! El sistema de archivos raíz de <TT
+CLASS="APPLICATION"
+><I
+>GNU/Linux</I
+></TT
+> aquí está en <TT
+CLASS="FILENAME"
+>/dev/hda5</TT
+> pero bien podría estar en otro lugar de su sistema. Su sistema está listo, Ud. puede volver a arrancar su computadora ¡y disfrutar de su núcleo completamente nuevo!</P
+><P
+>&#13;Si Ud. compiló su núcleo con el <TT
+CLASS="FOREIGNPHRASE"
+><I
+>framebuffer</I
+></TT
+>, probablemente querrá usarlo: en este caso, debe agregar una directiva al núcleo que le dice cual es la resolución en la que Ud. quiere arrancar. La lista de modos está disponible en el archivo <TT
+CLASS="FILENAME"
+>/usr/src/linux/Documentation/fb/vesafb.txt</TT
+> (¡sólo en el caso del framebuffer <SPAN
+CLASS="ACRONYM"
+>VESA</SPAN
+>! De lo contrario, debe referirse al archivo correspondiente). Para el modo 800x600 en 32 bits<A
+NAME="AEN5317"
+HREF="#FTN.AEN5317"
+>[1]</A
+>, el número de modo es <TT
+CLASS="LITERAL"
+>0x315</TT
+>, por lo cual Ud. debe agregar la directiva:
+
+<TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+>vga=0x315</PRE
+></TD
+></TR
+></TABLE
+>
+
+y ahora su entrada se parece a lo siguiente:
+
+<TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="PROGRAMLISTING"
+>title linux-experimental
+kernel (hd0,4)/boot/vmlinuz-2.2.17 root=/dev/hda5 vga=0x315 </PRE
+></TD
+></TR
+></TABLE
+>&#13;</P
+><P
+>Para mayor información, por favor consulte las páginas info acerca de <TT
+CLASS="APPLICATION"
+><I
+>GRUB</I
+></TT
+> (<TT
+CLASS="COMMAND"
+>info grub</TT
+>).</P
+></DIV
+><DIV
+CLASS="SECT2"
+><H2
+CLASS="SECT2"
+><A
+NAME="COMPILING-INSTALL-LILO"
+>14.5.2. Actualizando a <TT
+CLASS="APPLICATION"
+><I
+>LILO</I
+></TT
+></A
+></H2
+><P
+>La manera más simple de actualizar a <TT
+CLASS="APPLICATION"
+><I
+>LILO</I
+></TT
+> es usar
+ <TT
+CLASS="APPLICATION"
+><I
+>DrakBoot</I
+></TT
+> (ver el capítulo <TT
+CLASS="APPLICATION"
+><I
+>DrakBoot</I
+></TT
+>: cambiar sus
+ configuraciones de arranque de la
+ <B
+CLASS="EMPHASIS"
+>Guía del Usuario</B
+>). Alternativamente, Ud. puede editar manualmente
+ el archivo de configuración de la manera siguiente.</P
+><P
+>&#13;Para <TT
+CLASS="APPLICATION"
+><I
+>LILO</I
+></TT
+>, Ud. deberá modificar el archivo <TT
+CLASS="FILENAME"
+>/etc/lilo.conf</TT
+>.  Un archivo <TT
+CLASS="FILENAME"
+>lilo.conf</TT
+> típico luce así, luego de haber instalado su paquete <TT
+CLASS="APPLICATION"
+><I
+>LILO</I
+></TT
+> y antes de la modificación:</P
+><P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+>boot=/dev/hda
+map=/boot/map
+install=/boot/boot.b
+prompt
+timeout=50
+image=/boot/vmlinuz-2.2.9-19mdk
+        label=linux
+        root=/dev/hda1
+        read-only
+other=/dev/hda2
+        label=dos
+        table=/dev/hda</PRE
+></TD
+></TR
+></TABLE
+></P
+><P
+><DIV
+CLASS="WARNING"
+><P
+></P
+><TABLE
+CLASS="WARNING"
+WIDTH="100%"
+BORDER="0"
+><TR
+><TD
+WIDTH="25"
+ALIGN="CENTER"
+VALIGN="TOP"
+><IMG
+SRC="../images/warning.png"
+HSPACE="5"
+ALT="Aviso"></TD
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+><P
+>¡Este ejemplo asume que está usando <TT
+CLASS="APPLICATION"
+><I
+>LILO</I
+></TT
+> como el cargador principal! Si está usando <TT
+CLASS="APPLICATION"
+><I
+>System Commander</I
+></TT
+>, la directiva <TT
+CLASS="LITERAL"
+>boot=</TT
+> será diferente, y probablemente no tenga la sección <TT
+CLASS="LITERAL"
+>other</TT
+>.</P
+></TD
+></TR
+></TABLE
+></DIV
+>
+
+Un archivo <TT
+CLASS="FILENAME"
+>lilo.conf</TT
+> consiste de una sección principal, seguida de una sección para arrancar cada sistema operativo. En el ejemplo anterior, la sección principal se compone de las directivas siguientes:</P
+><P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+>boot=/dev/hda
+map=/boot/map
+install=/boot/boot.b
+prompt
+timeout=50</PRE
+></TD
+></TR
+></TABLE
+></P
+><P
+>La directiva <TT
+CLASS="LITERAL"
+>boot=</TT
+> le dice a <TT
+CLASS="APPLICATION"
+><I
+>LILO</I
+></TT
+> donde instalar su sector de arranque; en este caso es en el <SPAN
+CLASS="ACRONYM"
+>MBR</SPAN
+> (<TT
+CLASS="FOREIGNPHRASE"
+><I
+>Master Boot Record</I
+></TT
+>, Registro Principal de Arranque) del primer disco rígido <SPAN
+CLASS="ACRONYM"
+>IDE</SPAN
+>. Si quiere hacer un disquete de arranque de <TT
+CLASS="APPLICATION"
+><I
+>LILO</I
+></TT
+>, simplemente reemplace <TT
+CLASS="FILENAME"
+>/dev/hda</TT
+> con <TT
+CLASS="FILENAME"
+>/dev/fd0</TT
+> <B
+CLASS="KEYCAP"
+>:-)</B
+> La directiva <TT
+CLASS="LITERAL"
+>prompt</TT
+> le pide a <TT
+CLASS="APPLICATION"
+><I
+>LILO</I
+></TT
+> que muestre el <TT
+CLASS="SYSTEMITEM"
+><I
+>prompt</I
+></TT
+> al arrancar y comience el procedimiento luego de 5 segundos (<TT
+CLASS="LITERAL"
+>timeout=50</TT
+>).  Si remueve la directiva <TT
+CLASS="LITERAL"
+>timeout=</TT
+>, <TT
+CLASS="APPLICATION"
+><I
+>LILO</I
+></TT
+> esperará hasta que Ud. haya ingresado algo.</P
+><P
+>Luego viene una sección <TT
+CLASS="LITERAL"
+>linux</TT
+>:</P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+>image=/boot/vmlinuz-2.2.9-19mdk
+        label=linux
+        root=/dev/hda1
+        read-only</PRE
+></TD
+></TR
+></TABLE
+><P
+>Una sección <TT
+CLASS="LITERAL"
+>linux</TT
+> siempre comienza con la directiva <TT
+CLASS="USERINPUT"
+><B
+>image=</B
+></TT
+>, seguida de la ruta completa a un núcleo <TT
+CLASS="APPLICATION"
+><I
+>GNU/Linux</I
+></TT
+> válido. Como cualquier sección, contiene una directiva <TT
+CLASS="LITERAL"
+>label=</TT
+> como identificador único.  La directiva <TT
+CLASS="LITERAL"
+>root=</TT
+> le dice a <TT
+CLASS="APPLICATION"
+><I
+>LILO</I
+></TT
+> qué partición contiene el sistema de archivos <TT
+CLASS="USERINPUT"
+><B
+>root</B
+></TT
+> para este sistema <TT
+CLASS="APPLICATION"
+><I
+>GNU/Linux</I
+></TT
+>.  El suyo puede ser distinto al ejemplo. La directiva <TT
+CLASS="LITERAL"
+>read-only</TT
+> le ordena a <TT
+CLASS="APPLICATION"
+><I
+>LILO</I
+></TT
+> a montar este sistema de archivos <TT
+CLASS="USERINPUT"
+><B
+>root</B
+></TT
+> como sólo de lectura al arrancar: si esta directiva no está presente, recibirá un mensaje de advertencia.</P
+><P
+>Luego viene la sección <TT
+CLASS="APPLICATION"
+><I
+>Windows</I
+></TT
+>:</P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+>other=/dev/hda2
+        label=dos
+        table=/dev/hda</PRE
+></TD
+></TR
+></TABLE
+><P
+>De hecho, <TT
+CLASS="APPLICATION"
+><I
+>LILO</I
+></TT
+> usa una sección que empiece con <TT
+CLASS="LITERAL"
+>other=</TT
+> para arrancar cualquier sistema operativo que no sea <TT
+CLASS="APPLICATION"
+><I
+>GNU/Linux</I
+></TT
+>: el argumento de esta directiva es la ubicación del sector de arranque de dicho sistema operativo, y, en este caso, es un sistema <TT
+CLASS="APPLICATION"
+><I
+>Windows</I
+></TT
+>. Para encontrar el sector de arranque, ubicado al comienzo de la partición que alberga a este otro sistema, <TT
+CLASS="APPLICATION"
+><I
+>GNU/Linux</I
+></TT
+> también necesita saber la ubicación de la tabla de particiones que le permitirá ubicar la partición en cuestión, esto es lo que hace la directiva <TT
+CLASS="LITERAL"
+>table=</TT
+>. La directiva <TT
+CLASS="LITERAL"
+>label=</TT
+> identifica al sistema, como en la sección <TT
+CLASS="LITERAL"
+>linux</TT
+>.</P
+><P
+>Antes de agregar su sección <TT
+CLASS="LITERAL"
+>linux</TT
+>, mataremos dos pájaros de un tiro <B
+CLASS="KEYCAP"
+>:-)</B
+> Vamos a componer un mensaje para mostrar en el arranque antes que aparezca el <TT
+CLASS="SYSTEMITEM"
+><I
+>prompt</I
+></TT
+> de <TT
+CLASS="APPLICATION"
+><I
+>LILO</I
+></TT
+>, para explicar cómo usar <TT
+CLASS="APPLICATION"
+><I
+>LILO</I
+></TT
+>:</P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="PROGRAMLISTING"
+>$ cat &gt;/boot/message &lt;&lt;EOF 
+&gt; Bienvenido, este es LILO (LInux LOader). 
+&gt; presione TAB para una lista de las imágenes de arranque.
+&gt; Ud. tiene:
+&gt; * exp : comenzar Linux-Mandrake con su núcleo nuevo 
+&gt; * linux : núcleo original de Linux-Mandrake 
+&gt; * dos : Windows 
+&gt; Al presionar INTRO sin ingresar el nombre de una imagen 
+&gt; arrancará la primer imagen en la lista, es decir exp .
+&gt; EOF 
+$</PRE
+></TD
+></TR
+></TABLE
+><P
+>¡Y voilà! Para mostrar este mensaje al arrancar, simplemente agregue la directiva:</P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+>message=/boot/message</PRE
+></TD
+></TR
+></TABLE
+><P
+>en la sección principal de <TT
+CLASS="FILENAME"
+>lilo.conf</TT
+>. Ahora, Ud. debe agregar la sección <TT
+CLASS="APPLICATION"
+><I
+>GNU/Linux</I
+></TT
+> para poder arrancar con el núcleo nuevo. En este ejemplo, se pondrá al comienzo, pero nada le impide ponerlo en otro sitio:</P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+>image=/boot/vmlinuz-2.2.17
+        label=exp
+        root=/dev/hda1
+        read-only</PRE
+></TD
+></TR
+></TABLE
+><P
+>Si compiló su núcleo con el <TT
+CLASS="FOREIGNPHRASE"
+><I
+>framebuffer</I
+></TT
+>, debe referirse al párrafo anterior correspondiente a <TT
+CLASS="APPLICATION"
+><I
+>GRUB</I
+></TT
+>, ahora la diferencia es que la opción está sola en una línea nueva:</P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+>vga=0x315</PRE
+></TD
+></TR
+></TABLE
+><P
+>Entonces, así luce su <TT
+CLASS="FILENAME"
+>lilo.conf</TT
+> luego de la modificación, decorado con algunos comentarios adicionales (todas las líneas que comienzan con <TT
+CLASS="LITERAL"
+>#</TT
+>), que serán ignorados por <TT
+CLASS="APPLICATION"
+><I
+>LILO</I
+></TT
+>:</P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+>#
+# Sección principal
+#
+boot=/dev/hda
+map=/boot/map
+install=/boot/boot.b
+# Nuestro mensaje de invitación
+message=/boot/message
+# Presentar el prompt...
+prompt
+# ... esperar 5 segundos
+timeout=50
+#
+# Nuestro núcleo nuevo: imagen predeterminada
+#
+image=/boot/vmlinuz-2.2.17
+        label=exp
+        root=/dev/hda1
+        read-only
+# Si se usa el framebuffer VESA:
+        vga=0x315
+#
+# El núcleo original
+#
+image=/boot/vmlinuz-2.2.15-19mdk
+        label=linux
+        root=/dev/hda1
+        read-only
+#
+# Sección de Windows
+#
+other=/dev/hda2
+        label=dos
+        table=/dev/hda</PRE
+></TD
+></TR
+></TABLE
+><P
+>¡No se olvide de adaptar el archivo de acuerdo con su configuración!  El sistema de archivos raíz de <TT
+CLASS="APPLICATION"
+><I
+>GNU/Linux</I
+></TT
+> aquí esta en <TT
+CLASS="FILENAME"
+>/dev/hda1</TT
+> pero bien podría estar en cualquier otro lugar en su sistema, y lo mismo se aplica para <TT
+CLASS="APPLICATION"
+><I
+>Windows</I
+></TT
+>. Ahora que se ha modificado adecuadamente el archivo, debe indicarle a <TT
+CLASS="APPLICATION"
+><I
+>LILO</I
+></TT
+> que cambie el sector de arranque:</P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="PROGRAMLISTING"
+>$ <TT
+CLASS="COMMAND"
+>lilo </TT
+>
+Added exp *
+Added linux
+Added dos
+$</PRE
+></TD
+></TR
+></TABLE
+><P
+>De esta forma, Ud. puede compilar tantos núcleos como quiera, agregando tantas secciones <TT
+CLASS="APPLICATION"
+><I
+>GNU/Linux</I
+></TT
+> como sea necesario. Sólo resta reiniciar la máquina para probar su núcleo nuevo.</P
+></DIV
+></DIV
+><H3
+CLASS="FOOTNOTES"
+>Notas</H3
+><TABLE
+BORDER="0"
+CLASS="FOOTNOTES"
+WIDTH="100%"
+><TR
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+WIDTH="5%"
+><A
+NAME="FTN.AEN5317"
+HREF="compiling-install.html#AEN5317"
+>[1]</A
+></TD
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+WIDTH="95%"
+><P
+>8 bits significa 2<SUP
+>8</SUP
+> colores, es decir  256; 16 bits significa 2<SUP
+>16</SUP
+> colores, es decir 64k, es decir 65536; en 24 bits así como en 32 bits, el color se codifica en 24 bits, es decir 2<SUP
+>24</SUP
+> colores posibles, en otras palabras exactamente 16M, o un poco más de 16 millones.</P
+></TD
+></TR
+></TABLE
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="compiling-module.html"
+>Anterior</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+>Inicio</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="install-free.html"
+>Siguiente</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>Compilar el núcleo y los módulos, instalar los módulos</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="compiling.html"
+>Subir</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>Compilando e instalando software libre</TD
+></TR
+></TABLE
+></DIV
+>
+  <hr align="center">
+  <div align="left"><a href="http://www.linux-mandrake.com"><img
+    src="../images/tux48.png" width="48" height="39" align="left" border="0"
+    alt="Tux sobre Estrella por MandrakeSoft"></a> <font face="Helvetica,
+    Arial, sans-serif" size="2">Linux es una marca registrada de 
+    Linus Torvalds. Todas las otras marcas registradas y copyrights son la
+    propiedad de sus respectivos due&ntilde;os.<br>A menos que se diga lo
+	contrario, todo el contenido de estas p&aacute;ginas y todas las
+	im&aacute;genes tienen Copyright de <i>MandrakeSoft S.A.</i> y de
+	<i>MandrakeSoft Inc.</i> 2000.
+    <br><a
+    href="http://www.linux-mandrake.com/">http://www.linux-mandrake.com/</a>
+    <br>
+</font>
+ </div>
+
+</BODY
+
+></HTML
+>

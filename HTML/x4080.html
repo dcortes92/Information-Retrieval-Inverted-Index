@@ -1,0 +1,419 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<HTML
+><HEAD
+><TITLE
+>Información sobre el hardware</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.59"><LINK
+REL="HOME"
+TITLE="Linux-Mandrake"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="El sistema de archivos /proc"
+HREF="el.html"><LINK
+REL="PREVIOUS"
+TITLE="El sistema de archivos /proc"
+HREF="el.html"><LINK
+REL="NEXT"
+TITLE="El sub-directorio /proc/sys"
+HREF="x4125.html">
+<meta name="Author" content="MandrakeSoft">
+<meta name="Description" content="This is Linux-Mandrake Documentation.">
+<meta name="KeyWords" content="Linux, Mandrake, Linux-Mandrake, documentation, Mandrake Books, howto, Powerpack">
+
+</HEAD
+><BODY
+CLASS="SECT1"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#666699"
+VLINK="#980060"
+ALINK="#FF0000"
+>
+
+<DIV
+CLASS="NAVHEADER"
+><TABLE
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+><B
+CLASS="EMPHASIS"
+>Linux-Mandrake</B
+>: <B
+CLASS="EMPHASIS"
+>Manual de Referencia</B
+></TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="el.html"
+>Anterior</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+>Capítulo 11. El sistema de archivos <TT
+CLASS="FILENAME"
+>/proc</TT
+></TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="x4125.html"
+>Siguiente</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><DIV
+CLASS="SECT1"
+><H1
+CLASS="SECT1"
+><A
+NAME="AEN4080"
+>11.2. Información sobre el hardware</A
+></H1
+><P
+>&#13;Aparte de los directorios asociados a los diferentes procesos, <TT
+CLASS="FILENAME"
+>/proc</TT
+> también contiene una miríada de información sobre el hardware presente en su máquina. Un listado de los archivos del directorio <TT
+CLASS="FILENAME"
+>/proc</TT
+> da lo siguiente:</P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="PROGRAMLISTING"
+>$ ls -d [a-z]*
+apm      dma          interrupts  loadavg  mounts      rtc       swaps
+bus/     fb           ioports     locks    mtrr        scsi/     sys/
+cmdline  filesystems  kcore       meminfo  net/        self/     tty/
+cpuinfo  fs/          kmsg        misc     partitions  slabinfo  uptime
+devices  ide/         ksyms       modules  pci         stat      version
+$</PRE
+></TD
+></TR
+></TABLE
+><P
+>Por ejemplo, si observamos el contenido de <TT
+CLASS="FILENAME"
+>/proc/interrupts</TT
+>, podemos ver la lista de las interrupciones que el sistema está usando en ese momento, junto con el periférico que las está ocupando. Similarmente, <TT
+CLASS="FILENAME"
+>ioports</TT
+> contiene la lista de los rangos de direcciones de entrada/salida ocupados en este momento, y finalmente, <TT
+CLASS="FILENAME"
+>dma</TT
+> hace lo mismo para los canales <SPAN
+CLASS="ACRONYM"
+>DMA</SPAN
+>. Por lo tanto, si Ud. desea solucionar un conflicto, observe el contenido de estos tres archivos:</P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="PROGRAMLISTING"
+>$ cat interrupts
+           CPU0
+  0:     127648          XT-PIC  timer
+  1:       5191          XT-PIC  keyboard
+  2:          0          XT-PIC  cascade
+  5:       1402          XT-PIC  xirc2ps_cs
+  8:          1          XT-PIC  rtc
+ 10:          0          XT-PIC  ESS Solo1
+ 12:       2631          XT-PIC  PS/2 Mouse
+ 13:          1          XT-PIC  fpu
+ 14:      73434          XT-PIC  ide0
+ 15:      80234          XT-PIC  ide1
+NMI:          0
+$ cat ioports
+0000-001f : dma1
+0020-003f : pic1
+0040-005f : timer
+0060-006f : keyboard
+0070-007f : rtc
+0080-008f : dma page reg
+00a0-00bf : pic2
+00c0-00df : dma2
+00f0-00ff : fpu
+0170-0177 : ide1
+01f0-01f7 : ide0
+0300-030f : xirc2ps_cs
+0376-0376 : ide1
+03c0-03df : vga+
+03f6-03f6 : ide0
+03f8-03ff : serial(auto)
+1050-1057 : ide0
+1058-105f : ide1
+1080-108f : ESS Solo1
+10c0-10cf : ESS Solo1
+10d4-10df : ESS Solo1
+10ec-10ef : ESS Solo1
+$ cat dma
+ 4: cascade
+$</PRE
+></TD
+></TR
+></TABLE
+><P
+>&#13;O, más simple, use el comando <TT
+CLASS="COMMAND"
+>lsdev</TT
+>, que obtiene información de estos tres archivos y la ordena por periférico, lo cual es, indudablemente, más conveniente<A
+NAME="AEN4094"
+HREF="#FTN.AEN4094"
+>[1]</A
+>:</P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="PROGRAMLISTING"
+>$ lsdev
+Device            DMA   IRQ  I/O Ports
+------------------------------------------------
+cascade             4     2
+dma                          0080-008f
+dma1                         0000-001f
+dma2                         00c0-00df
+ESS                          1080-108f 10c0-10cf 10d4-10df 10ec-10ef
+fpu                      13  00f0-00ff
+ide0                     14  01f0-01f7 03f6-03f6 1050-1057
+ide1                     15  0170-0177 0376-0376 1058-105f
+keyboard                  1  0060-006f
+Mouse                    12
+pic1                         0020-003f
+pic2                         00a0-00bf
+rtc                       8  0070-007f
+serial                       03f8-03ff
+Solo1                    10
+timer                     0  0040-005f
+vga+                         03c0-03df
+xirc2ps_cs                5  0300-030f
+$</PRE
+></TD
+></TR
+></TABLE
+><P
+>&#13;Una lista exhaustiva de los archivos presentes sería demasiado larga, sin embargo aquí tiene una descripción de algunos:</P
+><P
+></P
+><UL
+><LI
+><P
+><TT
+CLASS="FILENAME"
+>cpuinfo</TT
+> Este archivo contiene, como su nombre (en inglés) lo
+ indica, información sobre el(los) procesador(es) presente(s) en su máquina.</P
+></LI
+><LI
+><P
+>&#13;<TT
+CLASS="FILENAME"
+>modules</TT
+> Este archivo contiene una lista de los módulos que el
+ núcleo está usando en ese momento, junto con el conteo del uso para cada uno.
+ De hecho, esta es la misma información que reporta el comando
+ <TT
+CLASS="COMMAND"
+>lsmod</TT
+>.</P
+></LI
+><LI
+><P
+><TT
+CLASS="FILENAME"
+>meminfo</TT
+> Este archivo contiene información sobre el uso de la
+ memoria en el momento que Ud. muestra su contenido. Una información ordenada
+ más claramente está disponible con el comando <TT
+CLASS="COMMAND"
+>free</TT
+>.</P
+></LI
+><LI
+><P
+><TT
+CLASS="FILENAME"
+>apm</TT
+> Si Ud. tiene una portátil, al mostrar el contenido de este
+ archivo Ud. verá el estado de su batería. Ud. puede ver si está conectada la
+ alimentación externa, la carga actual de su batería, y la vida útil de la
+ batería si el <TT
+CLASS="APPLICATION"
+><I
+>BIOS</I
+></TT
+> <SPAN
+CLASS="ACRONYM"
+>APM</SPAN
+> de su portátil lo soporta (desafortunadamente,
+ este no es el caso general). Este archivo en sí mismo no es muy legible, por
+ lo tanto Ud. querrá usar el comando <TT
+CLASS="COMMAND"
+>apm</TT
+> en su lugar, que provee
+ la misma información en un formato legible (si Ud. comprende el inglés...).</P
+></LI
+><LI
+><P
+><TT
+CLASS="FILENAME"
+>bus</TT
+> Este sub-directorio contiene información sobre todos los
+ periféricos que se encuentran en los diferentes buses de su máquina. Por lo
+ general, la información es poco legible, y en su mayoría se trata y se
+ reformatea con utilitarios externos: <TT
+CLASS="COMMAND"
+>lspcidrake</TT
+>, <TT
+CLASS="COMMAND"
+>lspnp</TT
+>, etc.</P
+></LI
+></UL
+></DIV
+><H3
+CLASS="FOOTNOTES"
+>Notas</H3
+><TABLE
+BORDER="0"
+CLASS="FOOTNOTES"
+WIDTH="100%"
+><TR
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+WIDTH="5%"
+><A
+NAME="FTN.AEN4094"
+HREF="x4080.html#AEN4094"
+>[1]</A
+></TD
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+WIDTH="95%"
+><P
+><TT
+CLASS="COMMAND"
+>lsdev</TT
+> es parte del paquete <TT
+CLASS="FILENAME"
+>procinfo</TT
+>.</P
+></TD
+></TR
+></TABLE
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="el.html"
+>Anterior</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+>Inicio</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="x4125.html"
+>Siguiente</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>El sistema de archivos <TT
+CLASS="FILENAME"
+>/proc</TT
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="el.html"
+>Subir</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>El sub-directorio <TT
+CLASS="FILENAME"
+>/proc/sys</TT
+></TD
+></TR
+></TABLE
+></DIV
+>
+  <hr align="center">
+  <div align="left"><a href="http://www.linux-mandrake.com"><img
+    src="../images/tux48.png" width="48" height="39" align="left" border="0"
+    alt="Tux sobre Estrella por MandrakeSoft"></a> <font face="Helvetica,
+    Arial, sans-serif" size="2">Linux es una marca registrada de 
+    Linus Torvalds. Todas las otras marcas registradas y copyrights son la
+    propiedad de sus respectivos due&ntilde;os.<br>A menos que se diga lo
+	contrario, todo el contenido de estas p&aacute;ginas y todas las
+	im&aacute;genes tienen Copyright de <i>MandrakeSoft S.A.</i> y de
+	<i>MandrakeSoft Inc.</i> 2000.
+    <br><a
+    href="http://www.linux-mandrake.com/">http://www.linux-mandrake.com/</a>
+    <br>
+</font>
+ </div>
+
+</BODY
+
+></HTML
+>

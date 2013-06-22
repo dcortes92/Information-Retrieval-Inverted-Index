@@ -1,0 +1,2139 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<HTML
+><HEAD
+><TITLE
+>Características de los niveles de seguridad</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.59"><LINK
+REL="HOME"
+TITLE="Linux-Mandrake"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="MSEC -- Mandrake SECurity tools (Herramientas de seguridad de Mandrake)"
+HREF="prog-msec.html"><LINK
+REL="PREVIOUS"
+TITLE="Configuración de su nivel de seguridad"
+HREF="x2712.html"><LINK
+REL="NEXT"
+TITLE="Organización del árbol de archivos"
+HREF="fhs.html">
+<meta name="Author" content="MandrakeSoft">
+<meta name="Description" content="This is Linux-Mandrake Documentation.">
+<meta name="KeyWords" content="Linux, Mandrake, Linux-Mandrake, documentation, Mandrake Books, howto, Powerpack">
+
+</HEAD
+><BODY
+CLASS="SECT1"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#666699"
+VLINK="#980060"
+ALINK="#FF0000"
+>
+
+<DIV
+CLASS="NAVHEADER"
+><TABLE
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+><B
+CLASS="EMPHASIS"
+>Linux-Mandrake</B
+>: <B
+CLASS="EMPHASIS"
+>Manual de Referencia</B
+></TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="x2712.html"
+>Anterior</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+>Capítulo 7. <TT
+CLASS="APPLICATION"
+><I
+>MSEC</I
+></TT
+> -- <TT
+CLASS="FOREIGNPHRASE"
+><I
+>Mandrake SECurity tools</I
+></TT
+> (<TT
+CLASS="FOREIGNPHRASE"
+><I
+>Herramientas de seguridad de Mandrake</I
+></TT
+>)</TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="fhs.html"
+>Siguiente</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><DIV
+CLASS="SECT1"
+><H1
+CLASS="SECT1"
+><A
+NAME="AEN2788"
+>7.3. Características de los niveles de seguridad</A
+></H1
+><P
+>Lo que sigue es la descripción de las características diferentes de seguridad  que brinda cada nivel al sistema. Estas características son de varios tipos:</P
+><P
+></P
+><UL
+><LI
+><P
+> permisos sobre los archivos,</P
+></LI
+><LI
+><P
+> envío de mensajes de advertencia,</P
+></LI
+><LI
+><P
+> verificaciones de seguridad periódicas:
+<P
+></P
+><UL
+><LI
+><P
+> sobre los archivos: <TT
+CLASS="SYSTEMITEM"
+><I
+>suid</I
+></TT
+> <TT
+CLASS="USERINPUT"
+><B
+>root</B
+></TT
+>, que se pueden escribir, sin propietario,</P
+></LI
+><LI
+><P
+>escucha en los puertos activos, tarjeta de red en modo
+<TT
+CLASS="FOREIGNPHRASE"
+><I
+>promiscuous</I
+></TT
+> (promiscuo),
+&#13;</P
+></LI
+><LI
+><P
+> archivos de contraseña</P
+></LI
+></UL
+>&#13;</P
+></LI
+><LI
+><P
+> conexiones al servidor <TT
+CLASS="APPLICATION"
+><I
+>X</I
+></TT
+>,</P
+></LI
+><LI
+><P
+> verificación de los puertos abiertos,</P
+></LI
+><LI
+><P
+> verificación de los servicios disponibles,</P
+></LI
+><LI
+><P
+> contraseña de arranque,</P
+></LI
+><LI
+><P
+> clientes autorizados.</P
+></LI
+></UL
+><DIV
+CLASS="INFORMALTABLE"
+><A
+NAME="AEN2820"
+></A
+><P
+></P
+><TABLE
+BORDER="1"
+CLASS="CALSTABLE"
+><THEAD
+><TR
+><TH
+WIDTH="100%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>Característica \ Nivel</TH
+><TH
+ALIGN="LEFT"
+VALIGN="TOP"
+>0</TH
+><TH
+ALIGN="LEFT"
+VALIGN="TOP"
+>1</TH
+><TH
+ALIGN="LEFT"
+VALIGN="TOP"
+>2</TH
+><TH
+ALIGN="LEFT"
+VALIGN="TOP"
+>3</TH
+><TH
+ALIGN="LEFT"
+VALIGN="TOP"
+>4</TH
+><TH
+ALIGN="LEFT"
+VALIGN="TOP"
+>5</TH
+></TR
+></THEAD
+><TBODY
+><TR
+><TD
+WIDTH="100%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>verificación de seguridad global</TD
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+>&nbsp;</TD
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+>&nbsp;</TD
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+>sí</TD
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+>sí</TD
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+>sí</TD
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+>sí</TD
+></TR
+><TR
+><TD
+WIDTH="100%"
+ALIGN="LEFT"
+VALIGN="TOP"
+><TT
+CLASS="SYSTEMITEM"
+><I
+>umask</I
+></TT
+> para los usuarios</TD
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+>002</TD
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+>002</TD
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+>002</TD
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+>002</TD
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+>077</TD
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+>077</TD
+></TR
+><TR
+><TD
+WIDTH="100%"
+ALIGN="LEFT"
+VALIGN="TOP"
+><TT
+CLASS="SYSTEMITEM"
+><I
+>umask</I
+></TT
+> para <TT
+CLASS="USERINPUT"
+><B
+>root</B
+></TT
+></TD
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+>002</TD
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+>002</TD
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+>002</TD
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+>002</TD
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+>002</TD
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+>077</TD
+></TR
+><TR
+><TD
+WIDTH="100%"
+ALIGN="LEFT"
+VALIGN="TOP"
+><TT
+CLASS="FOREIGNPHRASE"
+><I
+>shell</I
+></TT
+> sin contraseña</TD
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+>sí</TD
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+>&nbsp;</TD
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+>&nbsp;</TD
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+>&nbsp;</TD
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+>&nbsp;</TD
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+>&nbsp;</TD
+></TR
+><TR
+><TD
+WIDTH="100%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>autorizados a conectar a <TT
+CLASS="APPLICATION"
+><I
+>X</I
+></TT
+></TD
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+>todos</TD
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+>local</TD
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+>local</TD
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+>no</TD
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+>no</TD
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+>no</TD
+></TR
+><TR
+><TD
+WIDTH="100%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>usuario en grupo <B
+CLASS="EMPHASIS"
+>audio</B
+></TD
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+>sí</TD
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+>sí</TD
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+>sí</TD
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+>&nbsp;</TD
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+>&nbsp;</TD
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+>&nbsp;</TD
+></TR
+><TR
+><TD
+WIDTH="100%"
+ALIGN="LEFT"
+VALIGN="TOP"
+><TT
+CLASS="LITERAL"
+>.</TT
+> en el <TT
+CLASS="VARNAME"
+>$PATH</TT
+></TD
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+>sí</TD
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+>sí</TD
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+>&nbsp;</TD
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+>&nbsp;</TD
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+>&nbsp;</TD
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+>&nbsp;</TD
+></TR
+><TR
+><TD
+WIDTH="100%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>advertencias en <TT
+CLASS="FILENAME"
+>/var/log/security.log</TT
+></TD
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+>&nbsp;</TD
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+>sí</TD
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+>sí</TD
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+>sí</TD
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+>sí</TD
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+>sí</TD
+></TR
+><TR
+><TD
+WIDTH="100%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>advertir directamente sobre <TT
+CLASS="SYSTEMITEM"
+><I
+>tty</I
+></TT
+></TD
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+>&nbsp;</TD
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+>&nbsp;</TD
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+>sí</TD
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+>sí</TD
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+>sí</TD
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+>sí</TD
+></TR
+><TR
+><TD
+WIDTH="100%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>advertencias en <TT
+CLASS="COMMAND"
+>syslog</TT
+></TD
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+>&nbsp;</TD
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+>&nbsp;</TD
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+>sí</TD
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+>sí</TD
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+>sí</TD
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+>sí</TD
+></TR
+><TR
+><TD
+WIDTH="100%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>advertencias por <TT
+CLASS="SYSTEMITEM"
+><I
+>correo-e</I
+></TT
+> a <TT
+CLASS="USERINPUT"
+><B
+>root</B
+></TT
+></TD
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+>&nbsp;</TD
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+>&nbsp;</TD
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+>sí</TD
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+>sí</TD
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+>sí</TD
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+>sí</TD
+></TR
+><TR
+><TD
+WIDTH="100%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>verificación archivos <TT
+CLASS="SYSTEMITEM"
+><I
+>suid</I
+></TT
+> <TT
+CLASS="USERINPUT"
+><B
+>root</B
+></TT
+></TD
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+>&nbsp;</TD
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+>&nbsp;</TD
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+>sí</TD
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+>sí</TD
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+>sí</TD
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+>sí</TD
+></TR
+><TR
+><TD
+WIDTH="100%"
+ALIGN="LEFT"
+VALIGN="TOP"
+><SPAN
+CLASS="ACRONYM"
+>MD5</SPAN
+> a archivos <TT
+CLASS="SYSTEMITEM"
+><I
+>suid</I
+></TT
+> <TT
+CLASS="USERINPUT"
+><B
+>root</B
+></TT
+></TD
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+>&nbsp;</TD
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+>&nbsp;</TD
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+>sí</TD
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+>sí</TD
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+>sí</TD
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+>sí</TD
+></TR
+><TR
+><TD
+WIDTH="100%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>verif. archivos que se pueden escribir</TD
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+>&nbsp;</TD
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+>&nbsp;</TD
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+>&nbsp;</TD
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+>sí</TD
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+>sí</TD
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+>sí</TD
+></TR
+><TR
+><TD
+WIDTH="100%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>verif. permisos</TD
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+>&nbsp;</TD
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+>&nbsp;</TD
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+>&nbsp;</TD
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+>sí</TD
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+>sí</TD
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+>sí</TD
+></TR
+><TR
+><TD
+WIDTH="100%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>verif. archivos grupo <TT
+CLASS="SYSTEMITEM"
+><I
+>suid</I
+></TT
+></TD
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+>&nbsp;</TD
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+>&nbsp;</TD
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+>&nbsp;</TD
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+>sí</TD
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+>sí</TD
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+>sí</TD
+></TR
+><TR
+><TD
+WIDTH="100%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>verif. archivos sin dueño</TD
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+>&nbsp;</TD
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+>&nbsp;</TD
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+>&nbsp;</TD
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+>sí</TD
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+>sí</TD
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+>sí</TD
+></TR
+><TR
+><TD
+WIDTH="100%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>verif promiscua</TD
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+>&nbsp;</TD
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+>&nbsp;</TD
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+>&nbsp;</TD
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+>sí</TD
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+>sí</TD
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+>sí</TD
+></TR
+><TR
+><TD
+WIDTH="100%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>verif. puertos abiertos</TD
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+>&nbsp;</TD
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+>&nbsp;</TD
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+>&nbsp;</TD
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+>sí</TD
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+>sí</TD
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+>sí</TD
+></TR
+><TR
+><TD
+WIDTH="100%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>verif. integridad del archivo <TT
+CLASS="FILENAME"
+>passwd</TT
+></TD
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+>&nbsp;</TD
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+>&nbsp;</TD
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+>&nbsp;</TD
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+>sí</TD
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+>sí</TD
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+>sí</TD
+></TR
+><TR
+><TD
+WIDTH="100%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>verif. integridad del archivo <TT
+CLASS="FILENAME"
+>shadow</TT
+></TD
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+>&nbsp;</TD
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+>&nbsp;</TD
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+>&nbsp;</TD
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+>sí</TD
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+>sí</TD
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+>sí</TD
+></TR
+><TR
+><TD
+WIDTH="100%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>verif. seguridad sistema cada medianoche</TD
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+>&nbsp;</TD
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+>&nbsp;</TD
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+>&nbsp;</TD
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+>sí</TD
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+>sí</TD
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+>sí</TD
+></TR
+><TR
+><TD
+WIDTH="100%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>reportar todos los eventos del sistema por <TT
+CLASS="FILENAME"
+>/dev/tty12</TT
+></TD
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+>&nbsp;</TD
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+>&nbsp;</TD
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+>&nbsp;</TD
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+>sí</TD
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+>sí</TD
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+>sí</TD
+></TR
+><TR
+><TD
+WIDTH="100%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>Sólo <TT
+CLASS="USERINPUT"
+><B
+>root</B
+></TT
+> puede <TT
+CLASS="LITERAL"
+>ctrl-alt-del</TT
+></TD
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+>&nbsp;</TD
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+>&nbsp;</TD
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+>&nbsp;</TD
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+>&nbsp;</TD
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+>sí</TD
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+>sí</TD
+></TR
+><TR
+><TD
+WIDTH="100%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>servicios desconocidos desactivados</TD
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+>&nbsp;</TD
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+>&nbsp;</TD
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+>&nbsp;</TD
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+>&nbsp;</TD
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+>sí</TD
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+>sí</TD
+></TR
+><TR
+><TD
+WIDTH="100%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>contraseña de arranque para (<TT
+CLASS="APPLICATION"
+><I
+>GRUB</I
+></TT
+>/<TT
+CLASS="APPLICATION"
+><I
+>LILO</I
+></TT
+>)</TD
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+>&nbsp;</TD
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+>&nbsp;</TD
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+>&nbsp;</TD
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+>&nbsp;</TD
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+>sí</TD
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+>sí</TD
+></TR
+><TR
+><TD
+WIDTH="100%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>garantizar conexión desde</TD
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+>todos</TD
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+>todos</TD
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+>todos</TD
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+>todos</TD
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+>local</TD
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+>ninguno</TD
+></TR
+></TBODY
+></TABLE
+><P
+></P
+></DIV
+><P
+>Nótese que seis de las diez verificaciones periódicas pueden detectar cambios sobre el sistema. Estas almacenan la configuración del sistema durante la última verificación (el día anterior) en el directorio <TT
+CLASS="FILENAME"
+>/var/log/security/</TT
+>, y le advierten al administrador del sistema de cualquier cambio ocurrido entre tanto. Dichas verificaciones son las siguientes:
+
+<P
+></P
+><UL
+><LI
+><P
+> verificación de los archivos <TT
+CLASS="SYSTEMITEM"
+><I
+>suid</I
+></TT
+> <TT
+CLASS="USERINPUT"
+><B
+>root</B
+></TT
+></P
+></LI
+><LI
+><P
+> verificación <SPAN
+CLASS="ACRONYM"
+>MD5</SPAN
+> de los archivos <TT
+CLASS="SYSTEMITEM"
+><I
+>suid</I
+></TT
+> <TT
+CLASS="USERINPUT"
+><B
+>root</B
+></TT
+></P
+></LI
+><LI
+><P
+> verificación de archivos que se pueden escribir</P
+></LI
+><LI
+><P
+> verificación de archivos del grupo <TT
+CLASS="SYSTEMITEM"
+><I
+>suid</I
+></TT
+> </P
+></LI
+><LI
+><P
+> verificación de archivos sin dueño </P
+></LI
+><LI
+><P
+> verificación de puertos abiertos</P
+></LI
+></UL
+></P
+><DIV
+CLASS="SECT2"
+><H2
+CLASS="SECT2"
+><A
+NAME="AEN3096"
+>7.3.1. <SPAN
+CLASS="QUOTE"
+>"verificaciones globales de seguridad"</SPAN
+></A
+></H2
+><P
+></P
+><OL
+TYPE="1"
+><LI
+><P
+><SPAN
+CLASS="QUOTE"
+>"<SPAN
+CLASS="ACRONYM"
+>NFS</SPAN
+> filesystems globally exported"</SPAN
+>: (Sistemas de archivos <SPAN
+CLASS="ACRONYM"
+>NFS</SPAN
+> exportados globalmente) esto se considera inseguro, ya que no hay restricción alguna sobre quien puede montar estos sistemas de archivos</P
+></LI
+><LI
+><P
+>&#13;<SPAN
+CLASS="QUOTE"
+>"<SPAN
+CLASS="ACRONYM"
+>NFS</SPAN
+> mounts with missing <TT
+CLASS="LITERAL"
+>nosuid</TT
+>"</SPAN
+>: (montajes <SPAN
+CLASS="ACRONYM"
+>NFS</SPAN
+> a los que le falta <TT
+CLASS="LITERAL"
+>nosuid</TT
+>) estos sistemas de archivos se exportan sin la opción <TT
+CLASS="LITERAL"
+>nosuid</TT
+>, la cual prohíbe que se ejecuten los programas <TT
+CLASS="SYSTEMITEM"
+><I
+>suid</I
+></TT
+> en la máquina. &#13;</P
+></LI
+><LI
+><P
+><SPAN
+CLASS="QUOTE"
+>"Host trusting files contain <TT
+CLASS="LITERAL"
+>+</TT
+> sign"</SPAN
+>: (Archivos de confianza a clientes que contienen el signo <TT
+CLASS="LITERAL"
+>+</TT
+>) esto significa que uno de los archivos siguientes: <TT
+CLASS="COMMAND"
+><TT
+CLASS="FILENAME"
+>/etc/hosts.equiv</TT
+></TT
+>, </P
+><P
+> <TT
+CLASS="COMMAND"
+><TT
+CLASS="FILENAME"
+>/etc/shosts.equiv</TT
+></TT
+>, <TT
+CLASS="COMMAND"
+><TT
+CLASS="FILENAME"
+>/etc/hosts.lpd</TT
+></TT
+> contienen hosts autorizados a conectarse sin autenticación adecuada.</P
+></LI
+><LI
+><P
+><SPAN
+CLASS="QUOTE"
+>"Executables found in the aliases files"</SPAN
+>: (Ejecutables encontrados en los archivos de alias) genera una advertencia nombrando a los ejecutables que pueden ser ejecutados a través  <TT
+CLASS="COMMAND"
+><TT
+CLASS="FILENAME"
+>/etc/aliases</TT
+></TT
+> y <TT
+CLASS="COMMAND"
+><TT
+CLASS="FILENAME"
+>/etc/postfix/aliases</TT
+></TT
+>.  </P
+></LI
+></OL
+></DIV
+><DIV
+CLASS="SECT2"
+><H2
+CLASS="SECT2"
+><A
+NAME="AEN3135"
+>7.3.2. <SPAN
+CLASS="QUOTE"
+>"<TT
+CLASS="SYSTEMITEM"
+><I
+>umask</I
+></TT
+> para los usuarios"</SPAN
+></A
+></H2
+><P
+>&#13;Simplemente configura la <TT
+CLASS="SYSTEMITEM"
+><I
+>umask</I
+></TT
+> para los usuarios normales al valor correspondiente al nivel de seguridad.</P
+></DIV
+><DIV
+CLASS="SECT2"
+><H2
+CLASS="SECT2"
+><A
+NAME="AEN3143"
+>7.3.3. <SPAN
+CLASS="QUOTE"
+>"<TT
+CLASS="SYSTEMITEM"
+><I
+>umask</I
+></TT
+> para <TT
+CLASS="USERINPUT"
+><B
+>root</B
+></TT
+>"</SPAN
+></A
+></H2
+><P
+>Lo mismo, pero para <TT
+CLASS="USERINPUT"
+><B
+>root</B
+></TT
+>.</P
+></DIV
+><DIV
+CLASS="SECT2"
+><H2
+CLASS="SECT2"
+><A
+NAME="AEN3150"
+>7.3.4. <SPAN
+CLASS="QUOTE"
+>"<TT
+CLASS="FOREIGNPHRASE"
+><I
+>shell</I
+></TT
+> sin contraseña"</SPAN
+></A
+></H2
+><P
+>Se garantiza el acceso a la consola sin pedir una contraseña.</P
+></DIV
+><DIV
+CLASS="SECT2"
+><H2
+CLASS="SECT2"
+><A
+NAME="AEN3155"
+>7.3.5. <SPAN
+CLASS="QUOTE"
+>"autorizado a conectarse al servidor <TT
+CLASS="APPLICATION"
+><I
+>X</I
+></TT
+>"</SPAN
+></A
+></H2
+><P
+></P
+><OL
+TYPE="1"
+><LI
+><P
+><TT
+CLASS="LITERAL"
+>todos</TT
+>: cualquiera desde cualquier lugar puede abrir una ventana <TT
+CLASS="APPLICATION"
+><I
+>X</I
+></TT
+> en su pantalla.  </P
+></LI
+><LI
+><P
+><TT
+CLASS="LITERAL"
+>local</TT
+>: solo las personas conectadas a su sistema pueden abrir una ventana <TT
+CLASS="APPLICATION"
+><I
+>X</I
+></TT
+> en su pantalla.  </P
+></LI
+><LI
+><P
+><TT
+CLASS="LITERAL"
+>no</TT
+>: nadie puede hacer tal cosa.  </P
+></LI
+></OL
+></DIV
+><DIV
+CLASS="SECT2"
+><H2
+CLASS="SECT2"
+><A
+NAME="AEN3171"
+>7.3.6. <SPAN
+CLASS="QUOTE"
+>"usuarios en el grupo <TT
+CLASS="USERINPUT"
+><B
+>audio</B
+></TT
+>"</SPAN
+></A
+></H2
+><P
+>Cada usuario del sistema es miembro de los grupos <TT
+CLASS="USERINPUT"
+><B
+>audio</B
+></TT
+>, <TT
+CLASS="USERINPUT"
+><B
+>urpmi</B
+></TT
+> y <TT
+CLASS="USERINPUT"
+><B
+>cdrom</B
+></TT
+> automáticamente. Esto significa que se garantizan algunos privilegios especiales a todos los usuarios para utilizar la placa de sonido, los paquetes, etc.&#13;</P
+></DIV
+><DIV
+CLASS="SECT2"
+><H2
+CLASS="SECT2"
+><A
+NAME="AEN3179"
+>7.3.7. <SPAN
+CLASS="QUOTE"
+>"<TT
+CLASS="FILENAME"
+>.</TT
+> en el <TT
+CLASS="VARNAME"
+>$PATH</TT
+>"</SPAN
+></A
+></H2
+><P
+>se agrega la entrada <TT
+CLASS="FILENAME"
+>.</TT
+> a la variable de entorno <TT
+CLASS="VARNAME"
+>$PATH</TT
+>, lo que permite una ejecución fácil de los programas en el directorio de trabajo corriente (también es, de alguna forma, un hueco de seguridad).</P
+></DIV
+><DIV
+CLASS="SECT2"
+><H2
+CLASS="SECT2"
+><A
+NAME="AEN3187"
+>7.3.8. <SPAN
+CLASS="QUOTE"
+>"advertencias en <TT
+CLASS="FILENAME"
+>/var/log/security.log</TT
+>"</SPAN
+></A
+></H2
+><P
+>Cada advertencia generada por <TT
+CLASS="APPLICATION"
+><I
+>MSEC</I
+></TT
+> se registra en el archivo denominado <TT
+CLASS="FILENAME"
+>/var/log/security.log</TT
+>.</P
+></DIV
+><DIV
+CLASS="SECT2"
+><H2
+CLASS="SECT2"
+><A
+NAME="AEN3194"
+>7.3.9. <SPAN
+CLASS="QUOTE"
+>"advertencias directamente sobre la consola"</SPAN
+></A
+></H2
+><P
+>Cada advertencia generada por <TT
+CLASS="APPLICATION"
+><I
+>MSEC</I
+></TT
+> se imprime directamente sobre la consola corriente.</P
+></DIV
+><DIV
+CLASS="SECT2"
+><H2
+CLASS="SECT2"
+><A
+NAME="AEN3199"
+>7.3.10. <SPAN
+CLASS="QUOTE"
+>"advertencias en <TT
+CLASS="APPLICATION"
+><I
+>syslog</I
+></TT
+>"</SPAN
+></A
+></H2
+><P
+>Las advertencias de <TT
+CLASS="APPLICATION"
+><I
+>MSEC</I
+></TT
+> se dirigen al servicio <TT
+CLASS="APPLICATION"
+><I
+>syslog</I
+></TT
+>.</P
+></DIV
+><DIV
+CLASS="SECT2"
+><H2
+CLASS="SECT2"
+><A
+NAME="AEN3206"
+>7.3.11. <SPAN
+CLASS="QUOTE"
+>"advertencias por <TT
+CLASS="SYSTEMITEM"
+><I
+>correo-e</I
+></TT
+> a <TT
+CLASS="USERINPUT"
+><B
+>root</B
+></TT
+>"</SPAN
+></A
+></H2
+><P
+>Las advertencias generadas por <TT
+CLASS="APPLICATION"
+><I
+>MSEC</I
+></TT
+> también se envían a <TT
+CLASS="USERINPUT"
+><B
+>root</B
+></TT
+> por correo electrónico.</P
+></DIV
+><DIV
+CLASS="SECT2"
+><H2
+CLASS="SECT2"
+><A
+NAME="AEN3214"
+>7.3.12. <SPAN
+CLASS="QUOTE"
+>"verificación de los archivos <TT
+CLASS="SYSTEMITEM"
+><I
+>suid</I
+></TT
+> <TT
+CLASS="USERINPUT"
+><B
+>root</B
+></TT
+>"</SPAN
+></A
+></H2
+><P
+>Verifica el agregado o borrado de archivos <TT
+CLASS="SYSTEMITEM"
+><I
+>suid</I
+></TT
+> <TT
+CLASS="USERINPUT"
+><B
+>root</B
+></TT
+> en el sistema. Si se encuentran tales archivos, se genera una lista de los mismos como advertencia.</P
+></DIV
+><DIV
+CLASS="SECT2"
+><H2
+CLASS="SECT2"
+><A
+NAME="AEN3222"
+>7.3.13. <SPAN
+CLASS="QUOTE"
+>"verificación <SPAN
+CLASS="ACRONYM"
+>MD5</SPAN
+> de los archivos <TT
+CLASS="SYSTEMITEM"
+><I
+>suid</I
+></TT
+> <TT
+CLASS="USERINPUT"
+><B
+>root</B
+></TT
+>"</SPAN
+></A
+></H2
+><P
+>&#13;Verifica la firma <SPAN
+CLASS="ACRONYM"
+>MD5</SPAN
+> de cada archivo <TT
+CLASS="SYSTEMITEM"
+><I
+>suid</I
+></TT
+> <TT
+CLASS="USERINPUT"
+><B
+>root</B
+></TT
+> que se encuentra en el sistema. Si la firma cambió, quiere decir que se ha hecho una modificación a este programa, lo cual es un signo de intrusión, posiblemente una puerta trasera. Entonces, se genera una advertencia.</P
+></DIV
+><DIV
+CLASS="SECT2"
+><H2
+CLASS="SECT2"
+><A
+NAME="AEN3234"
+>7.3.14. <SPAN
+CLASS="QUOTE"
+>"verificación de los archivos que se pueden escribir"</SPAN
+></A
+></H2
+><P
+>Verifica los archivos que se pueden escribir por todo el mundo en el sistema. De ser así, genera una advertencia con una lista de estos archivos molestos.</P
+><P
+>&nbsp;</P
+><P
+>&nbsp;</P
+></DIV
+><DIV
+CLASS="SECT2"
+><H2
+CLASS="SECT2"
+><A
+NAME="AEN3240"
+>7.3.15. <SPAN
+CLASS="QUOTE"
+>"verificación de los permisos"</SPAN
+></A
+></H2
+><P
+>&#13;Esto verifica los permisos de ciertos archivos especiales tales como <TT
+CLASS="FILENAME"
+>.netrc</TT
+> o los archivos de configuración de los usuarios. También verifica los permisos de los directorios personales de los usuarios. Si los permisos son demasiado ligeros o los propietarios son inusuales, genera una advertencia.</P
+></DIV
+><DIV
+CLASS="SECT2"
+><H2
+CLASS="SECT2"
+><A
+NAME="AEN3248"
+>7.3.16. <SPAN
+CLASS="QUOTE"
+>"verificación de los archivos con grupo <TT
+CLASS="SYSTEMITEM"
+><I
+>suid</I
+></TT
+>"</SPAN
+></A
+></H2
+><P
+>Verifica el agregado o borrado de archivos con el grupo configurado como <TT
+CLASS="SYSTEMITEM"
+><I
+>suid</I
+></TT
+> en el sistema. Si existen tales archivos, se genera una advertencia con una lista de los mismos.</P
+></DIV
+><DIV
+CLASS="SECT2"
+><H2
+CLASS="SECT2"
+><A
+NAME="AEN3254"
+>7.3.17. <SPAN
+CLASS="QUOTE"
+>"verificación de archivos sin dueño"</SPAN
+></A
+></H2
+><P
+>Esta verificación busca archivos pertenecientes a usuarios o grupos desconocidos por el sistema. Si se encuentran tales archivos, se cambia automáticamente la pertenencia al usuario/grupo <TT
+CLASS="USERINPUT"
+><B
+>nobody</B
+></TT
+> (nadie).</P
+></DIV
+><DIV
+CLASS="SECT2"
+><H2
+CLASS="SECT2"
+><A
+NAME="AEN3259"
+>7.3.18. <SPAN
+CLASS="QUOTE"
+>"verificación de tipo promiscua"</SPAN
+></A
+></H2
+><P
+>&#13;Esta prueba verifica cada placa <TT
+CLASS="SYSTEMITEM"
+><I
+>Ethernet</I
+></TT
+> para determinar si se encuentra en modo <SPAN
+CLASS="QUOTE"
+>"promiscuous"</SPAN
+>. Este modo le permite a la placa interceptar cada paquete recibido, incluso aquellos que no están dirigidos a ella. Podría significar que un <TT
+CLASS="FOREIGNPHRASE"
+><I
+>sniffer</I
+></TT
+> (sabueso) está corriendo en su sistema. <B
+CLASS="EMPHASIS"
+>Nótese que esta verificación está configurada de forma tal de efectuarse una vez por minuto</B
+>.</P
+></DIV
+><DIV
+CLASS="SECT2"
+><H2
+CLASS="SECT2"
+><A
+NAME="AEN3269"
+>7.3.19. <SPAN
+CLASS="QUOTE"
+>"verificación de los puertos abiertos"</SPAN
+></A
+></H2
+><P
+>Genera una advertencia que contiene la lista de los puertos abiertos.</P
+></DIV
+><DIV
+CLASS="SECT2"
+><H2
+CLASS="SECT2"
+><A
+NAME="AEN3273"
+>7.3.20. <SPAN
+CLASS="QUOTE"
+>"verificación de la &nbsp;integridad &nbsp;del &nbsp;archivo &nbsp;de &nbsp;contraseñas"</SPAN
+></A
+></H2
+><P
+>Verifica que cada usuario tiene una contraseña (que no esté en blanco o sea fácil de adivinar) y verifica que la misma está en el archivo <TT
+CLASS="FILENAME"
+>shadow</TT
+>.</P
+></DIV
+><DIV
+CLASS="SECT2"
+><H2
+CLASS="SECT2"
+><A
+NAME="AEN3278"
+>7.3.21. <SPAN
+CLASS="QUOTE"
+>"verificación de la integridad del archivo <TT
+CLASS="FILENAME"
+>shadow</TT
+>"</SPAN
+></A
+></H2
+><P
+>Verifica que cada usuario dentro del archivo <TT
+CLASS="FILENAME"
+>shadow</TT
+> tiene una contraseña (que no esté en blanco o sea fácil de adivinar). </P
+></DIV
+><DIV
+CLASS="SECT2"
+><H2
+CLASS="SECT2"
+><A
+NAME="AEN3284"
+>7.3.22. <SPAN
+CLASS="QUOTE"
+>"verificación de la seguridad del sistema todos los días a la medianoche"</SPAN
+></A
+></H2
+><P
+>Todas las verificaciones previas se ejecutarán cada día a la medianoche. Esto se basa en el agregado de un script <TT
+CLASS="SYSTEMITEM"
+><I
+>cron</I
+></TT
+> en el archivo <TT
+CLASS="FILENAME"
+>crontab</TT
+>.</P
+></DIV
+><DIV
+CLASS="SECT2"
+><H2
+CLASS="SECT2"
+><A
+NAME="AEN3290"
+>7.3.23. <SPAN
+CLASS="QUOTE"
+>"desactivar los servicios desconocidos"</SPAN
+></A
+></H2
+><P
+>Todos los servicios que no se encuentran en el archivo denominado <TT
+CLASS="FILENAME"
+>/etc/security/msec/init-sh/server.4</TT
+> para el nivel 4 o el archivo <TT
+CLASS="FILENAME"
+>server.5</TT
+> para el nivel 5 se desactivan. No se quitan, sino que simplemente no se inician cuando se carga un <TT
+CLASS="SYSTEMITEM"
+><I
+>runlevel</I
+></TT
+>. Si necesita alguno o algunos, simplemente debe agregarlos nuevamente con el utilitario <TT
+CLASS="APPLICATION"
+><I
+>chkconfig</I
+></TT
+> (puede ser que también los tenga que reiniciar con los scripts de inicio de <TT
+CLASS="COMMAND"
+>init</TT
+> del directorio <TT
+CLASS="FILENAME"
+>/etc/rc.d/init.d</TT
+>).</P
+></DIV
+><DIV
+CLASS="SECT2"
+><H2
+CLASS="SECT2"
+><A
+NAME="AEN3300"
+>7.3.24. <SPAN
+CLASS="QUOTE"
+>"contraseña de arranque"</SPAN
+></A
+></H2
+><P
+></P
+><DIV
+CLASS="VARIABLELIST"
+><P
+><B
+>Hay dos comportamientos diferentes de acuerdo al cargador de arranque que Ud. utilice:</B
+></P
+><DL
+><DT
+><TT
+CLASS="APPLICATION"
+><I
+>GRUB</I
+></TT
+></DT
+><DD
+><P
+>Al momento de arrancar, <TT
+CLASS="APPLICATION"
+><I
+>GRUB</I
+></TT
+> le pedirá la contraseña solamente si Ud. pasa opciones al núcleo manualmente. Esto permite que su sistema vuelva a arrancar por sí solo, sin la necesidad de un operador, evitando, sin embargo, que las personas no autorizadas vuelvan a iniciar la máquina de una manera inusual (por ejemplo, en el modo <TT
+CLASS="LITERAL"
+>failsafe</TT
+>, a prueba de fallos).</P
+></DD
+><DT
+><TT
+CLASS="APPLICATION"
+><I
+>LILO</I
+></TT
+></DT
+><DD
+><P
+>Le permite configurar una contraseña para <TT
+CLASS="APPLICATION"
+><I
+>LILO</I
+></TT
+>. Evita que las personas no experimentadas vuelvan a arrancar la máquina, pero por otro lado, la máquina no va a poder arrancar por sí sola.<A
+NAME="AEN3318"
+HREF="#FTN.AEN3318"
+>[1]</A
+></P
+></DD
+></DL
+></DIV
+></DIV
+><DIV
+CLASS="SECT2"
+><H2
+CLASS="SECT2"
+><A
+NAME="AEN3321"
+>7.3.25. <SPAN
+CLASS="QUOTE"
+>"garantizar la conexión a"</SPAN
+></A
+></H2
+><P
+></P
+><OL
+TYPE="1"
+><LI
+><P
+><TT
+CLASS="LITERAL"
+>todos</TT
+>: todas las computadoras se pueden conectar a los puertos abiertos.&#13;</P
+></LI
+><LI
+><P
+><TT
+CLASS="LITERAL"
+>local</TT
+>: solo el sistema local se puede conectar a sus propios puertos abiertos.&#13;</P
+></LI
+><LI
+><P
+><TT
+CLASS="LITERAL"
+>ninguno</TT
+>: ninguna computadora puede conectarse a los puertos abiertos.&#13;</P
+></LI
+></OL
+></DIV
+></DIV
+><H3
+CLASS="FOOTNOTES"
+>Notas</H3
+><TABLE
+BORDER="0"
+CLASS="FOOTNOTES"
+WIDTH="100%"
+><TR
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+WIDTH="5%"
+><A
+NAME="FTN.AEN3318"
+HREF="x2788.html#AEN3318"
+>[1]</A
+></TD
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+WIDTH="95%"
+><P
+>Tendrá que ingresar la contraseña cada vez que necesite volver a arrancar la máquina, que no deberían ser muchas ... <B
+CLASS="KEYCAP"
+>:-)</B
+></P
+></TD
+></TR
+></TABLE
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="x2712.html"
+>Anterior</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+>Inicio</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="fhs.html"
+>Siguiente</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>Configuración de su nivel de seguridad</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="prog-msec.html"
+>Subir</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>Organización del árbol de archivos</TD
+></TR
+></TABLE
+></DIV
+>
+  <hr align="center">
+  <div align="left"><a href="http://www.linux-mandrake.com"><img
+    src="../images/tux48.png" width="48" height="39" align="left" border="0"
+    alt="Tux sobre Estrella por MandrakeSoft"></a> <font face="Helvetica,
+    Arial, sans-serif" size="2">Linux es una marca registrada de 
+    Linus Torvalds. Todas las otras marcas registradas y copyrights son la
+    propiedad de sus respectivos due&ntilde;os.<br>A menos que se diga lo
+	contrario, todo el contenido de estas p&aacute;ginas y todas las
+	im&aacute;genes tienen Copyright de <i>MandrakeSoft S.A.</i> y de
+	<i>MandrakeSoft Inc.</i> 2000.
+    <br><a
+    href="http://www.linux-mandrake.com/">http://www.linux-mandrake.com/</a>
+    <br>
+</font>
+ </div>
+
+</BODY
+
+></HTML
+>
