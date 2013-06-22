@@ -585,7 +585,13 @@ sub calcularPageRankCiclo
 			print "\n\n";
 			if(&calcularDiferencia)
 			{
-				last ciclo;
+				print "El PageRank no varia mucho en las proximas iteraciones, continuar?\ns = Si, n = No\n";
+				$userinput =  <STDIN>;
+				chomp ($userinput);
+				if($userinput eq "n")
+				{
+					last ciclo;
+				}
 			}
 			else
 			{
@@ -660,7 +666,7 @@ sub calcularDiferencia
 		$anterior = $PageRankAnterior{$doc};
 		$actual = $PageRankActual{$doc};
 		$diferenciaTemp = $anterior - $actual;
-		$diferenciaTemp = sprintf '%.4f', $diferenciaTemp;
+		$diferenciaTemp = sprintf '%.5f', $diferenciaTemp;
 		if( $diferenciaTemp ==  $diferencia)
 		{
 			return 1;
