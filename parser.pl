@@ -566,7 +566,7 @@ sub calcularPageRank
     #Se inicia la tabla de enlaces en 0
     &inicializarTablaEnlaces;
     &procesarDocumentos;
-    &imprimirTablaEnlaces;
+    #&imprimirTablaEnlaces;
     &calcularPageRankCiclo;
 }
 
@@ -580,13 +580,11 @@ sub calcularPageRankCiclo
         if($doc cmp "")
         {
             $id = $documentos{$doc};
-            print "Procesando documento $doc con id $id\n\n";
             while($i < $N)
             {
                 if($TablaEnlaces[$i][$id] == 1)
                 {
                     $bandera = 1;
-                    print "[$i][$id]\n";
                     $docAux = &obtenerDocPorID($i);
                     if($docAux != -1)
                     {                        
@@ -681,7 +679,6 @@ sub procesarEnlaces
     my $stream = HTML::TokeParser->new($path);
 
     my $file = $path;
-    print "Enlaces de $file\n";
     while (my $token = $stream->get_token)
     {
         if ($token->[0] eq 'S') 
@@ -693,7 +690,6 @@ sub procesarEnlaces
                 if($j != -1)
                 {
                     my $i = $documentos{$file};
-                    print "[$i][$j]\n";
                     #Hay enlace entre I,J
                     if($TablaEnlaces[$i][$j] != 1)
                     {
