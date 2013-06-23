@@ -128,7 +128,7 @@ public class Lector {
                         double idf = (Math.log10(x) / Math.log10(2));
                         double tf = 1 + (Math.log10((float)elemento.apariciones) / Math.log10(2));
                         double peso = idf * tf;
-                        String docid = "docId"+elemento.documento;
+                        String docid = elemento.documento+"";
                         String Final = docid+";"+peso+"\n";
                         writer.write(Final);
                     }

@@ -3,6 +3,10 @@ use HTML::TokeParser;
 use File::Basename;
 use Config;
 use Storable qw(dclone);
+#Necesario para el manejo de archivos
+use File::Basename;
+#Para leer todo el archivo de una vez y no línea por línea
+use File::Slurp;
  
 #Arreglo para los stopwords
 my @stopwords;
@@ -46,6 +50,9 @@ my @parametros_consulta;
 
 #Variable que tiene el nombre del sistema operativo
 $OS;
+
+#Variable para el nombre del archivo html
+$consultahtml;
 
 #--------------------------MAIN------------------------#
 my $comando = shift;
@@ -152,14 +159,14 @@ sub iniciar()
 }
 
 sub open_dir{
-    my ($path) = "D:/Prueba";
+    my ($path) = "D:/HTML";
     opendir(DIR, $path) or die("Error, No se pudo abrir el directorio\n");
     my @files = grep(!/^\./,readdir(DIR));
     closedir(DIR);
     my $file;
     my $hash;
     my $filetemp;
-    open (DOCS, '>>Documentos.txt');
+    open (DOCS, '>>D:/Documentos.txt');
     foreach $file (@files){
         $file = $path.'/'.$file; #path absoluto del fichero o directorio
         #Se mantiene en memoria el arreglo con los documentos
@@ -191,7 +198,7 @@ sub analizar
     my $stream = HTML::TokeParser->new($path);
     
     # Este es el archivo que va a tener los terminos
-    open (VOCABULARIO, '>>Vocabulario.txt');
+    open (VOCABULARIO, '>>D:/Vocabulario.txt');
     while (my $token = $stream->get_token)
     {
         if ($token->[0] eq 'T') 
@@ -241,15 +248,23 @@ sub busqueda_vectorial
     }
     close(NUEVO);
 
+    $consultahtml = $consulta;
     $consultahtml =~ s/[ ]/_/g;
+
+    #Fecha y hora de consulta
+    @months = qw(Ene Feb Mar Abr May Jun Jul Aug Sep Oct Nov Dec);
+    @weekDays = qw(Dom Lun Mar Mier Jue Vie Sab Dom);
+    ($second, $minute, $hour, $dayOfMonth, $month, $yearOffset, $dayOfWeek, $dayOfYear, $daylightSavings) = localtime();
+    $year = 1900 + $yearOffset;
+    $fecha_hora = "$hour:$minute:$second, $weekDays[$dayOfWeek] $dayOfMonth $months[$month], $year";
 
     #Se abre el archivo HTML
     open(ESCALAFON, '>>'.$consultahtml.'.html');
         print ESCALAFON "<html><head><title>Resultados b&uacute;squeda</title></head><body>";
-        print ESCALAFON "<h1>Resultados b&uacute;squeda &ldquo;".$consulta."&rdquo;</h1><hr><br>";      
+        print ESCALAFON "<h1>Resultados b&uacute;squeda &ldquo;".$consulta."&rdquo;</h1><hr><br>";
+        print ESCALAFON "<h2>Consulta hecha a las: ".$fecha_hora."&rdquo;</h2><hr><br>";      
     close(ESCALAFON);
     
-    print "Creando archivo ".$prefijoconsulta.'_'.$archivoHTML.".html ...\n";
     &escribir_archivo_HTML;
     
     #Cierre del archivo HTML
@@ -267,52 +282,28 @@ sub escribir_archivo_HTML
 {
     if(%documento_resultado)
     {
-        #Contador i para el rango del escalafon
-        $i = 1;
-        #Contador j para el rango del escalafon
-        $j = 1;
         #Contador de posiciones en el escalafon
-        $posicion;
-        #Fecha y hora de consulta
-        @months = qw(Jan Feb Mar Apr May Jun Jul Aug Sep Oct Nov Dec);
-        @weekDays = qw(Sun Mon Tue Wed Thu Fri Sat Sun);
-        ($second, $minute, $hour, $dayOfMonth, $month, $yearOffset, $dayOfWeek, $dayOfYear, $daylightSavings) = localtime();
-        $year = 1900 + $yearOffset;
-        $fecha_hora = "$hour:$minute:$second, $weekDays[$dayOfWeek] $months[$month] $dayOfMonth, $year";
+        $posicion = 1;
         
-        #Ruta de la coleccion
-        $ruta;
         #Primeros 200 caracteres del archivo.
         $prim_200_caracteres;
         
-        $posicion = $i; 
-        
-        open(ESCALAFON, '>>'.$consulta.'.html');
+        open(ESCALAFON, '>>'.$consultahtml.'.html');
         
         foreach $pal (sort { $documento_resultado{$b} <=> $documento_resultado{$a} } keys %documento_resultado) {
-            if($pal cmp "")
-            {
-                if($i == $numinicio)
-                {
-                    last if($j > $numfin);
-                                      
-                    $prim_200_caracteres = &obtener_caracteres_archivo($pal);
-                    
-                    print ESCALAFON "<table border = 1><tr><th>Pos.</th><th>Similitud</th><th>Ruta</th><th>Fecha Consulta</th><th>Tama&ntilde;o en Bytes</th><th>N&uacute;mero de l&iacute;neas</th><th>Cantidad de palabras</th></tr>";
-                    print ESCALAFON "<tr><td>".$posicion.".</td><td>".$hash_escalafon{$pal}."</td><td>".$pal."</td><td>".$fecha_hora."</td><td>".$ruta."</td></tr></table><br>";
-                    print ESCALAFON "<b>Vista preliminar del archivo:</b> <p>".$prim_200_caracteres."...</p><hr><br>";              
-                    $j++;
-                    $posicion++;
-                    
-                    $prim_200_caracteres = undef;
-                }
-                else
-                {
-                    $i++;
-                    $j++;
-                }               
-            }
+
+            $ruta = ruta_documento($pal);
+            $prim_200_caracteres = &obtener_caracteres_archivo($ruta);
+            print "El id es = $pal la ruta es $ruta y la posicion es $posicion\n";
+
+            print ESCALAFON "<table border = 1><tr><th>Pos.</th><th>ID Documento</th><th>Similitud</th><th>Ruta</th></tr>";
+            print ESCALAFON "<tr><td>".$posicion.".</td><td>".$pal."</td><td>".$documento_resultado{$pal}."</td><td>".$ruta."</td></tr></table><br>";
+            print ESCALAFON "<b>Vista preliminar del archivo:</b> <pre>".$prim_200_caracteres."...</pre><hr><br>";              
+            $posicion++;
+            
+            $prim_200_caracteres = undef;             
         }
+
         close(ESCALAFON);
         
     }
@@ -322,15 +313,37 @@ sub escribir_archivo_HTML
     }
 }
 
+sub ruta_documento
+{
+    my ($id_recibido) = ($_[0]);
+    open(MYFILE, "D:/Documentos.txt");
+    #Mientras que MYFILE sea distinto de 0
+    while (<MYFILE>){
+        #Se lee la línea.
+        $linea = $_;
+        #Quita \n de línea.
+        chomp($linea);
+        @arreglo = split(";", $linea);
+        $id = $arreglo[0];
+        if($id_recibido == $id)
+        {
+            return $arreglo[1];
+        }        
+    }
+    close(MYFILE);
+}
+
 sub obtener_caracteres_archivo
 {
     my ($dir) = ($_[0]);
     #print "Leyendo ".$dir."\n";
     my $texto = read_file($dir);
     #Reemplaza dos o más espacios por uno solo
+    $texto =~ s/<[^>]+>//g;
     $texto =~ tr/  +/ /s;
     #Remplaza los cambios de línea por 3 espacios.
     $texto =~ tr/\n/   /s;
+    $texto =~ s/"//g;
     my $texto = substr($texto, 0, 200);
     
     return $texto;
@@ -339,7 +352,7 @@ sub obtener_caracteres_archivo
 #Para calcular las frecuencias de cada termmino en la consulta
 sub cargar_vocabulario
 {    
-    open(MYFILE, "Vocabulario.txt");
+    open(MYFILE, "D:/Vocabulario.txt");
     #Mientras que MYFILE sea distinto de 0
     while (<MYFILE>){
         #Se lee la línea.
@@ -369,7 +382,7 @@ sub calcular_fij_consulta
 
 sub calcular_pesos_consulta{
     #Se calculan los pesos de los wiq
-    open(DOCS, 'N.txt');
+    open(DOCS, 'D:/N.txt');
         while (<DOCS>) {
             $N = $_;
         }
@@ -395,18 +408,16 @@ sub calcular_resultados_consulta{
         $inicio = $vocabulario_inicio{$pal};
         $docs = $vocabulario_docs{$pal};
         $pesoq = $pesos_consulta{$pal};
-        open(POSTINGS, "Postings.txt");
+        open(POSTINGS, "D:/Postings.txt");
         $i = 0;
         while (<POSTINGS>) 
         {
-            print "$pal -> inicio $inicio\n";
-            print "$pal -> docs   $docs\n";
             if ($inicio + $docs > $i) 
             {
                 $linea = $_;
                 chomp($linea);
                 @arreglo = split(";", $linea);
-                $id = $arreglo[0];
+                $id = $arreglo[0] - 1;
                 $peso = $arreglo[1];
                 $documento_resultado{$id} += ($peso * $pesoq);
             }
@@ -531,14 +542,14 @@ sub imprimirDocumentos
 
 sub guardarArchivoN
 {
-    open(DOCS, '>>N.txt');
+    open(DOCS, '>>D:/N.txt');
     print DOCS $N;
     close(DOCS);
 }
 
 sub abrirArchivoN
 {
-    open (MYFILE, '<N.txt');
+    open (MYFILE, '<D:/N.txt');
     while(<MYFILE>)
     {
         $N = $_;
@@ -548,7 +559,7 @@ sub abrirArchivoN
 
 sub abrirArchivoDocumentos
 {
-    open (MYFILE, '<Documentos.txt');
+    open (MYFILE, '<D:/Documentos.txt');
     while(<MYFILE>)
     {
         $linea = $_;
