@@ -636,9 +636,16 @@ sub iterar
                     $bandera = 1;
                     $docAux = &obtenerDocPorID($i);
                     if($docAux != -1)
-                    {                        
-                        $PageRankActual{$doc} += ($PageRankAnterior{$docAux} / $Ligas{$docAux});
-						$Referencias{$doc}++; #Cuantos documentos apuntan a $doc
+                    {
+                        if($Ligas{$docAux} != 0)
+                        {
+                            $PageRankActual{$doc} += ($PageRankAnterior{$docAux} / $Ligas{$docAux});
+                        }
+                        else
+                        {
+                            $PageRankActual{$doc} += 0;
+                        }
+                        $Referencias{$doc}++; #Cuantos documentos apuntan a $doc
                     }
                 }
                 $i++;
@@ -749,7 +756,7 @@ sub inicializarTablaEnlaces
 #Obtiene quién apunta a quién
 sub procesarDocumentos
 {
-    my ($path) = "D:/Prueba";
+    my ($path) = "D:/HTML";
     opendir(DIR, $path) or die("Error, No se pudo abrir el directorio\n");
     my @files = grep(!/^\./,readdir(DIR));
     closedir(DIR);
@@ -836,12 +843,12 @@ sub imprimirHashLigas
 
 sub imprimirPageRankActual
 {
-	print "         \t\tEnlaces\t\tEnlaces\n";
-	print "Page Rank\t\tEntrada\t\tSalida \t\tRuta\n";
+	print "         \tEnlaces\tEnlaces\n";
+	print "Page Rank\tEntrada\tSalida \tRuta\n";
     foreach $doc(sort {$PageRankActual{$b} <=> $PageRankActual{$a} } keys %PageRankActual)
     {
 		$pr = sprintf '%.4f', $PageRankActual{$doc};
-		print "$pr\t\t\t$Referencias{$doc}\t\t$Ligas{$doc}\t\t$doc\n";
+		print "$pr\t\t$Referencias{$doc}\t$Ligas{$doc}\t$doc\n";
         #print "Documento: $doc Page Rank $PageRankActual{$doc}\n";
     }
 }
