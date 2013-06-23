@@ -15,10 +15,5 @@ MYMETA.yml
 nytprof.out
 pm_to_blib
 *~
-*.txt
-*.html
-*.doc
-*.docx
-*.pdf
 Prueba
 .DS_Store
