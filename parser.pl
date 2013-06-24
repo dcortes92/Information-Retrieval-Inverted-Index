@@ -68,6 +68,7 @@ if($comando eq "consulta")
 
     @a_consulta = split(" ", $consulta);
 
+    print "La consulta es: $consulta\n";
     for $word (@a_consulta)
     {
         $word =~ s/&aacute;/a/g;
@@ -77,7 +78,7 @@ if($comando eq "consulta")
         $word =~ s/&uacute;/a/g;
         $word =~ tr/[A-Z]/[a-z]/;
         $word =~ tr/·‡ÈËÌÏÛÚˆ˙˘¸¡…Õ”⁄‹/aaeeiiooouuuaeioouu/;
-        $word =~ s/[\.]/ /g;
+        $word =~ s/[\.]/ /g;    
         $word =~ s/[\;]/ /g;
         $word =~ s/[\,]/ /g;
         $word =~ s/[\(]/ /g;
@@ -119,6 +120,7 @@ if($comando eq "consulta")
             {
                 if($word cmp "")
                 {
+                    print "Pal es $word\n";
                     push(@parametros_consulta, $word);
                 }
             }
@@ -154,7 +156,6 @@ if($comando eq "pr")
 
 sub iniciar()
 {
-    crear_stops();
     open_dir();
 }
 
@@ -294,7 +295,6 @@ sub escribir_archivo_HTML
 
             $ruta = ruta_documento($pal);
             $prim_200_caracteres = &obtener_caracteres_archivo($ruta);
-            print "El id es = $pal la ruta es $ruta y la posicion es $posicion\n";
 
             print ESCALAFON "<table border = 1><tr><th>Pos.</th><th>ID Documento</th><th>Similitud</th><th>Ruta</th></tr>";
             print ESCALAFON "<tr><td>".$posicion.".</td><td>".$pal."</td><td>".$documento_resultado{$pal}."</td><td>".$ruta."</td></tr></table><br>";
@@ -412,7 +412,7 @@ sub calcular_resultados_consulta{
         $i = 0;
         while (<POSTINGS>) 
         {
-            if ($inicio + $docs > $i) 
+            if ($inicio <= $i & $i <= ($inicio + $docs)) 
             {
                 $linea = $_;
                 chomp($linea);
@@ -421,7 +421,8 @@ sub calcular_resultados_consulta{
                 $peso = $arreglo[1];
                 $documento_resultado{$id} += ($peso * $pesoq);
             }
-            else{
+            elsif($i > ($inicio + $docs))
+            {
                 last;
             }
             $i++;
@@ -515,6 +516,7 @@ sub crear_stops{
 }
 
 sub esta{
+    &crear_stops;
     my ($termino) = ($_[0]);
     my $i;
     for ($i = 0; $i < 37; $i++) 
